@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 let n: number = 5;
 let c: string;
 let x: number = 0;
@@ -44,3 +46,5 @@ function placeDiv(_color: string, _x: number, _y: number, _width: number, _heigh
     s.left = _x + "px";
     s.top = _y + "px";
 }
+    
+    });
