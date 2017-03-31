@@ -14,8 +14,9 @@ window.onload = function () {
         }
         var reis = Math.pow(2, i);
         var reisN = reis.toExponential(5);
-        div.innerHTML = reisN;
+        div.textContent = reisN;
         document.body.appendChild(div);
     }
+    //document.body.children[3].children[1].appendChild(document.createElement("div"));
 };
 //# sourceMappingURL=main.js.map

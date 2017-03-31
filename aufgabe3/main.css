@@ -1,18 +1,21 @@
 * {
 	margin: 0;
 	padding: 0;
+
 }
 
 body{
-	margin:0;
 }
+
 div{
-	width:200px;
-	height:200px;
+	width:11vmin;
+	height:11vmin;
 	float:left;
 	text-align:center;
-	line-height:200px;
+	line-height:10vmin;
 	font-family:Verdana;
+	font-size:1vmin;
+	font-weight:bold;
 }
 
 .black{
