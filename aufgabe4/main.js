@@ -22,6 +22,8 @@ window.onload = function () {
         myDiv[i].addEventListener("click", markSquare);
     }
     function markSquare(_event) {
+        let bDiv = _event.target;
+        bDiv.style.border = "5px solid black";
         console.log(_event);
     }
     //document.body.children[3].children[1].appendChild(document.createElement("div"));

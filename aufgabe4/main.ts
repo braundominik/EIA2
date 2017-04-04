@@ -28,6 +28,8 @@ window.onload = function(): void {
     }
 
     function markSquare(_event: Event): void {
+        let bDiv: HTMLDivElement = <HTMLDivElement>_event.target;
+        bDiv.style.border = "5px solid black";
         console.log(_event);
     }
 
