@@ -21,8 +21,15 @@ window.onload = function(): void {
         div.textContent = reisN;
         document.body.appendChild(div);
     }
-    
-    
+
+    let myDiv: NodeListOf<HTMLDivElement> = document.getElementsByTagName("div");
+    for (let i: number = 0; i < 8; i++) {
+        myDiv[i].addEventListener("click", markSquare);
+    }
+
+    function markSquare(_event: Event): void {
+        console.log(_event);
+    }
 
     //document.body.children[3].children[1].appendChild(document.createElement("div"));
 
