@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+
+}
+
+body{
+}
+
+div{
+	width:11vmin;
+	height:11vmin;
+	float:left;
+	text-align:center;
+	line-height:11vmin;
+	font-family:Verdana;
+	font-size:1vmin;
+	font-weight:bold;
+}
+
+.black{
+	background-color:black;
+	color:white;
+}
+
+.white{
+	background-color:white;
+	color:black;
+}
+
+.floating{
+	clear:both;
+}
