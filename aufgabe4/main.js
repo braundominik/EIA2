@@ -63,9 +63,14 @@ window.onload = function () {
         }
         lastSquare = bDiv;
     }
+    let alterDiv = null;
     function elFollow(_event) {
         let neuerDiv = document.createElement("div");
         document.body.appendChild(neuerDiv);
+        if (alterDiv != null) {
+            document.body.removeChild(alterDiv);
+        }
+        alterDiv = neuerDiv;
         console.log(_event.screenX);
         let s = neuerDiv.style;
         s.borderStyle = "solid";
@@ -76,8 +81,8 @@ window.onload = function () {
         s.backgroundColor = "white";
         s.width = "20px";
         s.height = "20px";
-        s.left = _event.clientX + "px";
-        s.top = _event.clientY + "px";
+        s.left = _event.clientX + 10 + "px";
+        s.top = _event.clientY + 10 + "px";
         s.zIndex = "9999999";
     }
     //document.body.children[3].children[1].appendChild(document.createElement("div"));

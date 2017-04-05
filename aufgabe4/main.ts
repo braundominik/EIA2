@@ -80,10 +80,19 @@ window.onload = function(): void {
 
     }
 
+    let alterDiv: HTMLDivElement = null;
     function elFollow(_event: Event): void {
         let neuerDiv: HTMLDivElement = document.createElement("div");
         document.body.appendChild(neuerDiv);
+        
+        if (alterDiv != null) {
+            document.body.removeChild(alterDiv);
+        }
+
+        alterDiv = neuerDiv;
+
         console.log(_event.screenX);
+
 
         let s: CSSStyleDeclaration = neuerDiv.style;
 
@@ -95,8 +104,8 @@ window.onload = function(): void {
         s.backgroundColor = "white";
         s.width = "20px";
         s.height = "20px";
-        s.left = _event.clientX + "px";
-        s.top = _event.clientY + "px";
+        s.left = _event.clientX + 10 + "px";
+        s.top = _event.clientY + 10 + "px";
         s.zIndex = "9999999";
     }
 
