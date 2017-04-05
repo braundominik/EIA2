@@ -117,4 +117,4 @@ window.onload = function(): void {
 
     //document.body.children[3].children[1].appendChild(document.createElement("div"));
 
-}
+};
