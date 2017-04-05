@@ -64,7 +64,21 @@ window.onload = function () {
         lastSquare = bDiv;
     }
     function elFollow(_event) {
-        console.log(_event);
+        let neuerDiv = document.createElement("div");
+        document.body.appendChild(neuerDiv);
+        console.log(_event.screenX);
+        let s = neuerDiv.style;
+        s.borderStyle = "solid";
+        s.borderColor = "green";
+        s.borderWidth = "2px";
+        s.position = "absolute";
+        s.display = "inline-block";
+        s.backgroundColor = "white";
+        s.width = "20px";
+        s.height = "20px";
+        s.left = _event.clientX + "px";
+        s.top = _event.clientY + "px";
+        s.zIndex = "9999999";
     }
     //document.body.children[3].children[1].appendChild(document.createElement("div"));
 };
