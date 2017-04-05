@@ -27,35 +27,61 @@ window.onload = function(): void {
         myDiv[i].addEventListener("click", markSquare);
     }
 
-    var checkLast: boolean = false;
+    var checkLast: boolean = true;
     var lastSquare: HTMLDivElement = null;
     function markSquare(_event: Event): void {
         let bDiv: HTMLDivElement = <HTMLDivElement>_event.target;
-        
+
 
         if (bDiv.style.border == "") {
             bDiv.style.border = "0.5vmin solid orange";
             bDiv.style.height = "10vmin";
             bDiv.style.width = "10vmin";
             bDiv.style.lineHeight = "10vmin";
+            document.addEventListener("mousemove", elFollow);
         }
+
         else {
             bDiv.style.border = "";
             bDiv.style.height = "11vmin";
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
+            document.removeEventListener("mousemove", elFollow);
         }
-        
-        
-        if (lastSquare != null && lastSquare.style.border == "0.5vmin solid orange") {
+
+        if (lastSquare != null && bDiv != lastSquare) {
             lastSquare.style.border = "";
             lastSquare.style.height = "11vmin";
             lastSquare.style.width = "11vmin";
             lastSquare.style.lineHeight = "11vmin";
         }
 
+
+
+        //        if (lastSquare != null && lastSquare.style.border == "0.5vmin solid orange") {
+        //            lastSquare.style.border = "";
+        //            lastSquare.style.height = "11vmin";
+        //            lastSquare.style.width = "11vmin";
+        //            lastSquare.style.lineHeight = "11vmin";
+        //        }        
+        if (bDiv != lastSquare) {
+            console.log("NICHT");
+            console.log(bDiv);
+            console.log(lastSquare);
+        }
+
+        if (bDiv == lastSquare) {
+            console.log("JA");
+            console.log(bDiv);
+            console.log(lastSquare);
+        }
+
         lastSquare = bDiv;
-        
+
+    }
+
+    function elFollow(_event: Event): void {
+        console.log(_event);
     }
 
     //document.body.children[3].children[1].appendChild(document.createElement("div"));
