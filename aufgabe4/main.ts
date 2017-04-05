@@ -18,6 +18,7 @@ window.onload = function(): void {
 
         var reis: number = Math.pow(2, i);
         var reisN: string = reis.toExponential(5);
+
         div.textContent = reisN;
         document.body.appendChild(div);
     }
@@ -29,6 +30,7 @@ window.onload = function(): void {
 
     var checkLast: boolean = true;
     var lastSquare: HTMLDivElement = null;
+    var reisDiv: string = "nicht";
     function markSquare(_event: Event): void {
         let bDiv: HTMLDivElement = <HTMLDivElement>_event.target;
 
@@ -38,6 +40,7 @@ window.onload = function(): void {
             bDiv.style.height = "10vmin";
             bDiv.style.width = "10vmin";
             bDiv.style.lineHeight = "10vmin";
+            reisDiv = bDiv.textContent;
             document.addEventListener("mousemove", elFollow);
         }
 
@@ -47,6 +50,7 @@ window.onload = function(): void {
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
             document.removeEventListener("mousemove", elFollow);
+
         }
 
         if (lastSquare != null && bDiv != lastSquare) {
@@ -81,10 +85,10 @@ window.onload = function(): void {
     }
 
     let alterDiv: HTMLDivElement = null;
-    function elFollow(_event: Event): void {
+    function elFollow(_event: MouseEvent): void {
         let neuerDiv: HTMLDivElement = document.createElement("div");
         document.body.appendChild(neuerDiv);
-        
+
         if (alterDiv != null) {
             document.body.removeChild(alterDiv);
         }
@@ -102,11 +106,13 @@ window.onload = function(): void {
         s.position = "absolute";
         s.display = "inline-block";
         s.backgroundColor = "white";
-        s.width = "20px";
+        s.width = "100px";
         s.height = "20px";
-        s.left = _event.clientX + 10 + "px";
-        s.top = _event.clientY + 10 + "px";
+        s.left = (_event.clientX + 10).toString() + "px";
+        s.top = (_event.clientY + 10).toString() + "px";
         s.zIndex = "9999999";
+        s.lineHeight = "20px";
+        neuerDiv.textContent = reisDiv;
     }
 
     //document.body.children[3].children[1].appendChild(document.createElement("div"));

@@ -23,6 +23,7 @@ window.onload = function () {
     }
     var checkLast = true;
     var lastSquare = null;
+    var reisDiv = "nicht";
     function markSquare(_event) {
         let bDiv = _event.target;
         if (bDiv.style.border == "") {
@@ -30,6 +31,7 @@ window.onload = function () {
             bDiv.style.height = "10vmin";
             bDiv.style.width = "10vmin";
             bDiv.style.lineHeight = "10vmin";
+            reisDiv = bDiv.textContent;
             document.addEventListener("mousemove", elFollow);
         }
         else {
@@ -79,11 +81,13 @@ window.onload = function () {
         s.position = "absolute";
         s.display = "inline-block";
         s.backgroundColor = "white";
-        s.width = "20px";
+        s.width = "100px";
         s.height = "20px";
-        s.left = _event.clientX + 10 + "px";
-        s.top = _event.clientY + 10 + "px";
+        s.left = (_event.clientX + 10).toString() + "px";
+        s.top = (_event.clientY + 10).toString() + "px";
         s.zIndex = "9999999";
+        s.lineHeight = "20px";
+        neuerDiv.textContent = reisDiv;
     }
     //document.body.children[3].children[1].appendChild(document.createElement("div"));
 };
