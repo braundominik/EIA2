@@ -13,7 +13,8 @@ window.onload = function () {
             div.className += " black";
         }
         var reis = Math.pow(2, i);
-        var reisN = reis.toExponential(5);
+        var test = 15;
+        var reisN = reis.toString(16);
         div.textContent = reisN;
         document.body.appendChild(div);
     }
@@ -27,7 +28,7 @@ window.onload = function () {
     function markSquare(_event) {
         let bDiv = _event.target;
         if (bDiv.style.border == "") {
-            bDiv.style.border = "0.5vmin solid orange";
+            bDiv.style.border = "0.55vmin solid orange";
             bDiv.style.height = "10vmin";
             bDiv.style.width = "10vmin";
             bDiv.style.lineHeight = "10vmin";

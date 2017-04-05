@@ -17,7 +17,8 @@ window.onload = function(): void {
         }
 
         var reis: number = Math.pow(2, i);
-        var reisN: string = reis.toExponential(5);
+        var test: number = 15;
+        var reisN: string = reis.toString(16);
 
         div.textContent = reisN;
         document.body.appendChild(div);
@@ -36,7 +37,7 @@ window.onload = function(): void {
 
 
         if (bDiv.style.border == "") {
-            bDiv.style.border = "0.5vmin solid orange";
+            bDiv.style.border = "0.55vmin solid orange";
             bDiv.style.height = "10vmin";
             bDiv.style.width = "10vmin";
             bDiv.style.lineHeight = "10vmin";
