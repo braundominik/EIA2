@@ -50,7 +50,7 @@ window.onload = function(): void {
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
             document.removeEventListener("mousemove", elFollow);
-
+            
         }
 
         if (lastSquare != null && bDiv != lastSquare) {
@@ -108,8 +108,8 @@ window.onload = function(): void {
         s.backgroundColor = "white";
         s.width = "100px";
         s.height = "20px";
-        s.left = (_event.clientX + 10).toString() + "px";
-        s.top = (_event.clientY + 10).toString() + "px";
+        s.left = (_event.clientX+10).toString() + "px";
+        s.top = (_event.clientY+10).toString()+"px";
         s.zIndex = "9999999";
         s.lineHeight = "20px";
         neuerDiv.textContent = reisDiv;
