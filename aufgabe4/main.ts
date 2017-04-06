@@ -1,4 +1,5 @@
 window.onload = function(): void {
+    let alterDiv: HTMLDivElement = null;
     var evenRow: boolean = true;
     for (let i: number = 0; i < 64; i++) {
         var div: HTMLDivElement = document.createElement("div");
@@ -50,7 +51,11 @@ window.onload = function(): void {
             bDiv.style.height = "11vmin";
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
+            alterDiv = null;
+            let delDiv: HTMLElement = document.getElementById("displaydiv");
+            delDiv.parentElement.removeChild(delDiv);
             document.removeEventListener("mousemove", elFollow);
+
 
         }
 
@@ -85,9 +90,10 @@ window.onload = function(): void {
 
     }
 
-    let alterDiv: HTMLDivElement = null;
+    
     function elFollow(_event: MouseEvent): void {
         let neuerDiv: HTMLDivElement = document.createElement("div");
+        neuerDiv.id = "displaydiv";
         document.body.appendChild(neuerDiv);
 
         if (alterDiv != null) {

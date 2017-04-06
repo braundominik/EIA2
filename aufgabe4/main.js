@@ -1,4 +1,5 @@
 window.onload = function () {
+    let alterDiv = null;
     var evenRow = true;
     for (let i = 0; i < 64; i++) {
         var div = document.createElement("div");
@@ -40,6 +41,9 @@ window.onload = function () {
             bDiv.style.height = "11vmin";
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
+            alterDiv = null;
+            let delDiv = document.getElementById("displaydiv");
+            delDiv.parentElement.removeChild(delDiv);
             document.removeEventListener("mousemove", elFollow);
         }
         if (lastSquare != null && bDiv != lastSquare) {
@@ -66,9 +70,9 @@ window.onload = function () {
         }
         lastSquare = bDiv;
     }
-    let alterDiv = null;
     function elFollow(_event) {
         let neuerDiv = document.createElement("div");
+        neuerDiv.id = "displaydiv";
         document.body.appendChild(neuerDiv);
         if (alterDiv != null) {
             document.body.removeChild(alterDiv);

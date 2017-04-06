@@ -1,0 +1,16 @@
+* {
+	margin: 0;
+	padding: 0;
+
+}
+
+div{
+	width:40vmin;
+	height:45vmin;
+	float:left;
+	text-align:center;
+	line-height:45vmin;
+	font-family:Verdana;
+	font-size:5vmin;
+	font-weight:bold;
+}
