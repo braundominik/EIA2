@@ -32,13 +32,14 @@ window.onload = function () {
         handDivs[i].style.width = "16vmin";
         handDivs[i].style.height = "30vmin";
         handDivs[i].style.fontSize = "1vmin";
+        handDivs[i].addEventListener("click", ablegen);
     }
     //EventListener
-    handDivs[0].addEventListener("click", function () { ablegen(0); });
-    handDivs[1].addEventListener("click", function () { ablegen(1); });
-    handDivs[2].addEventListener("click", function () { ablegen(2); });
-    handDivs[3].addEventListener("click", function () { ablegen(3); });
-    handDivs[4].addEventListener("click", function () { ablegen(4); });
+    //    handDivs[0].addEventListener("click", function(): void { ablegen(0); });
+    //    handDivs[1].addEventListener("click", function(): void { ablegen(1); });
+    //    handDivs[2].addEventListener("click", function(): void { ablegen(2); });
+    //    handDivs[3].addEventListener("click", function(): void { ablegen(3); });
+    //    handDivs[4].addEventListener("click", function(): void { ablegen(4); });
     ziehDiv.addEventListener("click", ziehen);
     //Funktion ziehen welche Karten vom Ziehstapel entfernt und zur Hand hinzuf�gt
     function ziehen() {
@@ -54,17 +55,21 @@ window.onload = function () {
         updateHand();
     }
     //Funktion ablegen welche Karten von der Hand auf den Ablagestapel legt
-    function ablegen(x) {
-        if (handDivs[x].innerHTML != "undefined") {
-            let discarded = hand.splice(x, 1);
-            ablageDiv.innerHTML = discarded[0];
-            updateHand();
+    function ablegen(_e) {
+        let currentDiv = _e.target;
+        console.log(currentDiv.innerHTML);
+        for (let i = 0; i < handDivs.length; i++) {
+            if (currentDiv.textContent == hand[i]) {
+                let discarded = hand.splice(i, 1);
+                ablageDiv.textContent = discarded[0];
+            }
         }
+        updateHand();
     }
     //Updatefunktion welche die HandDivs mit dem HandArray abgeleicht
     function updateHand() {
         for (let i = 0; i < handDivs.length; i++) {
-            handDivs[i].innerHTML = hand[i];
+            handDivs[i].textContent = hand[i];
         }
     }
     console.log(ziehstapel[0], ziehstapel[31]);

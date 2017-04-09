@@ -9,11 +9,11 @@ nicht kopiert und auch nicht diktiert.
 */
 
 window.onload = function(): void {
-    
+
     //anlegen von ziehtstapel und handarry
     let ziehstapel: string[] = ["Herz-Ass", "Karo-Ass", "Pik-Ass", "Kreuz-Ass", "Herz-König", "Karo-König", "Pik-König", "Kreuz-König", "Herz-Dame", "Karo-Dame", "Pik-Dame", "Kreuz-Dame", "Herz-Bube", "Karo-Bube", "Pik-Bube", "Kreuz-Bube", "Herz-10", "Karo-10", "Pik-10", "Kreuz-10", "Herz-9", "Karo-9", "Pik-9", "Kreuz-9", "Herz-8", "Karo-8", "Pik-8", "Kreuz-8", "Herz-7", "Karo-7", "Pik-7", "Kreuz-7"];
     let hand: string[] = [];
-    
+
     //Anlegen der div-container und anfügen dieser
     let ziehDiv: HTMLDivElement = document.createElement("div");
     let ablageDiv: HTMLDivElement = document.createElement("div");
@@ -40,15 +40,16 @@ window.onload = function(): void {
         handDivs[i].style.width = "16vmin";
         handDivs[i].style.height = "30vmin";
         handDivs[i].style.fontSize = "1vmin";
+        handDivs[i].addEventListener("click", ablegen);
     }
-    
+
     //EventListener
 
-    handDivs[0].addEventListener("click", function(): void { ablegen(0); });
-    handDivs[1].addEventListener("click", function(): void { ablegen(1); });
-    handDivs[2].addEventListener("click", function(): void { ablegen(2); });
-    handDivs[3].addEventListener("click", function(): void { ablegen(3); });
-    handDivs[4].addEventListener("click", function(): void { ablegen(4); });
+//    handDivs[0].addEventListener("click", function(): void { ablegen(0); });
+//    handDivs[1].addEventListener("click", function(): void { ablegen(1); });
+//    handDivs[2].addEventListener("click", function(): void { ablegen(2); });
+//    handDivs[3].addEventListener("click", function(): void { ablegen(3); });
+//    handDivs[4].addEventListener("click", function(): void { ablegen(4); });
 
     ziehDiv.addEventListener("click", ziehen);
 
@@ -68,14 +69,19 @@ window.onload = function(): void {
         updateHand();
     }
 
-    
+
     //Funktion ablegen welche Karten von der Hand auf den Ablagestapel legt
-    function ablegen(x: number): void {
-        if (handDivs[x].innerHTML != "undefined") {
-            let discarded: string[] = hand.splice(x, 1);
-            ablageDiv.innerHTML = discarded[0];
-            updateHand();
+    function ablegen(_e: Event): void {
+        let currentDiv: HTMLDivElement = <HTMLDivElement>_e.target;
+        console.log(currentDiv.innerHTML);
+        for (let i: number = 0; i < handDivs.length; i++) {
+            if(currentDiv.textContent == hand[i]){
+            let discarded: string[] = hand.splice(i, 1);
+            ablageDiv.textContent = discarded[0];
+                }
         }
+        updateHand();
+
     }
 
 
@@ -83,7 +89,7 @@ window.onload = function(): void {
     //Updatefunktion welche die HandDivs mit dem HandArray abgeleicht
     function updateHand(): void {
         for (let i: number = 0; i < handDivs.length; i++) {
-            handDivs[i].innerHTML = hand[i];
+            handDivs[i].textContent = hand[i];
 
         }
     }
