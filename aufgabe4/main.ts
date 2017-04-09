@@ -42,6 +42,8 @@ window.onload = function(): void {
     var checkLast: boolean = true;
     var lastSquare: HTMLDivElement = null;
     var reisDiv: string = "nicht";
+    let activeCount: number = 0;
+
     function markSquare(_event: Event): void {
         let bDiv: HTMLDivElement = <HTMLDivElement>_event.target;
 
@@ -53,6 +55,7 @@ window.onload = function(): void {
             bDiv.style.lineHeight = "10vmin";
             reisDiv = bDiv.textContent;
             document.addEventListener("mousemove", elFollow);
+            activeCount++;
         }
 
         else {
@@ -61,41 +64,45 @@ window.onload = function(): void {
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
             alterDiv = null;
+            activeCount--;
             let delDiv: HTMLElement = document.getElementById("displaydiv");
-            delDiv.parentElement.removeChild(delDiv);
-            document.removeEventListener("mousemove", elFollow);
+            for (let i: number = 0; i < 8; i++) {
+                if (activeCount == 0) {
+                    delDiv.parentElement.removeChild(delDiv);
+                    document.removeEventListener("mousemove", elFollow);
+                }
+                else {
+                    delDiv.parentElement.removeChild(delDiv);
+                }
+            }
+
 
 
         }
+        
+        // Code der nicht benötigt wird
 
-        if (lastSquare != null && bDiv != lastSquare) {
-            lastSquare.style.border = "";
-            lastSquare.style.height = "11vmin";
-            lastSquare.style.width = "11vmin";
-            lastSquare.style.lineHeight = "11vmin";
-        }
-
-
-
-        //        if (lastSquare != null && lastSquare.style.border == "0.5vmin solid orange") {
+        //        if (lastSquare != null && bDiv != lastSquare) {
         //            lastSquare.style.border = "";
         //            lastSquare.style.height = "11vmin";
         //            lastSquare.style.width = "11vmin";
         //            lastSquare.style.lineHeight = "11vmin";
-        //        }        
-        if (bDiv != lastSquare) {
-            console.log("NICHT");
-            console.log(bDiv);
-            console.log(lastSquare);
-        }
-
-        if (bDiv == lastSquare) {
-            console.log("JA");
-            console.log(bDiv);
-            console.log(lastSquare);
-        }
-
-        lastSquare = bDiv;
+        //        }
+        //
+        //      
+        //        if (bDiv != lastSquare) {
+        //            console.log("NICHT");
+        //            console.log(bDiv);
+        //            console.log(lastSquare);
+        //        }
+        //
+        //        if (bDiv == lastSquare) {
+        //            console.log("JA");
+        //            console.log(bDiv);
+        //            console.log(lastSquare);
+        //        }
+        //
+        //        lastSquare = bDiv;
 
     }
 
@@ -111,7 +118,6 @@ window.onload = function(): void {
 
         alterDiv = neuerDiv;
 
-        console.log(_event.screenX);
 
 
         let s: CSSStyleDeclaration = neuerDiv.style;
@@ -130,10 +136,16 @@ window.onload = function(): void {
         s.zIndex = "9999999";
         s.lineHeight = "20px";
 
-        let reisHex: string = Number(reisDiv).toString(16);
-        neuerDiv.textContent = "Dec: " + reisDiv + " Hex: " + reisHex;
+        let zahl: number = 0;
+        for (let i: number = 0; i < 8; i++) {
+            if (myDiv[i].style.border != "") {
+                zahl += Number(myDiv[i].textContent);
+            }
+        }
+
+        let reisHex: string = zahl.toString(16);
+        neuerDiv.textContent = "Dec: " + zahl + " Hex: " + reisHex;
     }
 
-    //document.body.children[3].children[1].appendChild(document.createElement("div"));
 
 };

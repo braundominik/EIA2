@@ -34,6 +34,7 @@ window.onload = function () {
     var checkLast = true;
     var lastSquare = null;
     var reisDiv = "nicht";
+    let activeCount = 0;
     function markSquare(_event) {
         let bDiv = _event.target;
         if (bDiv.style.border == "") {
@@ -43,6 +44,7 @@ window.onload = function () {
             bDiv.style.lineHeight = "10vmin";
             reisDiv = bDiv.textContent;
             document.addEventListener("mousemove", elFollow);
+            activeCount++;
         }
         else {
             bDiv.style.border = "";
@@ -50,33 +52,40 @@ window.onload = function () {
             bDiv.style.width = "11vmin";
             bDiv.style.lineHeight = "11vmin";
             alterDiv = null;
+            activeCount--;
             let delDiv = document.getElementById("displaydiv");
-            delDiv.parentElement.removeChild(delDiv);
-            document.removeEventListener("mousemove", elFollow);
+            for (let i = 0; i < 8; i++) {
+                if (activeCount == 0) {
+                    delDiv.parentElement.removeChild(delDiv);
+                    document.removeEventListener("mousemove", elFollow);
+                }
+                else {
+                    delDiv.parentElement.removeChild(delDiv);
+                }
+            }
         }
-        if (lastSquare != null && bDiv != lastSquare) {
-            lastSquare.style.border = "";
-            lastSquare.style.height = "11vmin";
-            lastSquare.style.width = "11vmin";
-            lastSquare.style.lineHeight = "11vmin";
-        }
-        //        if (lastSquare != null && lastSquare.style.border == "0.5vmin solid orange") {
+        // Code der nicht ben�tigt wird
+        //        if (lastSquare != null && bDiv != lastSquare) {
         //            lastSquare.style.border = "";
         //            lastSquare.style.height = "11vmin";
         //            lastSquare.style.width = "11vmin";
         //            lastSquare.style.lineHeight = "11vmin";
-        //        }        
-        if (bDiv != lastSquare) {
-            console.log("NICHT");
-            console.log(bDiv);
-            console.log(lastSquare);
-        }
-        if (bDiv == lastSquare) {
-            console.log("JA");
-            console.log(bDiv);
-            console.log(lastSquare);
-        }
-        lastSquare = bDiv;
+        //        }
+        //
+        //      
+        //        if (bDiv != lastSquare) {
+        //            console.log("NICHT");
+        //            console.log(bDiv);
+        //            console.log(lastSquare);
+        //        }
+        //
+        //        if (bDiv == lastSquare) {
+        //            console.log("JA");
+        //            console.log(bDiv);
+        //            console.log(lastSquare);
+        //        }
+        //
+        //        lastSquare = bDiv;
     }
     function elFollow(_event) {
         let neuerDiv = document.createElement("div");
@@ -86,7 +95,6 @@ window.onload = function () {
             document.body.removeChild(alterDiv);
         }
         alterDiv = neuerDiv;
-        console.log(_event.screenX);
         let s = neuerDiv.style;
         s.color = "black";
         s.borderStyle = "solid";
@@ -101,9 +109,14 @@ window.onload = function () {
         s.top = (_event.clientY + 10).toString() + "px";
         s.zIndex = "9999999";
         s.lineHeight = "20px";
-        let reisHex = Number(reisDiv).toString(16);
-        neuerDiv.textContent = "Dec: " + reisDiv + " Hex: " + reisHex;
+        let zahl = 0;
+        for (let i = 0; i < 8; i++) {
+            if (myDiv[i].style.border != "") {
+                zahl += Number(myDiv[i].textContent);
+            }
+        }
+        let reisHex = zahl.toString(16);
+        neuerDiv.textContent = "Dec: " + zahl + " Hex: " + reisHex;
     }
-    //document.body.children[3].children[1].appendChild(document.createElement("div"));
 };
 //# sourceMappingURL=main.js.map
