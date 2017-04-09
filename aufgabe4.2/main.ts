@@ -9,9 +9,12 @@ nicht kopiert und auch nicht diktiert.
 */
 
 window.onload = function(): void {
+    
+    //anlegen von ziehtstapel und handarry
     let ziehstapel: string[] = ["Herz-Ass", "Karo-Ass", "Pik-Ass", "Kreuz-Ass", "Herz-König", "Karo-König", "Pik-König", "Kreuz-König", "Herz-Dame", "Karo-Dame", "Pik-Dame", "Kreuz-Dame", "Herz-Bube", "Karo-Bube", "Pik-Bube", "Kreuz-Bube", "Herz-10", "Karo-10", "Pik-10", "Kreuz-10", "Herz-9", "Karo-9", "Pik-9", "Kreuz-9", "Herz-8", "Karo-8", "Pik-8", "Kreuz-8", "Herz-7", "Karo-7", "Pik-7", "Kreuz-7"];
     let hand: string[] = [];
-
+    
+    //Anlegen der div-container und anfügen dieser
     let ziehDiv: HTMLDivElement = document.createElement("div");
     let ablageDiv: HTMLDivElement = document.createElement("div");
     let handDiv: HTMLDivElement = document.createElement("div");
@@ -21,6 +24,7 @@ window.onload = function(): void {
     document.body.appendChild(ablageDiv);
     document.body.appendChild(handDiv);
 
+    //Styles und Inhalte der div-container
     ziehDiv.innerHTML = "Ziehstapel";
     ziehDiv.style.backgroundColor = "black";
     ziehDiv.style.color = "white";
@@ -37,6 +41,8 @@ window.onload = function(): void {
         handDivs[i].style.height = "30vmin";
         handDivs[i].style.fontSize = "1vmin";
     }
+    
+    //EventListener
 
     handDivs[0].addEventListener("click", function(): void { ablegen(0); });
     handDivs[1].addEventListener("click", function(): void { ablegen(1); });
@@ -46,6 +52,7 @@ window.onload = function(): void {
 
     ziehDiv.addEventListener("click", ziehen);
 
+    //Funktion ziehen welche Karten vom Ziehstapel entfernt und zur Hand hinzufügt
     function ziehen(): void {
         if (ziehstapel.length > 0) {
             if (hand.length < 5) {
@@ -61,6 +68,8 @@ window.onload = function(): void {
         updateHand();
     }
 
+    
+    //Funktion ablegen welche Karten vond er Hand auf den Ablagestapel legt
     function ablegen(x: number): void {
         if (handDivs[x].innerHTML != "undefined") {
             let discarded: string[] = hand.splice(x, 1);
@@ -71,7 +80,7 @@ window.onload = function(): void {
 
 
 
-
+    //Updatefunktion welche die HandDivs mit dem HandArray abgeleicht
     function updateHand(): void {
         for (let i: number = 0; i < handDivs.length; i++) {
             handDivs[i].innerHTML = hand[i];
