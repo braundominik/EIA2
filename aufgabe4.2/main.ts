@@ -12,10 +12,10 @@ window.onload = function(): void {
     let ziehstapel: string[] = ["Herz-Ass", "Karo-Ass", "Pik-Ass", "Kreuz-Ass", "Herz-König", "Karo-König", "Pik-König", "Kreuz-König", "Herz-Dame", "Karo-Dame", "Pik-Dame", "Kreuz-Dame", "Herz-Bube", "Karo-Bube", "Pik-Bube", "Kreuz-Bube", "Herz-10", "Karo-10", "Pik-10", "Kreuz-10", "Herz-9", "Karo-9", "Pik-9", "Kreuz-9", "Herz-8", "Karo-8", "Pik-8", "Kreuz-8", "Herz-7", "Karo-7", "Pik-7", "Kreuz-7"];
     let hand: string[] = [];
 
-    var ziehDiv: HTMLDivElement = document.createElement("div");
-    var ablageDiv: HTMLDivElement = document.createElement("div");
-    var handDiv: HTMLDivElement = document.createElement("div");
-    var handDivs: HTMLDivElement[] = [document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div")];
+    let ziehDiv: HTMLDivElement = document.createElement("div");
+    let ablageDiv: HTMLDivElement = document.createElement("div");
+    let handDiv: HTMLDivElement = document.createElement("div");
+    let handDivs: HTMLDivElement[] = [document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div")];
 
     document.body.appendChild(ziehDiv);
     document.body.appendChild(ablageDiv);
@@ -31,7 +31,7 @@ window.onload = function(): void {
     handDiv.style.height = "30vmin";
     handDiv.style.width = "80vmin";
 
-    for (var i: number = 0; i < handDivs.length; i++) {
+    for (let i: number = 0; i < handDivs.length; i++) {
         document.body.lastChild.appendChild(handDivs[i]);
         handDivs[i].style.width = "16vmin";
         handDivs[i].style.height = "30vmin";
@@ -73,7 +73,7 @@ window.onload = function(): void {
 
 
     function updateHand(): void {
-        for (var i: number = 0; i < handDivs.length; i++) {
+        for (let i: number = 0; i < handDivs.length; i++) {
             handDivs[i].innerHTML = hand[i];
 
         }
