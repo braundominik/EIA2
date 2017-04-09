@@ -1,3 +1,12 @@
+/*
+Aufgabe: Aufgabe 3
+Name: Braun Dominik
+Matrikel: 254901
+Datum: 09.04.2017
+Hiermit versichere ich, dass ich diesen
+Code selbst geschrieben habe. Er wurde
+nicht kopiert und auch nicht diktiert.
+*/
 window.onload = function () {
     let ziehstapel = ["Herz-Ass", "Karo-Ass", "Pik-Ass", "Kreuz-Ass", "Herz-K�nig", "Karo-K�nig", "Pik-K�nig", "Kreuz-K�nig", "Herz-Dame", "Karo-Dame", "Pik-Dame", "Kreuz-Dame", "Herz-Bube", "Karo-Bube", "Pik-Bube", "Kreuz-Bube", "Herz-10", "Karo-10", "Pik-10", "Kreuz-10", "Herz-9", "Karo-9", "Pik-9", "Kreuz-9", "Herz-8", "Karo-8", "Pik-8", "Kreuz-8", "Herz-7", "Karo-7", "Pik-7", "Kreuz-7"];
     let hand = [];
