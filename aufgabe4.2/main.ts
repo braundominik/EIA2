@@ -5,15 +5,7 @@ window.onload = function(): void {
     var ziehDiv: HTMLDivElement = document.createElement("div");
     var ablageDiv: HTMLDivElement = document.createElement("div");
     var handDiv: HTMLDivElement = document.createElement("div");
-    //    var hand1Div: HTMLDivElement = document.createElement("div");
-    //    var hand2Div: HTMLDivElement = document.createElement("div");
-    //    var hand3Div: HTMLDivElement = document.createElement("div");
-    //    var hand4Div: HTMLDivElement = document.createElement("div");
-    //    var hand5Div: HTMLDivElement = document.createElement("div");
-    var handDivs: HTMLDivElement[] = [document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div")]
-    //    var ziehDiv: HTMLDivElement = div;
-    //    var ablageDiv: HTMLDivElement = div;
-    //    var handDiv: HTMLDivElement = div;
+    var handDivs: HTMLDivElement[] = [document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div"), document.createElement("div")];
 
     document.body.appendChild(ziehDiv);
     document.body.appendChild(ablageDiv);
@@ -24,11 +16,6 @@ window.onload = function(): void {
     ziehDiv.style.color = "white";
 
     ablageDiv.innerHTML = "Ablagestapel";
-    //    document.body.lastChild.appendChild(hand1Div);
-    //    document.body.lastChild.appendChild(hand2Div);
-    //    document.body.lastChild.appendChild(hand3Div);
-    //    document.body.lastChild.appendChild(hand4Div);
-    //    document.body.lastChild.appendChild(hand5Div);
 
     handDiv.style.clear = "both";
     handDiv.style.height = "30vmin";
@@ -39,28 +26,41 @@ window.onload = function(): void {
         handDivs[i].style.width = "16vmin";
         handDivs[i].style.height = "30vmin";
         handDivs[i].style.fontSize = "1vmin";
-        handDivs[i].addEventListener("click", ablegen);
     }
+
+    handDivs[0].addEventListener("click", function(): void { ablegen(0); });
+    handDivs[1].addEventListener("click", function(): void { ablegen(1); });
+    handDivs[2].addEventListener("click", function(): void { ablegen(2); });
+    handDivs[3].addEventListener("click", function(): void { ablegen(3); });
+    handDivs[4].addEventListener("click", function(): void { ablegen(4); });
 
     ziehDiv.addEventListener("click", ziehen);
 
     function ziehen(): void {
         if (ziehstapel.length > 0) {
-            console.log(ziehstapel[0]);
-            let removed: string[] = ziehstapel.splice(0, 1);
             if (hand.length < 5) {
+                let rndm: number = Math.round(Math.random() * (ziehstapel.length - 1));
+                console.log(rndm);
+                let removed: string[] = ziehstapel.splice(rndm, 1);
+
                 hand.push(removed[0]);
                 console.log(hand[0], hand[1], hand[2], hand[3], hand[4]);
             }
+
         }
         updateHand();
     }
 
-    function ablegen(): void {
-        hand.splice(i, 1);
-        console.log(hand[0]);
-        updateHand();
+    function ablegen(x: number): void {
+        if (handDivs[x].innerHTML != "undefined") {
+            let discarded: string[] = hand.splice(x, 1);
+            ablageDiv.innerHTML = discarded[0];
+            updateHand();
+        }
     }
+
+
+
 
     function updateHand(): void {
         for (var i: number = 0; i < handDivs.length; i++) {
