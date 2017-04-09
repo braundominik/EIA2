@@ -16,11 +16,13 @@ div{
 	font-family:Verdana;
 	font-size:1vmin;
 	font-weight:bold;
+	color:white;
+	overflow:hidden;
 }
 
 .black{
 	background-color:black;
-	color:white;
+	color:black;
 }
 
 .white{

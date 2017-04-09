@@ -1,3 +1,12 @@
+/*
+Aufgabe: Aufgabe 3
+Name: Braun Dominik
+Matrikel: 254901
+Datum: 09.04.2017
+Hiermit versichere ich, dass ich diesen
+Code selbst geschrieben habe. Er wurde
+nicht kopiert und auch nicht diktiert.
+*/
 window.onload = function () {
     let alterDiv = null;
     var evenRow = true;
@@ -14,8 +23,7 @@ window.onload = function () {
             div.className += " black";
         }
         var reis = Math.pow(2, i);
-        var test = 15;
-        var reisN = reis.toString(16);
+        var reisN = reis.toString();
         div.textContent = reisN;
         document.body.appendChild(div);
     }
@@ -80,6 +88,7 @@ window.onload = function () {
         alterDiv = neuerDiv;
         console.log(_event.screenX);
         let s = neuerDiv.style;
+        s.color = "black";
         s.borderStyle = "solid";
         s.borderColor = "green";
         s.borderWidth = "2px";
@@ -92,7 +101,8 @@ window.onload = function () {
         s.top = (_event.clientY + 10).toString() + "px";
         s.zIndex = "9999999";
         s.lineHeight = "20px";
-        neuerDiv.textContent = reisDiv;
+        let reisHex = Number(reisDiv).toString(16);
+        neuerDiv.textContent = "Dec: " + reisDiv + " Hex: " + reisHex;
     }
     //document.body.children[3].children[1].appendChild(document.createElement("div"));
 };
