@@ -53,18 +53,18 @@ window.onload = function () {
         }
         updateHand();
     }
-    //Funktion ablegen welche Karten vond er Hand auf den Ablagestapel legt
+    //Funktion ablegen welche Karten von der Hand auf den Ablagestapel legt
     function ablegen(x) {
-        if (handDivs[x].innerHTML != "undefined") {
+        if (handDivs[x].textContent != "") {
             let discarded = hand.splice(x, 1);
-            ablageDiv.innerHTML = discarded[0];
+            ablageDiv.textContent = discarded[0];
             updateHand();
         }
     }
     //Updatefunktion welche die HandDivs mit dem HandArray abgeleicht
     function updateHand() {
         for (let i = 0; i < handDivs.length; i++) {
-            handDivs[i].innerHTML = hand[i];
+            handDivs[i].textContent = hand[i];
         }
     }
     console.log(ziehstapel[0], ziehstapel[31]);

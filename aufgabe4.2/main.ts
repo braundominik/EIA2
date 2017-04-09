@@ -69,11 +69,11 @@ window.onload = function(): void {
     }
 
 
-    //Funktion ablegen welche Karten vond er Hand auf den Ablagestapel legt
+    //Funktion ablegen welche Karten von der Hand auf den Ablagestapel legt
     function ablegen(x: number): void {
-        if (handDivs[x].innerHTML != "undefined") {
+        if (handDivs[x].textContent != "") {
             let discarded: string[] = hand.splice(x, 1);
-            ablageDiv.innerHTML = discarded[0];
+            ablageDiv.textContent = discarded[0];
             updateHand();
         }
     }
@@ -83,7 +83,7 @@ window.onload = function(): void {
     //Updatefunktion welche die HandDivs mit dem HandArray abgeleicht
     function updateHand(): void {
         for (let i: number = 0; i < handDivs.length; i++) {
-            handDivs[i].innerHTML = hand[i];
+            handDivs[i].textContent = hand[i];
 
         }
     }

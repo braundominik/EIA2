@@ -53,7 +53,7 @@ window.onload = function () {
         }
         updateHand();
     }
-    //Funktion ablegen welche Karten vond er Hand auf den Ablagestapel legt
+    //Funktion ablegen welche Karten von der Hand auf den Ablagestapel legt
     function ablegen(x) {
         if (handDivs[x].innerHTML != "undefined") {
             let discarded = hand.splice(x, 1);

@@ -69,7 +69,7 @@ window.onload = function(): void {
     }
 
     
-    //Funktion ablegen welche Karten vond er Hand auf den Ablagestapel legt
+    //Funktion ablegen welche Karten von der Hand auf den Ablagestapel legt
     function ablegen(x: number): void {
         if (handDivs[x].innerHTML != "undefined") {
             let discarded: string[] = hand.splice(x, 1);
