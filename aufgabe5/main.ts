@@ -12,4 +12,5 @@ window.onload = function(): void {
     var w: number = document.getElementsByTagName("HTML")[0].clientWidth;
     var h: number = document.getElementsByTagName("HTML")[0].clientHeight;
     document.body.innerHTML = "Width: " + w + " Height: " + h;
+    
 };
