@@ -7,9 +7,19 @@ Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
 */
-window.onload = function () {
-    var w = document.getElementsByTagName("HTML")[0].clientWidth;
-    var h = document.getElementsByTagName("HTML")[0].clientHeight;
-    document.body.innerHTML = "Width: " + w + " Height: " + h;
-};
+var a5;
+(function (a5) {
+    window.addEventListener("load", init);
+    let crc;
+    function init() {
+        let canvas;
+        canvas = document.createElement("canvas");
+        canvas.height = 1400;
+        canvas.width = 900;
+        document.body.appendChild(canvas);
+        crc = canvas.getContext("2d");
+        crc.fillStyle = "#0000ff";
+        crc.fillRect(0, 0, canvas.width, canvas.height);
+    }
+})(a5 || (a5 = {}));
 //# sourceMappingURL=main.js.map
