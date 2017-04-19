@@ -26,8 +26,8 @@ namespace a5 {
     }
 
     function flower1(x: number, y: number): void {
-          crc.fillStyle = "red";
-        crc.fillRect(5,5,5,-5);
+        crc.fillStyle = "red";
+        crc.fillRect(5, 5, 5, -5);
 
         crc.beginPath();
         crc.fillStyle = "green";
