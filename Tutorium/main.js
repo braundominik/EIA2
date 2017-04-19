@@ -1,3 +1,4 @@
+//TESTTESTAHFDL�AIFHAWO�FHAWFHAW
 var maumau;
 (function (maumau) {
     let deck = [];

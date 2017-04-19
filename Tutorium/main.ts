@@ -1,3 +1,5 @@
+//TESTTESTAHFDLÖAIFHAWOÖFHAWFHAW
+
 namespace maumau {
     let deck: string[] = [];
     let hand: string[] = [];
