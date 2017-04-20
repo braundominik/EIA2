@@ -23,7 +23,7 @@ namespace a5 {
         buildBackground();
 
 
-        placeFlowersIn(400, 300, 700, 450);
+        placeFlowersIn(200, 300, 700, 450);
 
     }
 
@@ -65,7 +65,14 @@ namespace a5 {
         crc.ellipse(600, 340, 200, 60, 5 * Math.PI / 180, 0, 2 * Math.PI);
         crc.closePath();
         crc.fill();
-
+    
+        crc.beginPath();
+        crc.fillStyle = "brown";
+        crc.moveTo(50 - 10, 350 + 10);
+        crc.lineTo(100, 200 - 10);
+        crc.lineTo(150 + 10, 350 + 10);
+        crc.closePath();
+        crc.fill();
 
     }
 
@@ -147,6 +154,7 @@ namespace a5 {
         let rnd1: number = Math.random() * (6 - 2) + 2;
         let rnd2: number = Math.random() * (18 - 12) + 12;
         let rndColor: number = Math.random() * 359;
+        let rndColorDot: number = Math.random() * (63-26)+26;
 
 
         crc.beginPath();
@@ -165,7 +173,7 @@ namespace a5 {
 
 
         crc.beginPath();
-        crc.fillStyle = "yellow";
+        crc.fillStyle = "hsla(" + rndColorDot + ", 100%, 50%,0.8)";
         crc.arc(x + 2, y - 45, 5, 0, 2 * Math.PI);
 
         crc.fill();
@@ -173,7 +181,7 @@ namespace a5 {
 
     function randomFlower(x: number, y: number): void {
         let rnd: number = Math.random();
-        if (rnd < 0.7) {
+        if (rnd < 0.8) {
             drawflower3(x, y);
         }
         else {
