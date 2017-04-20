@@ -24,13 +24,21 @@ namespace a5 {
         crc.fillRect(0, 0, canvas.width, canvas.height);
 
         crc.fillStyle = "#32722c";
-        crc.fillRect(400, 200, 300, 250);
+        crc.fillRect(0, 300, 700, 150);
+        
+        crc.beginPath();
+        crc.fillStyle = "red";
+        crc.ellipse(100, 300, 200, 50, 0 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(700, 320, 200, 60, 0 * Math.PI / 180, 0, 2 * Math.PI);      
+        crc.closePath();
+        crc.fill();
+        
 
         //        flower3(200, 200);
         //        flower2(300, 300);
         //        rwer(400, 400);
 
-        placeFlowersIn(400, 200, 700, 450);
+        placeFlowersIn(400, 300, 700, 450);
 
     }
 
@@ -136,7 +144,7 @@ namespace a5 {
     }
 
     function placeFlowersIn(upperLeftx: number, upperLefty: number, lowerRightx: number, lowerRighty: number): void {
-        for (let f: number = 0; f < 1000; f++) {
+        for (let f: number = 0; f < 10; f++) {
             let rndX: number = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
             let rndY: number = Math.random() * (lowerRighty - upperLefty) + upperLefty;
             randomFlower(rndX, rndY);
