@@ -11,38 +11,77 @@ nicht kopiert und auch nicht diktiert.
 namespace a5 {
     window.addEventListener("load", init);
     let crc: CanvasRenderingContext2D;
+    let canvas: HTMLCanvasElement;
 
     function init(): void {
-        let canvas: HTMLCanvasElement;
         canvas = document.createElement("canvas");
         canvas.height = 450;
         canvas.width = 700;
         document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
 
-        crc.fillStyle = "#a9c5f2";
-        crc.fillRect(0, 0, canvas.width, canvas.height);
+        buildBackground();
 
-        crc.fillStyle = "#32722c";
-        crc.fillRect(0, 300, 700, 150);
-        
-        crc.beginPath();
-        crc.fillStyle = "red";
-        crc.ellipse(100, 300, 200, 50, 0 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(700, 320, 200, 60, 0 * Math.PI / 180, 0, 2 * Math.PI);      
-        crc.closePath();
-        crc.fill();
-        
-
-        //        flower3(200, 200);
-        //        flower2(300, 300);
-        //        rwer(400, 400);
 
         placeFlowersIn(400, 300, 700, 450);
 
     }
 
-    function flower1(x: number, y: number): void {
+    function buildBackground(): void {
+
+
+
+        crc.fillStyle = "#a9c5f2";
+        crc.fillRect(0, 0, canvas.width, canvas.height);
+
+        crc.beginPath();
+        crc.fillStyle = "grey";
+        crc.moveTo(0 - 10, 250 + 10);
+        crc.lineTo(200, 50 - 10);
+        crc.lineTo(500 + 10, 300 + 10);
+        crc.closePath();
+        crc.fill();
+
+        crc.beginPath();
+        crc.fillStyle = "white";
+        crc.moveTo(172 - 10, 70 + 10);
+        crc.lineTo(200, 50 - 10);
+        crc.lineTo(236 + 10, 70 + 10);
+        crc.closePath();
+        crc.fill();
+
+
+        drawCloud(400, 75);
+        drawCloud(600, 90);
+        drawCloud(510, 0);
+
+
+        crc.fillStyle = "#32722c";
+        crc.fillRect(0, 300, 700, 150);
+
+        crc.beginPath();
+        crc.fillStyle = "#32722c";
+        crc.ellipse(100, 300, 350, 50, 3 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(600, 340, 200, 60, 5 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.closePath();
+        crc.fill();
+
+
+    }
+
+    function drawCloud(x: number, y: number): void {
+
+        crc.beginPath();
+        crc.fillStyle = "white";
+        crc.arc(x, y, 35, 0, 2 * Math.PI);
+        crc.arc(x + 30, y + 5, 28, 0, 2 * Math.PI);
+        crc.arc(x, y + 15, 31, 0, 2 * Math.PI);
+        crc.arc(x - 30, y + 10, 25, 0, 2 * Math.PI);
+        crc.fill();
+
+    }
+
+    function drawflower1(x: number, y: number): void {
 
         crc.beginPath();
         crc.fillStyle = "green";
@@ -67,7 +106,7 @@ namespace a5 {
 
     }
 
-    function flower2(x: number, y: number): void {
+    function drawflower2(x: number, y: number): void {
         crc.beginPath();
         crc.fillStyle = "rgba(53, 195, 40, 0.5)";
         crc.fillRect(x, y, 4, -40);
@@ -103,7 +142,7 @@ namespace a5 {
         crc.fill();
     }
 
-    function flower3(x: number, y: number): void {
+    function drawflower3(x: number, y: number): void {
 
         let rnd1: number = Math.random() * (6 - 2) + 2;
         let rnd2: number = Math.random() * (18 - 12) + 12;
@@ -135,16 +174,16 @@ namespace a5 {
     function randomFlower(x: number, y: number): void {
         let rnd: number = Math.random();
         if (rnd < 0.7) {
-            flower3(x, y);
+            drawflower3(x, y);
         }
         else {
-            flower2(x, y);
+            drawflower2(x, y);
         }
 
     }
 
     function placeFlowersIn(upperLeftx: number, upperLefty: number, lowerRightx: number, lowerRighty: number): void {
-        for (let f: number = 0; f < 10; f++) {
+        for (let f: number = 0; f < 20; f++) {
             let rndX: number = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
             let rndY: number = Math.random() * (lowerRighty - upperLefty) + upperLefty;
             randomFlower(rndX, rndY);
