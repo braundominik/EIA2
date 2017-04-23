@@ -19,11 +19,18 @@ var a5;
         document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
         buildBackground();
-        placeFlowersIn(200, 300, 700, 450);
+        //Manuelle Blumen
+        drawRandomFlower(45, 320);
+        drawRandomFlower(10, 440);
+        drawRandomFlower(200, 370);
+        //Blumenwiese
+        placeFlowersIn(300, 300, 700, 450);
     }
     function buildBackground() {
+        //Himmel
         crc.fillStyle = "#a9c5f2";
         crc.fillRect(0, 0, canvas.width, canvas.height);
+        //Berg
         crc.beginPath();
         crc.fillStyle = "grey";
         crc.moveTo(0 - 10, 250 + 10);
@@ -38,9 +45,11 @@ var a5;
         crc.lineTo(236 + 10, 70 + 10);
         crc.closePath();
         crc.fill();
+        //Wolken
         drawCloud(400, 75);
         drawCloud(600, 90);
         drawCloud(510, 0);
+        //Wiese
         crc.fillStyle = "#32722c";
         crc.fillRect(0, 300, 700, 150);
         crc.beginPath();
@@ -49,11 +58,26 @@ var a5;
         crc.ellipse(600, 340, 200, 60, 5 * Math.PI / 180, 0, 2 * Math.PI);
         crc.closePath();
         crc.fill();
+        //Baumstamm
         crc.beginPath();
-        crc.fillStyle = "brown";
-        crc.moveTo(50 - 10, 350 + 10);
-        crc.lineTo(100, 200 - 10);
-        crc.lineTo(150 + 10, 350 + 10);
+        crc.fillStyle = "#7F5019";
+        crc.moveTo(50, 400);
+        crc.lineTo(100, 350);
+        crc.lineTo(150, 400);
+        crc.fillRect(80, 200, 40, 200);
+        crc.closePath();
+        crc.fill();
+        //Baumkrone
+        crc.beginPath();
+        crc.fillStyle = "#277F00";
+        crc.arc(50, 200, 50, 0, 2 * Math.PI);
+        crc.arc(25, 150, 50, 0, 2 * Math.PI);
+        crc.arc(50, 100, 50, 0, 2 * Math.PI);
+        crc.arc(100, 75, 50, 0, 2 * Math.PI);
+        crc.arc(150, 100, 50, 0, 2 * Math.PI);
+        crc.arc(175, 150, 50, 0, 2 * Math.PI);
+        crc.arc(150, 200, 50, 0, 2 * Math.PI);
+        crc.arc(100, 150, 50, 0, 2 * Math.PI);
         crc.closePath();
         crc.fill();
     }
@@ -66,6 +90,7 @@ var a5;
         crc.arc(x - 30, y + 10, 25, 0, 2 * Math.PI);
         crc.fill();
     }
+    //Einfache Variante von drawFlower3
     function drawflower1(x, y) {
         crc.beginPath();
         crc.fillStyle = "green";
@@ -84,6 +109,7 @@ var a5;
         crc.arc(x + 2, y - 45, 5, 0, 2 * Math.PI);
         crc.fill();
     }
+    //Rote Blume
     function drawflower2(x, y) {
         crc.beginPath();
         crc.fillStyle = "rgba(53, 195, 40, 0.5)";
@@ -115,6 +141,7 @@ var a5;
         crc.closePath();
         crc.fill();
     }
+    //Generiert eine Blume mit zuf�lligen Blumenkopf
     function drawflower3(x, y) {
         let rnd1 = Math.random() * (6 - 2) + 2;
         let rnd2 = Math.random() * (18 - 12) + 12;
@@ -137,7 +164,8 @@ var a5;
         crc.arc(x + 2, y - 45, 5, 0, 2 * Math.PI);
         crc.fill();
     }
-    function randomFlower(x, y) {
+    //Zeichnet eine Blume
+    function drawRandomFlower(x, y) {
         let rnd = Math.random();
         if (rnd < 0.8) {
             drawflower3(x, y);
@@ -150,7 +178,7 @@ var a5;
         for (let f = 0; f < 20; f++) {
             let rndX = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
             let rndY = Math.random() * (lowerRighty - upperLefty) + upperLefty;
-            randomFlower(rndX, rndY);
+            drawRandomFlower(rndX, rndY);
         }
     }
 })(a5 || (a5 = {}));
