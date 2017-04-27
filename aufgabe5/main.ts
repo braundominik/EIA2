@@ -30,6 +30,24 @@ namespace a5 {
         //Blumenwiese
         placeFlowersIn(300, 300, 700, 450);
 
+        //Biene
+        drawBee(400, 200);
+
+    }
+
+    function drawBee(x: number, y: number): void {
+        var grd: CanvasGradient = crc.createLinearGradient(x - 20, y, x + 20, y);
+        grd.addColorStop(0, "black");
+        grd.addColorStop(0.5, "yellow");
+        grd.addColorStop(1, "black");
+        crc.fillStyle = grd;
+        crc.scale(2, 2);
+        crc.ellipse(x, y, 40, 50, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.fill();
+
+
+
+
     }
 
     function buildBackground(): void {
