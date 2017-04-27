@@ -8,10 +8,16 @@ Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
 */
 
+/// <reference path="bee.ts"/>
+
 namespace a5 {
     window.addEventListener("load", init);
     let crc: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement;
+    let bees: Bee[] = [];
+    let stockposX: number = 400;
+    let stockposY: number = 200;
+    let saveBG: ImageData;
 
     function init(): void {
         canvas = document.createElement("canvas");
@@ -30,20 +36,68 @@ namespace a5 {
         //Blumenwiese
         placeFlowersIn(300, 300, 700, 450);
 
+        //Save Background        
+        saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
+        console.log(saveBG);
         //Biene
-        drawBee(400, 200);
+        createBees(15);
+        console.log(bees);
+        animate();
 
     }
 
+    function animate(): void {
+        crc.putImageData(saveBG, 0, 0);
+        drawBees();
+        updateBees();
+        setTimeout(animate, 20);
+    }
+
+    function updateBees(): void {
+        for (let i: number = 0; i < bees.length; i++) {
+
+            bees[i].y = bees[i].y + getRndNumber(1, 3);
+            bees[i].x = (bees[i].x + getRndNumber(1, 3))-0.4;
+        }
+    }
+
+    function getRndNumber(min: number, max: number): number {
+        return Math.random() * (max - min) - min;
+    }
+
+    function drawBees(): void {
+        for (let i: number = 0; i < bees.length; i++) {
+            drawBee(bees[i].x, bees[i].y);
+        }
+    }
+
+    function createBees(n: number): void {
+        for (let i: number = 0; i < n; i++) {
+            let bee: Bee = {
+                x: stockposX,
+                y: stockposY
+            };
+            bees.push(bee);
+        }
+    }
+
     function drawBee(x: number, y: number): void {
-        var grd: CanvasGradient = crc.createLinearGradient(x - 20, y, x + 20, y);
-        grd.addColorStop(0, "black");
-        grd.addColorStop(0.5, "yellow");
-        grd.addColorStop(1, "black");
-        crc.fillStyle = grd;
-        crc.scale(2, 2);
-        crc.ellipse(x, y, 40, 50, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill();
+        crc.fillStyle = "black";
+        crc.fillRect(x, y, 10, 10);
+
+        //        var grd: CanvasGradient = crc.createLinearGradient(x - 40, y, x + 40, y);
+        //        grd.addColorStop(0.25, "black");
+        //        grd.addColorStop(0.3, "yellow");
+        //        grd.addColorStop(0.4, "yellow");
+        //        grd.addColorStop(0.5, "black");
+        //        grd.addColorStop(0.6, "black");
+        //        grd.addColorStop(0.7, "yellow");
+        //        grd.addColorStop(0.8, "yellow");
+        //        grd.addColorStop(1, "black");
+        //        crc.fillStyle = grd;
+        //       ipse(x, y, 40, 50, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        //        crc.fill();
+
 
 
 
