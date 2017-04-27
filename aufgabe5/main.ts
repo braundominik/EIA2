@@ -56,13 +56,23 @@ namespace a5 {
     function updateBees(): void {
         for (let i: number = 0; i < bees.length; i++) {
 
-            bees[i].y = bees[i].y + getRndNumber(1, 3);
-            bees[i].x = (bees[i].x + getRndNumber(1, 3))-0.4;
+            bees[i].y = bees[i].y + getRndNumber(-2, 2);
+            bees[i].x = (bees[i].x + getRndNumber(-3, 1));
+
+            if (bees[i].y <= 0 || bees[i].y >= canvas.height) {
+                bees[i].y = canvas.height - bees[i].y;
+            }
+
+            if (bees[i].x <= 0 || bees[i].x >= canvas.width) {
+                bees[i].x = canvas.width - bees[i].x;
+            }
         }
     }
 
     function getRndNumber(min: number, max: number): number {
-        return Math.random() * (max - min) - min;
+        let x: number = Math.random() * (max - min) + min;
+        return x;
+
     }
 
     function drawBees(): void {
