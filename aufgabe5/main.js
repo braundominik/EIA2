@@ -14,8 +14,8 @@ var a5;
     let crc;
     let canvas;
     let bees = [];
-    let stockposX = 400;
-    let stockposY = 200;
+    let stockposX = 320;
+    let stockposY = 355;
     let saveBG;
     function init() {
         canvas = document.createElement("canvas");
@@ -29,12 +29,15 @@ var a5;
         drawRandomFlower(10, 440);
         drawRandomFlower(200, 370);
         //Blumenwiese
-        placeFlowersIn(300, 300, 700, 450);
+        placeFlowersIn(400, 300, 700, 450);
         //Save Background        
         saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
         console.log(saveBG);
         //Biene
-        createBees(15);
+        createBees(10);
+        canvas.addEventListener("click", function () {
+            createBees(1);
+        });
         console.log(bees);
         animate();
     }
@@ -75,20 +78,21 @@ var a5;
         }
     }
     function drawBee(x, y) {
-        crc.fillStyle = "black";
-        crc.fillRect(x, y, 10, 10);
-        //        var grd: CanvasGradient = crc.createLinearGradient(x - 40, y, x + 40, y);
-        //        grd.addColorStop(0.25, "black");
-        //        grd.addColorStop(0.3, "yellow");
-        //        grd.addColorStop(0.4, "yellow");
-        //        grd.addColorStop(0.5, "black");
-        //        grd.addColorStop(0.6, "black");
-        //        grd.addColorStop(0.7, "yellow");
-        //        grd.addColorStop(0.8, "yellow");
-        //        grd.addColorStop(1, "black");
-        //        crc.fillStyle = grd;
-        //       ipse(x, y, 40, 50, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        //        crc.fill();
+        //        crc.fillStyle = "black";
+        //        crc.fillRect(x, y, 10, 10);
+        crc.beginPath();
+        var grd = crc.createLinearGradient(x - 5, y, x + 5, y);
+        grd.addColorStop(0.25, "black");
+        grd.addColorStop(0.3, "yellow");
+        grd.addColorStop(0.4, "yellow");
+        grd.addColorStop(0.5, "black");
+        grd.addColorStop(0.6, "black");
+        grd.addColorStop(0.7, "yellow");
+        grd.addColorStop(0.8, "yellow");
+        grd.addColorStop(1, "black");
+        crc.fillStyle = grd;
+        crc.ellipse(x, y, 5, 6.25, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.fill();
     }
     function buildBackground() {
         //Himmel
@@ -143,6 +147,24 @@ var a5;
         crc.arc(150, 200, 50, 0, 2 * Math.PI);
         crc.arc(100, 150, 50, 0, 2 * Math.PI);
         crc.closePath();
+        crc.fill();
+        // Bienenkorb
+        crc.beginPath();
+        crc.fillStyle = "yellow";
+        crc.ellipse(320, 355, 10, 60, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(320, 340, 10, 56, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(320, 325, 10, 45, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(320, 310, 10, 40, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(320, 295, 10, 30, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(320, 280, 10, 20, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.fill();
+        crc.beginPath();
+        crc.fillStyle = "black";
+        crc.ellipse(320, 361, 10, 15, 0 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.fill();
+        crc.beginPath();
+        crc.fillStyle = "yellow";
+        crc.ellipse(320, 370, 10, 62, 90 * Math.PI / 180, 0, 2 * Math.PI);
         crc.fill();
     }
     function drawCloud(x, y) {
