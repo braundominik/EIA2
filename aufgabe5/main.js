@@ -150,7 +150,7 @@ var a5;
         crc.fill();
         // Bienenkorb
         crc.beginPath();
-        crc.fillStyle = "yellow";
+        crc.fillStyle = "#FFCD0A";
         crc.ellipse(320, 355, 10, 60, 90 * Math.PI / 180, 0, 2 * Math.PI);
         crc.ellipse(320, 340, 10, 56, 90 * Math.PI / 180, 0, 2 * Math.PI);
         crc.ellipse(320, 325, 10, 45, 90 * Math.PI / 180, 0, 2 * Math.PI);
@@ -163,7 +163,7 @@ var a5;
         crc.ellipse(320, 361, 10, 15, 0 * Math.PI / 180, 0, 2 * Math.PI);
         crc.fill();
         crc.beginPath();
-        crc.fillStyle = "yellow";
+        crc.fillStyle = "#FFCD0A";
         crc.ellipse(320, 370, 10, 62, 90 * Math.PI / 180, 0, 2 * Math.PI);
         crc.fill();
     }
