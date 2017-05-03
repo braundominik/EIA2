@@ -33,7 +33,7 @@ namespace StudiVZ {
             case "a":
             case "A":
                 var matrikel: number = parseInt(prompt("Eingabe Matrikelnummer"));
-                    alert(queryData(matrikel));               
+                alert(queryData(matrikel));
                 break;
             case "s":
             case "S":
@@ -76,7 +76,7 @@ namespace StudiVZ {
     function queryData(_matrikel: number): string {
         for (let i: number = 0; i < students.length; i++) {
             if (students[i].studentId == _matrikel) {
-                return students[i].lName;
+                return students[i].lName + "\n" + students[i].fName + "\n" + students[i].age + "\n" + students[i].sex + "\n" + students[i].comment;
             }
         }
 

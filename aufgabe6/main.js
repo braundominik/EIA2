@@ -61,7 +61,7 @@ var StudiVZ;
     function queryData(_matrikel) {
         for (let i = 0; i < students.length; i++) {
             if (students[i].studentId == _matrikel) {
-                return students[i].lName;
+                return students[i].lName + "\n" + students[i].fName + "\n" + students[i].age + "\n" + students[i].sex + "\n" + students[i].comment;
             }
         }
     }
