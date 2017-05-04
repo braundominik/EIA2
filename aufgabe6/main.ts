@@ -59,11 +59,11 @@ namespace StudiVZ {
         //writes values in student and pushes into students array
         if (allFilled) {
             let student: StudentData = {
-                studentId: Number(sString[0]),
+                studentId: parseInt(sString[0]),
                 lName: sString[1],
                 fName: sString[2],
-                age: Number(sString[3]),
-                sex: Boolean(Number(sString[4])),
+                age: parseInt(sString[3]),
+                sex: sString[4] == "1",
                 comment: sString[5]
             };
             students.push(student);
@@ -76,7 +76,9 @@ namespace StudiVZ {
     function queryData(_matrikel: number): string {
         for (let i: number = 0; i < students.length; i++) {
             if (students[i].studentId == _matrikel) {
-                return students[i].lName + "\n" + students[i].fName + "\n" + students[i].age + "\n" + students[i].sex + "\n" + students[i].comment;
+                let sex: string;
+                students[i].sex ? sex = "m" : sex = "f";
+                return students[i].lName + "\n" + students[i].fName + "\n" + students[i].age + "\n" + sex + "\n" + students[i].comment;
             }
         }
 
