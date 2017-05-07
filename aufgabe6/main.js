@@ -30,14 +30,12 @@ var StudiVZ;
         }
     }
     function saveData(_input) {
-        // String Elements are saved into an array
+        //String Elements are saved into an array
         let sString = _input.split(",");
         //checks if every field is filled with a value
-        let allFilled = true;
         for (let i = 0; i < 5; i++) {
             if (sString[i] == undefined || null) {
-                allFilled = false;
-                break;
+                return "Not everything defined";
             }
         }
         for (let i = 0; i < 5; i++) {
@@ -58,29 +56,24 @@ var StudiVZ;
                         return sString[i] + " has to be a number";
                     }
                     ;
-                    if (parseInt(sString[i]) != 0 || 1) {
+                    if (parseInt(sString[i]) != 0 && parseInt(sString[i]) != 1) {
                         return sString[i] + " should be a Value between 0 and 1";
                     }
                     ;
             }
         }
         //writes values in student and pushes into students array
-        if (allFilled) {
-            let student = {
-                studentId: parseInt(sString[0]),
-                lName: sString[1],
-                fName: sString[2],
-                age: parseInt(sString[3]),
-                sex: sString[4] == "1",
-                comment: sString[5]
-            };
-            students.push(student);
-            console.log(student);
-            return "Student saved";
-        }
-        else {
-            return "Not everything defined";
-        }
+        let student = {
+            studentId: parseInt(sString[0]),
+            lName: sString[1],
+            fName: sString[2],
+            age: parseInt(sString[3]),
+            sex: sString[4] == "1",
+            comment: sString[5]
+        };
+        students.push(student);
+        console.log(student);
+        return "Student saved";
     }
     function queryData(_matrikel) {
         for (let i = 0; i < students.length; i++) {

@@ -44,15 +44,13 @@ namespace StudiVZ {
 
 
 
-        // String Elements are saved into an array
+        //String Elements are saved into an array
         let sString: string[] = _input.split(",");
 
         //checks if every field is filled with a value
-        let allFilled: boolean = true;
         for (let i: number = 0; i < 5; i++) {
             if (sString[i] == undefined || null) {
-                allFilled = false;
-                break;
+                return "Not everything defined";
             }
         }
 
@@ -72,7 +70,7 @@ namespace StudiVZ {
                     if (isNaN(parseInt(sString[i]))) {
                         return sString[i] + " has to be a number";
                     };
-                    if (parseInt(sString[i]) != 0 || 1) {
+                    if (parseInt(sString[i]) != 0 && parseInt(sString[i]) != 1) {
                         return sString[i] + " should be a Value between 0 and 1";
                     };
 
@@ -80,33 +78,28 @@ namespace StudiVZ {
         }
 
         //writes values in student and pushes into students array
-        if (allFilled) {
-            let student: StudentData = {
-                studentId: parseInt(sString[0]),
-                lName: sString[1],
-                fName: sString[2],
-                age: parseInt(sString[3]),
-                sex: sString[4] == "1",
-                comment: sString[5]
-            };
-            students.push(student);
-            console.log(student);
-            return "Student saved";
-            
-        }
-
-        //error message if not everything defined
-        else { return "Not everything defined"; }
+        let student: StudentData = {
+            studentId: parseInt(sString[0]),
+            lName: sString[1],
+            fName: sString[2],
+            age: parseInt(sString[3]),
+            sex: sString[4] == "1",
+            comment: sString[5]
+        };
+        students.push(student);
+        console.log(student);
+        return "Student saved";
 
     }
-    function queryData(_matrikel: number): string {
-        for (let i: number = 0; i < students.length; i++) {
-            if (students[i].studentId == _matrikel) {
-                let sex: string;
-                students[i].sex ? sex = "m" : sex = "f";
-                return students[i].lName + "\n" + students[i].fName + "\n" + students[i].age + "\n" + sex + "\n" + students[i].comment;
-            }
-        }
 
+function queryData(_matrikel: number): string {
+    for (let i: number = 0; i < students.length; i++) {
+        if (students[i].studentId == _matrikel) {
+            let sex: string;
+            students[i].sex ? sex = "m" : sex = "f";
+            return students[i].lName + "\n" + students[i].fName + "\n" + students[i].age + "\n" + sex + "\n" + students[i].comment;
+        }
     }
+
+}
 }
