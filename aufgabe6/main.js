@@ -35,10 +35,33 @@ var StudiVZ;
         //checks if every field is filled with a value
         let allFilled = true;
         for (let i = 0; i < 5; i++) {
-            console.log(sString[i]);
             if (sString[i] == undefined || null) {
                 allFilled = false;
                 break;
+            }
+        }
+        for (let i = 0; i < 5; i++) {
+            switch (i) {
+                case 1:
+                case 2:
+                case 5:
+                    break;
+                case 0:
+                case 3:
+                    if (isNaN(parseInt(sString[i]))) {
+                        return sString[i] + " has to be a number";
+                    }
+                    ;
+                    break;
+                case 4:
+                    if (isNaN(parseInt(sString[i]))) {
+                        return sString[i] + " has to be a number";
+                    }
+                    ;
+                    if (parseInt(sString[i]) != 0 || 1) {
+                        return sString[i] + " should be a Value between 0 and 1";
+                    }
+                    ;
             }
         }
         //writes values in student and pushes into students array
@@ -53,6 +76,7 @@ var StudiVZ;
             };
             students.push(student);
             console.log(student);
+            return "Student saved";
         }
         else {
             return "Not everything defined";

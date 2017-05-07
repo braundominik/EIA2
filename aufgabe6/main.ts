@@ -16,7 +16,6 @@ namespace StudiVZ {
         age: number;
         sex: boolean;
         comment: string;
-        // hier ist noch die richtige Datenstruktur festzulegen
     }
     var students: StudentData[] = [];
     var stop: boolean = false;
@@ -43,16 +42,40 @@ namespace StudiVZ {
 
     function saveData(_input: string): string {
 
+
+
         // String Elements are saved into an array
         let sString: string[] = _input.split(",");
 
         //checks if every field is filled with a value
         let allFilled: boolean = true;
         for (let i: number = 0; i < 5; i++) {
-            console.log(sString[i]);
             if (sString[i] == undefined || null) {
                 allFilled = false;
                 break;
+            }
+        }
+
+        for (let i: number = 0; i < 5; i++) {
+            switch (i) {
+                case 1:
+                case 2:
+                case 5:
+                    break;
+                case 0:
+                case 3:
+                    if (isNaN(parseInt(sString[i]))) {
+                        return sString[i] + " has to be a number";
+                    };
+                    break;
+                case 4:
+                    if (isNaN(parseInt(sString[i]))) {
+                        return sString[i] + " has to be a number";
+                    };
+                    if (parseInt(sString[i]) != 0 || 1) {
+                        return sString[i] + " should be a Value between 0 and 1";
+                    };
+
             }
         }
 
@@ -68,10 +91,13 @@ namespace StudiVZ {
             };
             students.push(student);
             console.log(student);
+            return "Student saved";
+            
         }
 
         //error message if not everything defined
         else { return "Not everything defined"; }
+
     }
     function queryData(_matrikel: number): string {
         for (let i: number = 0; i < students.length; i++) {
