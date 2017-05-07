@@ -34,9 +34,9 @@ var a5;
         saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
         console.log(saveBG);
         //Biene
-        createBees(10);
+        createBees(10, true, 2);
         canvas.addEventListener("click", function () {
-            createBees(1);
+            createBees(1, false, 1);
         });
         console.log(bees);
         animate();
@@ -49,8 +49,14 @@ var a5;
     }
     function updateBees() {
         for (let i = 0; i < bees.length; i++) {
-            bees[i].y = bees[i].y + getRndNumber(-2, 2);
-            bees[i].x = (bees[i].x + getRndNumber(-3, 1));
+            if (bees[i].richtung) {
+                bees[i].y = bees[i].y + getRndNumber(-2, 2);
+                bees[i].x = (bees[i].x + getRndNumber(-3, 1));
+            }
+            else {
+                bees[i].y = bees[i].y + getRndNumber(-2, 2);
+                bees[i].x = (bees[i].x + getRndNumber(-1, 3));
+            }
             if (bees[i].y <= 0 || bees[i].y >= canvas.height) {
                 bees[i].y = canvas.height - bees[i].y;
             }
@@ -65,33 +71,47 @@ var a5;
     }
     function drawBees() {
         for (let i = 0; i < bees.length; i++) {
-            drawBee(bees[i].x, bees[i].y);
+            drawBee(bees[i].x, bees[i].y, bees[i].richtung, bees[i].sizemulti);
         }
     }
-    function createBees(n) {
+    function createBees(n, r, m) {
         for (let i = 0; i < n; i++) {
             let bee = {
                 x: stockposX,
-                y: stockposY
+                y: stockposY,
+                richtung: r,
+                sizemulti: m
             };
             bees.push(bee);
         }
     }
-    function drawBee(x, y) {
+    function drawBee(x, y, r, m) {
         //        crc.fillStyle = "black";
         //        crc.fillRect(x, y, 10, 10);
         crc.beginPath();
-        var grd = crc.createLinearGradient(x - 5, y, x + 5, y);
-        grd.addColorStop(0.25, "black");
-        grd.addColorStop(0.3, "yellow");
-        grd.addColorStop(0.4, "yellow");
-        grd.addColorStop(0.5, "black");
-        grd.addColorStop(0.6, "black");
-        grd.addColorStop(0.7, "yellow");
-        grd.addColorStop(0.8, "yellow");
-        grd.addColorStop(1, "black");
+        var grd = crc.createLinearGradient(x - 5 * m, y, x + 5 * m, y);
+        if (r) {
+            grd.addColorStop(0.25, "black");
+            grd.addColorStop(0.3, "yellow");
+            grd.addColorStop(0.4, "yellow");
+            grd.addColorStop(0.5, "black");
+            grd.addColorStop(0.6, "black");
+            grd.addColorStop(0.7, "yellow");
+            grd.addColorStop(0.8, "yellow");
+            grd.addColorStop(1, "black");
+        }
+        else {
+            grd.addColorStop(0, "black");
+            grd.addColorStop(0.1, "yellow");
+            grd.addColorStop(0.3, "yellow");
+            grd.addColorStop(0.4, "black");
+            grd.addColorStop(0.55, "black");
+            grd.addColorStop(0.55, "yellow");
+            grd.addColorStop(0.74, "yellow");
+            grd.addColorStop(0.75, "black");
+        }
         crc.fillStyle = grd;
-        crc.ellipse(x, y, 5, 6.25, 90 * Math.PI / 180, 0, 2 * Math.PI);
+        crc.ellipse(x, y, 5 * m, 6.25 * m, 90 * Math.PI / 180, 0, 2 * Math.PI);
         crc.fill();
     }
     function buildBackground() {
