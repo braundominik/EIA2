@@ -68,4 +68,4 @@ var a7;
     }
     a7.Bee = Bee;
 })(a7 || (a7 = {}));
-//# sourceMappingURL=bee.js.map
+//# sourceMappingURL=Bee.js.map

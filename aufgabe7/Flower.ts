@@ -57,8 +57,9 @@ namespace a7 {
             crc.closePath();
             crc.fill();
         }
-        
-        
-    }
+       
+
+
+}
 }
 
