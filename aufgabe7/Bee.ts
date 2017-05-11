@@ -14,12 +14,18 @@ namespace a7 {
         y: number;
         richtung: boolean;
         sizemulti: number;
+        nectar: number;
+        status: string;
+        target: number[];
 
         constructor(_x: number, _y: number) {
             this.x = _x;
             this.y = _y;
             this.richtung = true;
             this.sizemulti = 1;
+            this.nectar = 0;
+            this.status = "idle";
+            this.target = [];
         }
 
         update(): void {
@@ -59,18 +65,41 @@ namespace a7 {
         }
 
         move(): void {
+            switch (this.status) {
 
-            if (this.richtung) {
+                case "idle":
 
-                this.y = this.y + getRndNumber(-2, 2);
-                this.x = (this.x + getRndNumber(-3, 1));
+                    if (this.richtung) {
 
+                        this.y = this.y + getRndNumber(-2, 2);
+                        this.x = (this.x + getRndNumber(-3, 1));
+                    }
+                    else {
+                        this.y = this.y + getRndNumber(-2, 2);
+                        this.x = (this.x + getRndNumber(-1, 3));
 
-            }
-            else {
-                this.y = this.y + getRndNumber(-2, 2);
-                this.x = (this.x + getRndNumber(-1, 3));
+                    }
+                    break;
 
+                case "targetting":
+
+                    if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
+                        console.log("bla");
+                        this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+
+                    }
+                    else {
+                        console.log("blub");
+                        if (this.richtung) {
+                            this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                            this.x = (this.x + getRndNumber(-3, 1));
+                        }
+                        else {
+                            this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                            this.x = (this.x + getRndNumber(-1, 3));
+
+                        }
+                    }
             }
 
             if (this.y <= 0 || this.y >= canvas.height) {
@@ -80,7 +109,6 @@ namespace a7 {
             if (this.x <= 0 || this.x >= canvas.width) {
                 this.x = canvas.width - this.x;
             }
-
         }
 
     }

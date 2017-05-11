@@ -15,6 +15,9 @@ var a7;
             this.y = _y;
             this.richtung = true;
             this.sizemulti = 1;
+            this.nectar = 0;
+            this.status = "idle";
+            this.target = [];
         }
         update() {
             this.move();
@@ -50,13 +53,33 @@ var a7;
             a7.crc.fill();
         }
         move() {
-            if (this.richtung) {
-                this.y = this.y + a7.getRndNumber(-2, 2);
-                this.x = (this.x + a7.getRndNumber(-3, 1));
-            }
-            else {
-                this.y = this.y + a7.getRndNumber(-2, 2);
-                this.x = (this.x + a7.getRndNumber(-1, 3));
+            switch (this.status) {
+                case "idle":
+                    if (this.richtung) {
+                        this.y = this.y + a7.getRndNumber(-2, 2);
+                        this.x = (this.x + a7.getRndNumber(-3, 1));
+                    }
+                    else {
+                        this.y = this.y + a7.getRndNumber(-2, 2);
+                        this.x = (this.x + a7.getRndNumber(-1, 3));
+                    }
+                    break;
+                case "targetting":
+                    if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
+                        console.log("bla");
+                        this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                    }
+                    else {
+                        console.log("blub");
+                        if (this.richtung) {
+                            this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                            this.x = (this.x + a7.getRndNumber(-3, 1));
+                        }
+                        else {
+                            this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                            this.x = (this.x + a7.getRndNumber(-1, 3));
+                        }
+                    }
             }
             if (this.y <= 0 || this.y >= a7.canvas.height) {
                 this.y = a7.canvas.height - this.y;

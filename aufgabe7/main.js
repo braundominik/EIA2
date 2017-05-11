@@ -14,10 +14,7 @@ var a7;
     let stockposX = 320;
     let stockposY = 355;
     let saveBG;
-    //Manuelle Blumen
-    let flower1 = new a7.Flower(45, 320, 2);
-    let flower2 = new a7.Flower(10, 440, 1);
-    let flower3 = new a7.Flower(200, 370, 2);
+    let flowers = [];
     function init() {
         a7.canvas = document.createElement("canvas");
         a7.canvas.height = 450;
@@ -39,17 +36,27 @@ var a7;
             bees.push(new a7.Bee(stockposX, stockposY));
         });
         console.log(bees);
+        for (let e = 0; e < 10; e++) {
+            let position = getPosIn(400, 300, 700, 450);
+            let rndType = Math.round(Math.random());
+            flowers.push(new a7.Flower(position[0], position[1], rndType));
+        }
         animate();
     }
     function animate() {
         a7.crc.putImageData(saveBG, 0, 0);
-        flower1.draw();
-        flower2.draw();
-        flower3.draw();
+        for (let e = 0; e < flowers.length; e++) {
+            flowers[e].draw();
+        }
         for (let i = 0; i < bees.length; i++) {
             let bee = bees[i];
             bee.update();
         }
+        bees[1].status = "targetting";
+        bees[1].target[0] = flowers[2].positionX;
+        bees[1].target[1] = flowers[2].positionY;
+        console.log(bees[1].x);
+        console.log(Math.round(bees[1].x));
         setTimeout(animate, 20);
     }
     function getRndNumber(min, max) {
@@ -140,11 +147,17 @@ var a7;
         a7.crc.fill();
     }
     function placeFlowersIn(upperLeftx, upperLefty, lowerRightx, lowerRighty) {
-        for (let f = 0; f < 20; f++) {
+        for (let f = 0; f < 5; f++) {
             let rndX = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
             let rndY = Math.random() * (lowerRighty - upperLefty) + upperLefty;
-            new a7.Flower(rndX, rndY, 2).draw();
+            let rndType = Math.round(Math.random());
+            new a7.Flower(rndX, rndY, rndType).draw();
         }
+    }
+    function getPosIn(upperLeftx, upperLefty, lowerRightx, lowerRighty) {
+        let rndX = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
+        let rndY = Math.random() * (lowerRighty - upperLefty) + upperLefty;
+        return new Array(rndX, rndY);
     }
 })(a7 || (a7 = {}));
 //# sourceMappingURL=main.js.map

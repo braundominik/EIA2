@@ -16,12 +16,8 @@ namespace a7 {
     let stockposX: number = 320;
     let stockposY: number = 355;
     let saveBG: ImageData;
+    let flowers: Flower[] = [];
 
-
-    //Manuelle Blumen
-    let flower1: Flower = new Flower(45, 320, 2);
-    let flower2: Flower = new Flower(10, 440, 1);
-    let flower3: Flower = new Flower(200, 370, 2);
 
     function init(): void {
         canvas = document.createElement("canvas");
@@ -47,23 +43,36 @@ namespace a7 {
             bees.push(bee);
 
         }
+
         canvas.addEventListener("click", function(): void {
             bees.push(new Bee(stockposX, stockposY));
         });
         console.log(bees);
+
+        for (let e: number = 0; e < 10; e++) {
+            let position: number[] = getPosIn(400, 300, 700, 450);
+            let rndType: number = Math.round(Math.random());
+            flowers.push(new Flower(position[0], position[1], rndType));
+        }
+
         animate();
 
     }
 
     function animate(): void {
         crc.putImageData(saveBG, 0, 0);
-        flower1.draw();
-        flower2.draw();
-        flower3.draw();
+        for (let e: number = 0; e < flowers.length; e++) {
+            flowers[e].draw();
+        }
         for (let i: number = 0; i < bees.length; i++) {
             let bee: Bee = bees[i];
             bee.update();
         }
+        bees[1].status = "targetting";
+        bees[1].target[0] = flowers[2].positionX;
+        bees[1].target[1] = flowers[2].positionY;
+        console.log(bees[1].x);
+        console.log(Math.round(bees[1].x));
         setTimeout(animate, 20);
     }
 
@@ -173,13 +182,21 @@ namespace a7 {
     }
 
     function placeFlowersIn(upperLeftx: number, upperLefty: number, lowerRightx: number, lowerRighty: number): void {
-        for (let f: number = 0; f < 20; f++) {
+        for (let f: number = 0; f < 5; f++) {
             let rndX: number = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
             let rndY: number = Math.random() * (lowerRighty - upperLefty) + upperLefty;
-            new Flower(rndX, rndY, 2).draw();
+            let rndType: number = Math.round(Math.random());
+            new Flower(rndX, rndY, rndType).draw();
 
         }
 
     }
 
-}  
+    function getPosIn(upperLeftx: number, upperLefty: number, lowerRightx: number, lowerRighty: number): number[] {
+        let rndX: number = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
+        let rndY: number = Math.random() * (lowerRighty - upperLefty) + upperLefty;
+        return new Array(rndX, rndY);
+
+    }
+
+}

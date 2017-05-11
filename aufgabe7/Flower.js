@@ -24,7 +24,7 @@ var a7;
         }
         draw() {
             switch (this.style) {
-                case 1:
+                case 0:
                     a7.crc.beginPath();
                     a7.crc.fillStyle = "rgba(53, 195, 40, 0.5)";
                     a7.crc.fillRect(this.x, this.y, 4, -40);
@@ -55,7 +55,7 @@ var a7;
                     a7.crc.closePath();
                     a7.crc.fill();
                     break;
-                case 2:
+                case 1:
                     a7.crc.beginPath();
                     a7.crc.fillStyle = "rgba(53, 195, 40, 0.5)";
                     a7.crc.fillRect(this.x, this.y, 4, -40);

@@ -19,7 +19,7 @@ namespace a7 {
         dotcolor: number;
         positionX: number;
         positionY: number;
-        nectar: number
+        nectar: number;
 
 
         constructor(_x: number, _y: number, _style: number) {
@@ -38,7 +38,7 @@ namespace a7 {
         draw(): void {
 
             switch (this.style) {
-                case 1:
+                case 0:
                     crc.beginPath();
                     crc.fillStyle = "rgba(53, 195, 40, 0.5)";
                     crc.fillRect(this.x, this.y, 4, -40);
@@ -74,7 +74,7 @@ namespace a7 {
                     crc.fill();
 
                     break;
-                case 2:
+                case 1:
 
                     crc.beginPath();
                     crc.fillStyle = "rgba(53, 195, 40, 0.5)";
