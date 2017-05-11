@@ -17,6 +17,12 @@ namespace a7 {
     let stockposY: number = 355;
     let saveBG: ImageData;
 
+
+    //Manuelle Blumen
+    let flower1: Flower = new Flower(45, 320, 2);
+    let flower2: Flower = new Flower(10, 440, 1);
+    let flower3: Flower = new Flower(200, 370, 2);
+
     function init(): void {
         canvas = document.createElement("canvas");
         canvas.height = 450;
@@ -26,18 +32,16 @@ namespace a7 {
 
         buildBackground();
 
-        //Manuelle Blumen
-        drawRandomFlower(45, 320);
-        drawRandomFlower(10, 440);
-        drawRandomFlower(200, 370);
-
         //Blumenwiese
         placeFlowersIn(400, 300, 700, 450);
 
         //Save Background        
         saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
         console.log(saveBG);
-        //Biene
+
+
+
+        //Bienen
         for (let i: number = 0; i < 10; i++) {
             let bee: Bee = new Bee(stockposX, stockposY);
             bees.push(bee);
@@ -53,6 +57,9 @@ namespace a7 {
 
     function animate(): void {
         crc.putImageData(saveBG, 0, 0);
+        flower1.draw();
+        flower2.draw();
+        flower3.draw();
         for (let i: number = 0; i < bees.length; i++) {
             let bee: Bee = bees[i];
             bee.update();
@@ -165,118 +172,12 @@ namespace a7 {
 
     }
 
-
-    //Einfache Variante von drawFlower3
-    function drawflower1(x: number, y: number): void {
-
-        crc.beginPath();
-        crc.fillStyle = "green";
-        crc.fillRect(x, y, 4, -40);
-        crc.ellipse(x + 15, y - 17, 4, 18, 45 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(x - 10, y - 20, 4, 18, -45 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill();
-
-        crc.beginPath();
-        crc.fillStyle = "white";
-        for (let i: number = 0; i < 6; i++) {
-            crc.ellipse(x + 2, y - 45, 3, 15, (i * 30) * Math.PI / 180, 0, 2 * Math.PI);
-        }
-        crc.fill();
-
-
-        crc.beginPath();
-        crc.fillStyle = "yellow";
-        crc.arc(x + 2, y - 45, 5, 0, 2 * Math.PI);
-
-        crc.fill();
-
-    }
-
-    //Rote Blume
-    function drawflower2(x: number, y: number): void {
-        crc.beginPath();
-        crc.fillStyle = "rgba(53, 195, 40, 0.5)";
-        crc.fillRect(x, y, 4, -40);
-        crc.ellipse(x + 15, y - 17, 4, 18, 45 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(x - 10, y - 20, 4, 18, -45 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill();
-
-        crc.beginPath();
-        crc.fillStyle = "rgba(219, 0, 7,0.8)";
-        crc.ellipse(x + 2, y - 45, 11, 13, 1 * Math.PI / 180, 0, 1 * Math.PI);
-        crc.fill();
-
-        crc.beginPath();
-        crc.fillStyle = "rgba(219, 0, 7,0.8)";
-        crc.moveTo(x - 9, y - 50 + 5);
-        crc.lineTo(x - 9, y - 50 - 5);
-        crc.lineTo(x - 1, y - 50 + 5);
-        crc.closePath();
-        crc.fill();
-
-        crc.beginPath();
-        crc.lineTo(x - 4, y - 50 + 5);
-        crc.lineTo(x + 2, y - 50 - 5);
-        crc.lineTo(x + 7, y - 50 + 5);
-        crc.closePath();
-        crc.fill();
-
-        crc.beginPath();
-        crc.lineTo(x + 4, y - 50 + 5);
-        crc.lineTo(x + 13, y - 50 - 5);
-        crc.lineTo(x + 13, y - 50 + 5);
-        crc.closePath();
-        crc.fill();
-    }
-
-    //Generiert eine Blume mit zufälligen Blumenkopf
-    function drawflower3(x: number, y: number): void {
-
-        let rnd1: number = Math.random() * (6 - 2) + 2;
-        let rnd2: number = Math.random() * (18 - 12) + 12;
-        let rndColor: number = Math.random() * 359;
-        let rndColorDot: number = Math.random() * (63 - 26) + 26;
-
-
-        crc.beginPath();
-        crc.fillStyle = "rgba(53, 195, 40, 0.5)";
-        crc.fillRect(x, y, 4, -40);
-        crc.ellipse(x + 15, y - 17, 4, 18, 45 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(x - 10, y - 20, 4, 18, -45 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill();
-
-        crc.beginPath();
-        crc.fillStyle = "hsla(" + rndColor + ", 100%, 50%,0.8)";
-        for (let i: number = 0; i < 6; i++) {
-            crc.ellipse(x + 2, y - 45, rnd1, rnd2, (i * 30) * Math.PI / 180, 0, 2 * Math.PI);
-        }
-        crc.fill();
-
-
-        crc.beginPath();
-        crc.fillStyle = "hsla(" + rndColorDot + ", 100%, 50%,0.8)";
-        crc.arc(x + 2, y - 45, 5, 0, 2 * Math.PI);
-
-        crc.fill();
-    }
-
-    //Zeichnet eine Blume
-    function drawRandomFlower(x: number, y: number): void {
-        let rnd: number = Math.random();
-        if (rnd < 0.8) {
-            drawflower3(x, y);
-        }
-        else {
-            drawflower2(x, y);
-        }
-
-    }
-
     function placeFlowersIn(upperLeftx: number, upperLefty: number, lowerRightx: number, lowerRighty: number): void {
         for (let f: number = 0; f < 20; f++) {
             let rndX: number = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
             let rndY: number = Math.random() * (lowerRighty - upperLefty) + upperLefty;
-            drawRandomFlower(rndX, rndY);
+            new Flower(rndX, rndY, 2).draw();
+
         }
 
     }
