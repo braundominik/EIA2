@@ -17,6 +17,7 @@ namespace a7 {
         nectar: number;
         status: string;
         target: number[];
+        targetNum: number;
 
         constructor(_x: number, _y: number) {
             this.x = _x;
@@ -26,6 +27,7 @@ namespace a7 {
             this.nectar = 0;
             this.status = "idle";
             this.target = [];
+            this.targetNum = 0;
         }
 
         update(): void {
@@ -68,9 +70,10 @@ namespace a7 {
             switch (this.status) {
 
                 case "idle":
-
+                    if (this.nectar > 0) {
+                        this.nectar = this.nectar - 0.01;
+                    }
                     if (this.richtung) {
-
                         this.y = this.y + getRndNumber(-2, 2);
                         this.x = (this.x + getRndNumber(-3, 1));
                     }
@@ -84,12 +87,15 @@ namespace a7 {
                 case "targetting":
 
                     if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
-                        console.log("bla");
                         this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+
+                        if (Math.round(this.target[1]) == Math.round(this.y)) {
+
+                            this.status = "gathering";
+                        }
 
                     }
                     else {
-                        console.log("blub");
                         if (this.richtung) {
                             this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
                             this.x = (this.x + getRndNumber(-3, 1));
@@ -100,6 +106,17 @@ namespace a7 {
 
                         }
                     }
+                    break;
+
+                case "gathering":
+                    if (this.nectar <= 10) {
+                        flowers[this.targetNum].nectar = (flowers[this.targetNum].nectar) - 0.03;
+                        this.nectar = this.nectar + 0.03;
+                    }
+                    else {
+                        this.status = "idle";
+                    }
+                    break;
             }
 
             if (this.y <= 0 || this.y >= canvas.height) {

@@ -32,7 +32,7 @@ namespace a7 {
             this.ellipsevalue2 = Math.random() * (18 - 12) + 12;
             this.dotcolor = Math.random() * (63 - 26) + 26;
             this.style = _style;
-            this.nectar = 100;
+            this.nectar = 30;
         }
 
         draw(): void {

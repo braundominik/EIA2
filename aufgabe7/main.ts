@@ -16,7 +16,7 @@ namespace a7 {
     let stockposX: number = 320;
     let stockposY: number = 355;
     let saveBG: ImageData;
-    let flowers: Flower[] = [];
+    export let flowers: Flower[] = [];
 
 
     function init(): void {
@@ -44,6 +44,8 @@ namespace a7 {
 
         }
 
+
+
         canvas.addEventListener("click", function(): void {
             bees.push(new Bee(stockposX, stockposY));
         });
@@ -55,9 +57,15 @@ namespace a7 {
             flowers.push(new Flower(position[0], position[1], rndType));
         }
 
+        bees[1].status = "targetting";
+        bees[1].target[0] = flowers[2].positionX;
+        bees[1].target[1] = flowers[2].positionY;
+
         animate();
 
     }
+
+    let count: number = 0;
 
     function animate(): void {
         crc.putImageData(saveBG, 0, 0);
@@ -68,11 +76,26 @@ namespace a7 {
             let bee: Bee = bees[i];
             bee.update();
         }
-        bees[1].status = "targetting";
-        bees[1].target[0] = flowers[2].positionX;
-        bees[1].target[1] = flowers[2].positionY;
-        console.log(bees[1].x);
-        console.log(Math.round(bees[1].x));
+        count++;
+        if (count == 300) {
+            for (let n: number = 0; n < bees.length; n++) {
+                if (Math.round(Math.random())) {
+                    if (bees[n].status == "idle") {
+
+                        let cFlower: number = Math.round(Math.random() * (flowers.length - 1));
+                        if (flowers[cFlower].nectar > 0) {
+                            bees[n].targetNum = cFlower;
+                            bees[n].target[0] = flowers[cFlower].positionX;
+                            bees[n].target[1] = flowers[cFlower].positionY;
+                            bees[n].status = "targetting";
+                        }
+                    }
+                }
+            }
+            count = 0;
+            console.log(bees);
+            console.log(flowers);
+        }
         setTimeout(animate, 20);
     }
 

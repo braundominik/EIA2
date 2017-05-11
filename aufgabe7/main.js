@@ -14,7 +14,7 @@ var a7;
     let stockposX = 320;
     let stockposY = 355;
     let saveBG;
-    let flowers = [];
+    a7.flowers = [];
     function init() {
         a7.canvas = document.createElement("canvas");
         a7.canvas.height = 450;
@@ -39,24 +39,42 @@ var a7;
         for (let e = 0; e < 10; e++) {
             let position = getPosIn(400, 300, 700, 450);
             let rndType = Math.round(Math.random());
-            flowers.push(new a7.Flower(position[0], position[1], rndType));
+            a7.flowers.push(new a7.Flower(position[0], position[1], rndType));
         }
+        bees[1].status = "targetting";
+        bees[1].target[0] = a7.flowers[2].positionX;
+        bees[1].target[1] = a7.flowers[2].positionY;
         animate();
     }
+    let count = 0;
     function animate() {
         a7.crc.putImageData(saveBG, 0, 0);
-        for (let e = 0; e < flowers.length; e++) {
-            flowers[e].draw();
+        for (let e = 0; e < a7.flowers.length; e++) {
+            a7.flowers[e].draw();
         }
         for (let i = 0; i < bees.length; i++) {
             let bee = bees[i];
             bee.update();
         }
-        bees[1].status = "targetting";
-        bees[1].target[0] = flowers[2].positionX;
-        bees[1].target[1] = flowers[2].positionY;
-        console.log(bees[1].x);
-        console.log(Math.round(bees[1].x));
+        count++;
+        if (count == 300) {
+            for (let n = 0; n < bees.length; n++) {
+                if (Math.round(Math.random())) {
+                    if (bees[n].status == "idle") {
+                        let cFlower = Math.round(Math.random() * (a7.flowers.length - 1));
+                        if (a7.flowers[cFlower].nectar > 0) {
+                            bees[n].targetNum = cFlower;
+                            bees[n].target[0] = a7.flowers[cFlower].positionX;
+                            bees[n].target[1] = a7.flowers[cFlower].positionY;
+                            bees[n].status = "targetting";
+                        }
+                    }
+                }
+            }
+            count = 0;
+            console.log(bees);
+            console.log(a7.flowers);
+        }
         setTimeout(animate, 20);
     }
     function getRndNumber(min, max) {
