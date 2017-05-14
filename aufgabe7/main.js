@@ -38,8 +38,8 @@ var a7;
         console.log(bees);
         for (let e = 0; e < 10; e++) {
             let position = getPosIn(400, 300, 700, 450);
-            let rndType = Math.round(Math.random());
-            a7.flowers.push(new a7.Flower(position[0], position[1], rndType));
+            //let rndType: number = Math.round(Math.random());
+            a7.flowers.push(new a7.Flower(position[0], position[1], 1));
         }
         bees[1].status = "targetting";
         bees[1].target[0] = a7.flowers[2].positionX;
@@ -62,7 +62,7 @@ var a7;
                 if (Math.round(Math.random())) {
                     if (bees[n].status == "idle") {
                         let cFlower = Math.round(Math.random() * (a7.flowers.length - 1));
-                        if (a7.flowers[cFlower].nectar > 0) {
+                        if (a7.flowers[cFlower].nectar > 0.03) {
                             bees[n].targetNum = cFlower;
                             bees[n].target[0] = a7.flowers[cFlower].positionX;
                             bees[n].target[1] = a7.flowers[cFlower].positionY;

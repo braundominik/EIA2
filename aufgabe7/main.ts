@@ -53,8 +53,8 @@ namespace a7 {
 
         for (let e: number = 0; e < 10; e++) {
             let position: number[] = getPosIn(400, 300, 700, 450);
-            let rndType: number = Math.round(Math.random());
-            flowers.push(new Flower(position[0], position[1], rndType));
+            //let rndType: number = Math.round(Math.random());
+            flowers.push(new Flower(position[0], position[1], 1));
         }
 
         bees[1].status = "targetting";
@@ -83,7 +83,7 @@ namespace a7 {
                     if (bees[n].status == "idle") {
 
                         let cFlower: number = Math.round(Math.random() * (flowers.length - 1));
-                        if (flowers[cFlower].nectar > 0) {
+                        if (flowers[cFlower].nectar > 0.03) {
                             bees[n].targetNum = cFlower;
                             bees[n].target[0] = flowers[cFlower].positionX;
                             bees[n].target[1] = flowers[cFlower].positionY;

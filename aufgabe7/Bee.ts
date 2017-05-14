@@ -109,7 +109,7 @@ namespace a7 {
                     break;
 
                 case "gathering":
-                    if (this.nectar <= 10) {
+                    if (this.nectar <= 10 && flowers[this.targetNum].nectar > 0.03) {
                         flowers[this.targetNum].nectar = (flowers[this.targetNum].nectar) - 0.03;
                         this.nectar = this.nectar + 0.03;
                     }
