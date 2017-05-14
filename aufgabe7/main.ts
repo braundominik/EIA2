@@ -1,8 +1,8 @@
 /*
-Aufgabe: Aufgabe 5
+Aufgabe: Aufgabe 7
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 30.04.2017
+Datum: 14.05.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
@@ -13,8 +13,8 @@ namespace a7 {
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
     let bees: Bee[] = [];
-    let stockposX: number = 320;
-    let stockposY: number = 355;
+    export let stockposX: number = 320;
+    export let stockposY: number = 355;
     let saveBG: ImageData;
     export let flowers: Flower[] = [];
 
@@ -53,13 +53,12 @@ namespace a7 {
 
         for (let e: number = 0; e < 10; e++) {
             let position: number[] = getPosIn(400, 300, 700, 450);
-            //let rndType: number = Math.round(Math.random());
             flowers.push(new Flower(position[0], position[1], 1));
         }
 
-        bees[1].status = "targetting";
-        bees[1].target[0] = flowers[2].positionX;
-        bees[1].target[1] = flowers[2].positionY;
+        //        bees[1].status = "targetting";
+        //        bees[1].target[0] = flowers[2].positionX;
+        //        bees[1].target[1] = flowers[2].positionY;
 
         animate();
 
@@ -68,14 +67,19 @@ namespace a7 {
     let count: number = 0;
 
     function animate(): void {
+        document.getElementsByTagName("div")[0].innerHTML = "";
         crc.putImageData(saveBG, 0, 0);
         for (let e: number = 0; e < flowers.length; e++) {
             flowers[e].draw();
         }
+
         for (let i: number = 0; i < bees.length; i++) {
             let bee: Bee = bees[i];
+            showInfo(i);
             bee.update();
         }
+
+        //When count == 300 idling bees will randomly be selected to target a flower
         count++;
         if (count == 300) {
             for (let n: number = 0; n < bees.length; n++) {
@@ -83,11 +87,13 @@ namespace a7 {
                     if (bees[n].status == "idle") {
 
                         let cFlower: number = Math.round(Math.random() * (flowers.length - 1));
-                        if (flowers[cFlower].nectar > 0.03) {
-                            bees[n].targetNum = cFlower;
+
+                        //The Flower needs to have enough nectar for a least 1 tick
+                        if (flowers[cFlower].nectar > 0.02) {
+                            bees[n].targetIndex = cFlower;
                             bees[n].target[0] = flowers[cFlower].positionX;
                             bees[n].target[1] = flowers[cFlower].positionY;
-                            bees[n].status = "targetting";
+                            bees[n].status = "targeting";
                         }
                     }
                 }
@@ -103,6 +109,12 @@ namespace a7 {
         let x: number = Math.random() * (max - min) + min;
         return x;
 
+    }
+
+
+    function showInfo(x: number): void {
+        document.getElementsByTagName("div")[0].innerHTML += "Status Biene " + x + "= " + bees[x].status + "<br>";
+        document.getElementsByTagName("div")[0].innerHTML += "Nektar Biene " + x + "= " + (bees[x].nectar).toFixed(2) + "<br>";
     }
 
 

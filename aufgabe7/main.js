@@ -1,8 +1,8 @@
 /*
-Aufgabe: Aufgabe 5
+Aufgabe: Aufgabe 7
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 30.04.2017
+Datum: 14.05.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
@@ -11,8 +11,8 @@ var a7;
 (function (a7) {
     window.addEventListener("load", init);
     let bees = [];
-    let stockposX = 320;
-    let stockposY = 355;
+    a7.stockposX = 320;
+    a7.stockposY = 355;
     let saveBG;
     a7.flowers = [];
     function init() {
@@ -29,44 +29,47 @@ var a7;
         console.log(saveBG);
         //Bienen
         for (let i = 0; i < 10; i++) {
-            let bee = new a7.Bee(stockposX, stockposY);
+            let bee = new a7.Bee(a7.stockposX, a7.stockposY);
             bees.push(bee);
         }
         a7.canvas.addEventListener("click", function () {
-            bees.push(new a7.Bee(stockposX, stockposY));
+            bees.push(new a7.Bee(a7.stockposX, a7.stockposY));
         });
         console.log(bees);
         for (let e = 0; e < 10; e++) {
             let position = getPosIn(400, 300, 700, 450);
-            //let rndType: number = Math.round(Math.random());
             a7.flowers.push(new a7.Flower(position[0], position[1], 1));
         }
-        bees[1].status = "targetting";
-        bees[1].target[0] = a7.flowers[2].positionX;
-        bees[1].target[1] = a7.flowers[2].positionY;
+        //        bees[1].status = "targetting";
+        //        bees[1].target[0] = flowers[2].positionX;
+        //        bees[1].target[1] = flowers[2].positionY;
         animate();
     }
     let count = 0;
     function animate() {
+        document.getElementsByTagName("div")[0].innerHTML = "";
         a7.crc.putImageData(saveBG, 0, 0);
         for (let e = 0; e < a7.flowers.length; e++) {
             a7.flowers[e].draw();
         }
         for (let i = 0; i < bees.length; i++) {
             let bee = bees[i];
+            showInfo(i);
             bee.update();
         }
+        //When count == 300 idling bees will randomly be selected to target a flower
         count++;
         if (count == 300) {
             for (let n = 0; n < bees.length; n++) {
                 if (Math.round(Math.random())) {
                     if (bees[n].status == "idle") {
                         let cFlower = Math.round(Math.random() * (a7.flowers.length - 1));
-                        if (a7.flowers[cFlower].nectar > 0.03) {
-                            bees[n].targetNum = cFlower;
+                        //The Flower needs to have enough nectar for a least 1 tick
+                        if (a7.flowers[cFlower].nectar > 0.02) {
+                            bees[n].targetIndex = cFlower;
                             bees[n].target[0] = a7.flowers[cFlower].positionX;
                             bees[n].target[1] = a7.flowers[cFlower].positionY;
-                            bees[n].status = "targetting";
+                            bees[n].status = "targeting";
                         }
                     }
                 }
@@ -82,6 +85,10 @@ var a7;
         return x;
     }
     a7.getRndNumber = getRndNumber;
+    function showInfo(x) {
+        document.getElementsByTagName("div")[0].innerHTML += "Status Biene " + x + "= " + bees[x].status + "<br>";
+        document.getElementsByTagName("div")[0].innerHTML += "Nektar Biene " + x + "= " + (bees[x].nectar).toFixed(2) + "<br>";
+    }
     function buildBackground() {
         //Himmel
         a7.crc.fillStyle = "#a9c5f2";

@@ -3,5 +3,14 @@
 	padding: 0;
 }
 
+div{
+	float:left;
+	border:3px solid red;
+	width:200px;
+	height:424px;
+	padding-left:20px;
+	padding-top:20px;
+}
+
 
 

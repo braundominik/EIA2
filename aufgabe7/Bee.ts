@@ -1,8 +1,8 @@
 /*
-Aufgabe: Aufgabe 5
+Aufgabe: Aufgabe 7
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 30.04.2017
+Datum: 14.05.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
@@ -17,7 +17,7 @@ namespace a7 {
         nectar: number;
         status: string;
         target: number[];
-        targetNum: number;
+        targetIndex: number;
 
         constructor(_x: number, _y: number) {
             this.x = _x;
@@ -26,8 +26,8 @@ namespace a7 {
             this.sizemulti = 1;
             this.nectar = 0;
             this.status = "idle";
-            this.target = [];
-            this.targetNum = 0;
+            this.target = []; //coordinates of the targeted flower
+            this.targetIndex = 0; //Index of the targeted flower
         }
 
         update(): void {
@@ -64,6 +64,14 @@ namespace a7 {
             crc.ellipse(this.x, this.y, 5 * this.sizemulti, 6.25 * this.sizemulti, 90 * Math.PI / 180, 0, 2 * Math.PI);
             crc.fill();
 
+            if (this.nectar > 9) {
+
+                crc.beginPath();
+                crc.fillStyle = "#FFC20F";
+                crc.arc(this.x, this.y + 5, 3, 0, 2 * Math.PI, false);
+                crc.fill();
+            }
+
         }
 
         move(): void {
@@ -71,7 +79,7 @@ namespace a7 {
 
                 case "idle":
                     if (this.nectar > 0) {
-                        this.nectar = this.nectar - 0.01;
+                        this.status = "returning";
                     }
                     if (this.richtung) {
                         this.y = this.y + getRndNumber(-2, 2);
@@ -84,7 +92,7 @@ namespace a7 {
                     }
                     break;
 
-                case "targetting":
+                case "targeting":
 
                     if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
                         this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
@@ -109,14 +117,29 @@ namespace a7 {
                     break;
 
                 case "gathering":
-                    if (this.nectar <= 10 && flowers[this.targetNum].nectar > 0.03) {
-                        flowers[this.targetNum].nectar = (flowers[this.targetNum].nectar) - 0.03;
-                        this.nectar = this.nectar + 0.03;
+                    if (this.nectar <= 10 && flowers[this.targetIndex].nectar > 0.03) {
+                        flowers[this.targetIndex].nectar = (flowers[this.targetIndex].nectar) - 0.02;
+                        this.nectar = this.nectar + 0.02;
                     }
                     else {
+                        this.nectar = Math.round(this.nectar);
                         this.status = "idle";
                     }
                     break;
+
+                case "returning":
+                    this.target[0] = stockposX;
+                    this.target[1] = stockposY;
+                    if (this.flyToTarget()) {
+                        if (this.nectar > 0.05) {
+                            this.nectar = this.nectar - 0.05;
+                        }
+                        else {
+                            this.nectar = Math.round(this.nectar);
+                            this.status = "idle";
+                        }
+                    }
+
             }
 
             if (this.y <= 0 || this.y >= canvas.height) {
@@ -126,6 +149,34 @@ namespace a7 {
             if (this.x <= 0 || this.x >= canvas.width) {
                 this.x = canvas.width - this.x;
             }
+        }
+
+        flyToTarget(): boolean {
+
+            if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
+                this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+
+                if (Math.round(this.target[1]) == Math.round(this.y)) {
+
+                    return true;
+                }
+
+                return false;
+
+            }
+            else {
+                if (this.richtung) {
+                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                    this.x = (this.x + getRndNumber(-3, 1));
+                }
+                else {
+                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+                    this.x = (this.x + getRndNumber(-1, 3));
+
+                }
+                return false;
+            }
+
         }
 
     }
