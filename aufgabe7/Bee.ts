@@ -24,7 +24,7 @@ namespace a7 {
             this.y = _y;
             this.richtung = true;
             this.sizemulti = 1;
-            this.nectar = 0;
+            this.nectar = 0; 
             this.status = "idle";
             this.target = []; //coordinates of the targeted flower
             this.targetIndex = 0; //Index of the targeted flower
@@ -75,6 +75,8 @@ namespace a7 {
 
         }
 
+
+        //Bee moves depending on current status
         move(): void {
             switch (this.status) {
 
@@ -94,27 +96,10 @@ namespace a7 {
                     break;
 
                 case "targeting":
-
-                    if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
-                        this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-
-                        if (Math.round(this.target[1]) == Math.round(this.y)) {
-
-                            this.status = "gathering";
-                        }
-
+                    if (this.flyToTarget()) {
+                        this.status = "gathering";
                     }
-                    else {
-                        if (this.richtung) {
-                            this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-                            this.x = (this.x + getRndNumber(-3, 1));
-                        }
-                        else {
-                            this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-                            this.x = (this.x + getRndNumber(-1, 3));
 
-                        }
-                    }
                     break;
 
                 case "gathering":
@@ -123,6 +108,7 @@ namespace a7 {
                         this.nectar = this.nectar + 0.02;
                     }
                     else {
+                        flowers[this.targetIndex].nectar = Math.round(flowers[this.targetIndex].nectar);
                         this.nectar = Math.round(this.nectar);
                         this.status = "idle";
                     }
@@ -154,6 +140,8 @@ namespace a7 {
             }
         }
 
+
+        //Bee flies to current target
         flyToTarget(): boolean {
 
             if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {

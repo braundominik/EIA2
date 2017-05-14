@@ -58,6 +58,7 @@ namespace a7 {
             let position: number[] = getPosIn(400, 300, 700, 450);
             flowers.push(new Flower(position[0], position[1], 1));
         }
+        console.log(flowers);
 
         //        bees[1].status = "targetting";
         //        bees[1].target[0] = flowers[2].positionX;
@@ -117,7 +118,12 @@ namespace a7 {
 
     function showInfo(x: number): void {
         if (x == 666) {
-            document.getElementsByTagName("div")[0].innerHTML += "<br>" + "Nectar Hive = " + (beehive.nectar).toFixed(2);
+            let flowernectar: number = 0;
+            for (let e: number = 0; e < flowers.length; e++) {
+                flowernectar += flowers[e].nectar;
+            }
+            document.getElementsByTagName("div")[0].innerHTML += "Nectar Flowers = " + flowernectar.toFixed(2) + "<br>";
+            document.getElementsByTagName("div")[0].innerHTML += "Nectar Hive = " + (beehive.nectar).toFixed(2);
         }
         else {
             document.getElementsByTagName("div")[0].innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "<br>";

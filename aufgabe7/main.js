@@ -40,6 +40,7 @@ var a7;
             let position = getPosIn(400, 300, 700, 450);
             a7.flowers.push(new a7.Flower(position[0], position[1], 1));
         }
+        console.log(a7.flowers);
         //        bees[1].status = "targetting";
         //        bees[1].target[0] = flowers[2].positionX;
         //        bees[1].target[1] = flowers[2].positionY;
@@ -86,7 +87,12 @@ var a7;
     a7.getRndNumber = getRndNumber;
     function showInfo(x) {
         if (x == 666) {
-            document.getElementsByTagName("div")[0].innerHTML += "<br>" + "Nectar Hive = " + (a7.beehive.nectar).toFixed(2);
+            let flowernectar = 0;
+            for (let e = 0; e < a7.flowers.length; e++) {
+                flowernectar += a7.flowers[e].nectar;
+            }
+            document.getElementsByTagName("div")[0].innerHTML += "Nectar Flowers = " + flowernectar.toFixed(2) + "<br>";
+            document.getElementsByTagName("div")[0].innerHTML += "Nectar Hive = " + (a7.beehive.nectar).toFixed(2);
         }
         else {
             document.getElementsByTagName("div")[0].innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "<br>";

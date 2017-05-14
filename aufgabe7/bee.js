@@ -59,6 +59,7 @@ var a7;
                 a7.crc.fill();
             }
         }
+        //Bee moves depending on current status
         move() {
             switch (this.status) {
                 case "idle":
@@ -75,21 +76,8 @@ var a7;
                     }
                     break;
                 case "targeting":
-                    if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
-                        this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
-                        if (Math.round(this.target[1]) == Math.round(this.y)) {
-                            this.status = "gathering";
-                        }
-                    }
-                    else {
-                        if (this.richtung) {
-                            this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
-                            this.x = (this.x + a7.getRndNumber(-3, 1));
-                        }
-                        else {
-                            this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
-                            this.x = (this.x + a7.getRndNumber(-1, 3));
-                        }
+                    if (this.flyToTarget()) {
+                        this.status = "gathering";
                     }
                     break;
                 case "gathering":
@@ -98,6 +86,7 @@ var a7;
                         this.nectar = this.nectar + 0.02;
                     }
                     else {
+                        a7.flowers[this.targetIndex].nectar = Math.round(a7.flowers[this.targetIndex].nectar);
                         this.nectar = Math.round(this.nectar);
                         this.status = "idle";
                     }
@@ -124,6 +113,7 @@ var a7;
                 this.x = a7.canvas.width - this.x;
             }
         }
+        //Bee flies to current target
         flyToTarget() {
             if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
                 this.y = this.y + a7.getRndNumber(0, (this.target[1] - this.y) * 0.05);
