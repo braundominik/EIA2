@@ -64,11 +64,12 @@ namespace a7 {
             crc.ellipse(this.x, this.y, 5 * this.sizemulti, 6.25 * this.sizemulti, 90 * Math.PI / 180, 0, 2 * Math.PI);
             crc.fill();
 
-            if (this.nectar > 9) {
+
+            if (this.nectar > 0) {
 
                 crc.beginPath();
                 crc.fillStyle = "#FFC20F";
-                crc.arc(this.x, this.y + 5, 3, 0, 2 * Math.PI, false);
+                crc.arc(this.x, this.y + 5, this.nectar * 0.5, 0, 2 * Math.PI, false);
                 crc.fill();
             }
 
@@ -128,14 +129,16 @@ namespace a7 {
                     break;
 
                 case "returning":
-                    this.target[0] = stockposX;
-                    this.target[1] = stockposY;
+                    this.target[0] = beehive.x;
+                    this.target[1] = beehive.y;
                     if (this.flyToTarget()) {
                         if (this.nectar > 0.05) {
                             this.nectar = this.nectar - 0.05;
+                            beehive.nectar = beehive.nectar + 0.05;
                         }
                         else {
                             this.nectar = Math.round(this.nectar);
+                            beehive.nectar = Math.round(beehive.nectar);
                             this.status = "idle";
                         }
                     }

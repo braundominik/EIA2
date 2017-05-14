@@ -11,10 +11,9 @@ var a7;
 (function (a7) {
     window.addEventListener("load", init);
     let bees = [];
-    a7.stockposX = 320;
-    a7.stockposY = 355;
     let saveBG;
     a7.flowers = [];
+    a7.beehive = new a7.Hive();
     function init() {
         a7.canvas = document.createElement("canvas");
         a7.canvas.height = 450;
@@ -22,6 +21,7 @@ var a7;
         document.body.appendChild(a7.canvas);
         a7.crc = a7.canvas.getContext("2d");
         buildBackground();
+        a7.beehive.draw();
         //Blumenwiese
         placeFlowersIn(400, 300, 700, 450);
         //Save Background        
@@ -29,11 +29,11 @@ var a7;
         console.log(saveBG);
         //Bienen
         for (let i = 0; i < 10; i++) {
-            let bee = new a7.Bee(a7.stockposX, a7.stockposY);
+            let bee = new a7.Bee(a7.beehive.x, a7.beehive.y);
             bees.push(bee);
         }
         a7.canvas.addEventListener("click", function () {
-            bees.push(new a7.Bee(a7.stockposX, a7.stockposY));
+            bees.push(new a7.Bee(a7.beehive.x, a7.beehive.y));
         });
         console.log(bees);
         for (let e = 0; e < 10; e++) {
@@ -57,6 +57,7 @@ var a7;
             showInfo(i);
             bee.update();
         }
+        showInfo(666);
         //When count == 300 idling bees will randomly be selected to target a flower
         count++;
         if (count == 300) {
@@ -75,8 +76,6 @@ var a7;
                 }
             }
             count = 0;
-            console.log(bees);
-            console.log(a7.flowers);
         }
         setTimeout(animate, 20);
     }
@@ -86,8 +85,13 @@ var a7;
     }
     a7.getRndNumber = getRndNumber;
     function showInfo(x) {
-        document.getElementsByTagName("div")[0].innerHTML += "Status Biene " + x + "= " + bees[x].status + "<br>";
-        document.getElementsByTagName("div")[0].innerHTML += "Nektar Biene " + x + "= " + (bees[x].nectar).toFixed(2) + "<br>";
+        if (x == 666) {
+            document.getElementsByTagName("div")[0].innerHTML += "<br>" + "Nectar Hive = " + (a7.beehive.nectar).toFixed(2);
+        }
+        else {
+            document.getElementsByTagName("div")[0].innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "<br>";
+            document.getElementsByTagName("div")[0].innerHTML += "Nectar Bee " + x + " = " + (bees[x].nectar).toFixed(2) + "<br>";
+        }
     }
     function buildBackground() {
         //Himmel
@@ -142,24 +146,6 @@ var a7;
         a7.crc.arc(150, 200, 50, 0, 2 * Math.PI);
         a7.crc.arc(100, 150, 50, 0, 2 * Math.PI);
         a7.crc.closePath();
-        a7.crc.fill();
-        // Bienenkorb
-        a7.crc.beginPath();
-        a7.crc.fillStyle = "#FFCD0A";
-        a7.crc.ellipse(320, 355, 10, 60, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.ellipse(320, 340, 10, 56, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.ellipse(320, 325, 10, 45, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.ellipse(320, 310, 10, 40, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.ellipse(320, 295, 10, 30, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.ellipse(320, 280, 10, 20, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.fill();
-        a7.crc.beginPath();
-        a7.crc.fillStyle = "black";
-        a7.crc.ellipse(320, 361, 10, 15, 0 * Math.PI / 180, 0, 2 * Math.PI);
-        a7.crc.fill();
-        a7.crc.beginPath();
-        a7.crc.fillStyle = "#FFCD0A";
-        a7.crc.ellipse(320, 370, 10, 62, 90 * Math.PI / 180, 0, 2 * Math.PI);
         a7.crc.fill();
     }
     function drawCloud(x, y) {

@@ -13,13 +13,14 @@ namespace a7 {
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
     let bees: Bee[] = [];
-    export let stockposX: number = 320;
-    export let stockposY: number = 355;
     let saveBG: ImageData;
     export let flowers: Flower[] = [];
+    export let beehive: Hive = new Hive();
+
 
 
     function init(): void {
+
         canvas = document.createElement("canvas");
         canvas.height = 450;
         canvas.width = 700;
@@ -27,6 +28,7 @@ namespace a7 {
         crc = canvas.getContext("2d");
 
         buildBackground();
+        beehive.draw();
 
         //Blumenwiese
         placeFlowersIn(400, 300, 700, 450);
@@ -37,9 +39,10 @@ namespace a7 {
 
 
 
+
         //Bienen
         for (let i: number = 0; i < 10; i++) {
-            let bee: Bee = new Bee(stockposX, stockposY);
+            let bee: Bee = new Bee(beehive.x, beehive.y);
             bees.push(bee);
 
         }
@@ -47,7 +50,7 @@ namespace a7 {
 
 
         canvas.addEventListener("click", function(): void {
-            bees.push(new Bee(stockposX, stockposY));
+            bees.push(new Bee(beehive.x, beehive.y));
         });
         console.log(bees);
 
@@ -79,6 +82,8 @@ namespace a7 {
             bee.update();
         }
 
+        showInfo(666);
+
         //When count == 300 idling bees will randomly be selected to target a flower
         count++;
         if (count == 300) {
@@ -99,8 +104,6 @@ namespace a7 {
                 }
             }
             count = 0;
-            console.log(bees);
-            console.log(flowers);
         }
         setTimeout(animate, 20);
     }
@@ -113,9 +116,15 @@ namespace a7 {
 
 
     function showInfo(x: number): void {
-        document.getElementsByTagName("div")[0].innerHTML += "Status Biene " + x + "= " + bees[x].status + "<br>";
-        document.getElementsByTagName("div")[0].innerHTML += "Nektar Biene " + x + "= " + (bees[x].nectar).toFixed(2) + "<br>";
+        if (x == 666) {
+            document.getElementsByTagName("div")[0].innerHTML += "<br>" + "Nectar Hive = " + (beehive.nectar).toFixed(2);
+        }
+        else {
+            document.getElementsByTagName("div")[0].innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "<br>";
+            document.getElementsByTagName("div")[0].innerHTML += "Nectar Bee " + x + " = " + (bees[x].nectar).toFixed(2) + "<br>";
+        }
     }
+
 
 
 
@@ -183,24 +192,7 @@ namespace a7 {
         crc.closePath();
         crc.fill();
 
-        // Bienenkorb
-        crc.beginPath();
-        crc.fillStyle = "#FFCD0A";
-        crc.ellipse(320, 355, 10, 60, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(320, 340, 10, 56, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(320, 325, 10, 45, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(320, 310, 10, 40, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(320, 295, 10, 30, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.ellipse(320, 280, 10, 20, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill();
-        crc.beginPath();
-        crc.fillStyle = "black";
-        crc.ellipse(320, 361, 10, 15, 0 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill()
-        crc.beginPath();
-        crc.fillStyle = "#FFCD0A";
-        crc.ellipse(320, 370, 10, 62, 90 * Math.PI / 180, 0, 2 * Math.PI);
-        crc.fill();
+
 
     }
 

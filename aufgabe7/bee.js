@@ -52,10 +52,10 @@ var a7;
             a7.crc.fillStyle = grd;
             a7.crc.ellipse(this.x, this.y, 5 * this.sizemulti, 6.25 * this.sizemulti, 90 * Math.PI / 180, 0, 2 * Math.PI);
             a7.crc.fill();
-            if (this.nectar > 9) {
+            if (this.nectar > 0) {
                 a7.crc.beginPath();
                 a7.crc.fillStyle = "#FFC20F";
-                a7.crc.arc(this.x, this.y + 5, 3, 0, 2 * Math.PI, false);
+                a7.crc.arc(this.x, this.y + 5, this.nectar * 0.5, 0, 2 * Math.PI, false);
                 a7.crc.fill();
             }
         }
@@ -103,14 +103,16 @@ var a7;
                     }
                     break;
                 case "returning":
-                    this.target[0] = a7.stockposX;
-                    this.target[1] = a7.stockposY;
+                    this.target[0] = a7.beehive.x;
+                    this.target[1] = a7.beehive.y;
                     if (this.flyToTarget()) {
                         if (this.nectar > 0.05) {
                             this.nectar = this.nectar - 0.05;
+                            a7.beehive.nectar = a7.beehive.nectar + 0.05;
                         }
                         else {
                             this.nectar = Math.round(this.nectar);
+                            a7.beehive.nectar = Math.round(a7.beehive.nectar);
                             this.status = "idle";
                         }
                     }
