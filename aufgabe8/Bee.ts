@@ -24,7 +24,7 @@ namespace a8 {
             this.y = _y;
             this.richtung = true;
             this.sizemulti = 1;
-            this.nectar = 0; 
+            this.nectar = 0;
             this.status = "idle";
             this.target = []; //coordinates of the targeted flower
             this.targetIndex = 0; //Index of the targeted flower
@@ -131,47 +131,72 @@ namespace a8 {
 
             }
 
-            if (this.y <= 0 || this.y >= canvas.height) {
-                this.y = canvas.height - this.y;
+            if (this.y <= 0) {
+                this.y = canvas.height - 1;
             }
 
-            if (this.x <= 0 || this.x >= canvas.width) {
-                this.x = canvas.width - this.x;
+            if (this.y >= canvas.height) {
+                this.y = 0 + 1;
+            }
+
+            if (this.x <= 0) {
+                this.x = canvas.width - 1;
+            }
+
+            if (this.x >= canvas.width) {
+                this.x = 0 + 1;
             }
         }
 
 
         //Bee flies to current target
         //outdated flyToTarget
-//        flyToTarget(): boolean {
-//
-//            if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
-//                this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-//
-//                if (Math.round(this.target[1]) == Math.round(this.y)) {
-//
-//                    return true;
-//                }
-//
-//                return false;
-//
-//            }
-//            else {
-//                if (this.richtung) {
-//                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-//                    this.x = (this.x + getRndNumber(-3, 1));
-//                }
-//                else {
-//                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-//                    this.x = (this.x + getRndNumber(-1, 3));
-//
-//                }
-//                return false;
-//            }
-//
-//        }
-        
-        flyToTarget(): boolean {
+        //        flyToTarget(): boolean {
+        //
+        //            if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
+        //                this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+        //
+        //                if (Math.round(this.target[1]) == Math.round(this.y)) {
+        //
+        //                    return true;
+        //                }
+        //
+        //                return false;
+        //
+        //            }
+        //            else {
+        //                if (this.richtung) {
+        //                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
+        //                    this.x = (this.x + getRndNumber(-3, 1));
+        //                }
+        //                else {
+        //                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05    //                    this.x = (this.x + getRndNumber(-1, 3));
+        //
+        //                }
+        //                return false;
+        //            }
+        //
+        //        }
 
+        flyToTarget(): boolean {
+            let dtc: number = Math.sqrt((Math.pow(this.target[0] - this.x, 2)) + (Math.pow(this.target[1] - this.y, 2)));
+            if (dtc < 2) {
+                return true;
+            }
+            else {
+
+                if (this.x < dtc) {
+                    this.x += ((this.x - this.target[0]) * 0.01);
+                    this.y += (this.target[1] - this.y) * 0.01;
+                }
+                else {
+                    this.x += ((this.target[0] - this.x) * 0.01);
+                    this.y += (this.target[1] - this.y) * 0.01;
+                    return false;
+                }
+            }
+
+
+        }
     }
 }

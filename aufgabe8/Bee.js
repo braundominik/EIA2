@@ -106,11 +106,17 @@ var a8;
                         }
                     }
             }
-            if (this.y <= 0 || this.y >= a8.canvas.height) {
-                this.y = a8.canvas.height - this.y;
+            if (this.y <= 0) {
+                this.y = a8.canvas.height - 1;
             }
-            if (this.x <= 0 || this.x >= a8.canvas.width) {
-                this.x = a8.canvas.width - this.x;
+            if (this.y >= a8.canvas.height) {
+                this.y = 0 + 1;
+            }
+            if (this.x <= 0) {
+                this.x = a8.canvas.width - 1;
+            }
+            if (this.x >= a8.canvas.width) {
+                this.x = 0 + 1;
             }
         }
         //Bee flies to current target
@@ -134,8 +140,7 @@ var a8;
         //                    this.x = (this.x + getRndNumber(-3, 1));
         //                }
         //                else {
-        //                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-        //                    this.x = (this.x + getRndNumber(-1, 3));
+        //                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05    //                    this.x = (this.x + getRndNumber(-1, 3));
         //
         //                }
         //                return false;
@@ -143,6 +148,21 @@ var a8;
         //
         //        }
         flyToTarget() {
+            let dtc = Math.sqrt((Math.pow(this.target[0] - this.x, 2)) + (Math.pow(this.target[1] - this.y, 2)));
+            if (dtc < 2) {
+                return true;
+            }
+            else {
+                if (this.x < dtc) {
+                    this.x += ((this.x - this.target[0]) * 0.01);
+                    this.y += (this.target[1] - this.y) * 0.01;
+                }
+                else {
+                    this.x += ((this.target[0] - this.x) * 0.01);
+                    this.y += (this.target[1] - this.y) * 0.01;
+                    return false;
+                }
+            }
         }
     }
     a8.Bee = Bee;
