@@ -47,8 +47,15 @@ var a8;
         }
         document.getElementById("buybee").addEventListener("click", function () {
             if (a8.beehive.nectar > 3) {
+                let bee = new a8.Honeybee(a8.beehive.x, a8.beehive.y);
                 a8.beehive.nectar = a8.beehive.nectar - 3;
-                bees.push(new a8.Honeybee(a8.beehive.x, a8.beehive.y));
+                if (Math.round(Math.random())) {
+                    bee.richtung = true;
+                }
+                else {
+                    bee.richtung = false;
+                }
+                bees.push(bee);
             }
         });
         console.log(bees);
@@ -110,7 +117,6 @@ var a8;
                             bees[n].status = "targeting";
                         }
                     }
-                    00;
                 }
             }
             count = 0;

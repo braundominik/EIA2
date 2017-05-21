@@ -68,8 +68,18 @@ namespace a8 {
 
         document.getElementById("buybee").addEventListener("click", function(): void {
             if (beehive.nectar > 3) {
+                let bee: Bee = new Honeybee(beehive.x, beehive.y);
                 beehive.nectar = beehive.nectar - 3;
-                bees.push(new Honeybee(beehive.x, beehive.y));
+
+                if (Math.round(Math.random())) {
+                    bee.richtung = true;
+                }
+                else {
+                    bee.richtung = false;
+                }
+
+
+                bees.push(bee);
             }
         });
         console.log(bees);
@@ -145,7 +155,6 @@ namespace a8 {
                             bees[n].status = "targeting";
                         }
                     }
-                    ,,00
                 }
             }
             count = 0;
