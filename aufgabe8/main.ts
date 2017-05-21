@@ -2,7 +2,7 @@
 Aufgabe: Aufgabe 7
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 14.05.2017
+Datum: 21.05.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
@@ -16,6 +16,7 @@ namespace a8 {
     let saveBG: ImageData;
     export let flowers: Flower[] = [];
     export let beehive: Hive = new Hive();
+    let deathcount: number = 0;
 
 
 
@@ -24,7 +25,7 @@ namespace a8 {
         canvas = document.createElement("canvas");
         canvas.height = 450;
         canvas.width = 700;
-        document.body.appendChild(canvas);
+        document.body.prepend(canvas);
         crc = canvas.getContext("2d");
 
         buildBackground();
@@ -42,21 +43,40 @@ namespace a8 {
 
         //Bienen
         for (let i: number = 0; i < 10; i++) {
-            let bee: Bee = new Bee(beehive.x, beehive.y);
+            let bee: Bee;
+            if (Math.round(Math.random())) {
+                bee = new Bee(beehive.x, beehive.y);
+            }
+
+            else {
+                bee = new Honeybee(beehive.x, beehive.y);
+            }
+
+            if (Math.round(Math.random())) {
+                bee.richtung = true;
+            }
+            else {
+                bee.richtung = false;
+            }
+
+
             bees.push(bee);
 
         }
 
 
 
-        canvas.addEventListener("click", function(): void {
-            bees.push(new Bee(beehive.x, beehive.y));
+        document.getElementById("buybee").addEventListener("click", function(): void {
+            if (beehive.nectar > 3) {
+                beehive.nectar = beehive.nectar - 3;
+                bees.push(new Honeybee(beehive.x, beehive.y));
+            }
         });
         console.log(bees);
 
         for (let e: number = 0; e < 10; e++) {
             let position: number[] = getPosIn(400, 300, 700, 450);
-            
+
             let rndType: number = Math.round(Math.random());
             switch (rndType) {
                 case 0:
@@ -70,8 +90,10 @@ namespace a8 {
                     break;
 
             }
+
         }
         console.log(flowers);
+        console.log(flowers[1].constructor.name);
 
         //        bees[1].status = "targetting";
         //        bees[1].target[0] = flowers[2].positionX;
@@ -84,15 +106,23 @@ namespace a8 {
     let count: number = 0;
 
     function animate(): void {
-        document.getElementsByTagName("div")[0].innerHTML = "";
+        document.getElementById("status").innerHTML = "";
         crc.putImageData(saveBG, 0, 0);
         for (let e: number = 0; e < flowers.length; e++) {
             flowers[e].draw();
+            if (flowers[e].nectar < 1) {
+                flowers[e].nectar = 30;
+            }
         }
 
         for (let i: number = 0; i < bees.length; i++) {
             let bee: Bee = bees[i];
             showInfo(i);
+            if (bees[i].status == "dead" && bees.length > 1) {
+                bees.splice(i, 1);
+                deathcount++;
+            }
+            document.getElementById("status").style.height = bees.length * 20 + 60 + "px";
             bee.update();
         }
 
@@ -103,7 +133,7 @@ namespace a8 {
         if (count == 300) {
             for (let n: number = 0; n < bees.length; n++) {
                 if (Math.round(Math.random())) {
-                    if (bees[n].status == "idle") {
+                    if (bees[n].status == "idle" && bees[n].constructor.name == "Honeybee") {
 
                         let cFlower: number = Math.round(Math.random() * (flowers.length - 1));
 
@@ -115,6 +145,7 @@ namespace a8 {
                             bees[n].status = "targeting";
                         }
                     }
+                    ,,00
                 }
             }
             count = 0;
@@ -130,18 +161,29 @@ namespace a8 {
 
 
     function showInfo(x: number): void {
+
         if (x == 666) {
             let flowernectar: number = 0;
             for (let e: number = 0; e < flowers.length; e++) {
                 flowernectar += flowers[e].nectar;
             }
-            document.getElementsByTagName("div")[0].innerHTML += "Nectar Flowers = " + flowernectar.toFixed(2) + "<br>";
-            document.getElementsByTagName("div")[0].innerHTML += "Nectar Hive = " + (beehive.nectar).toFixed(2);
+            document.getElementById("status").innerHTML += "Nectar Flowers = " + flowernectar.toFixed(2) + "<br>";
+            document.getElementById("status").innerHTML += "Nectar Hive = " + (beehive.nectar).toFixed(2) + "<br>";
+            document.getElementById("status").innerHTML += "Dead = " + deathcount;
         }
         else {
-            document.getElementsByTagName("div")[0].innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "<br>";
-            document.getElementsByTagName("div")[0].innerHTML += "Nectar Bee " + x + " = " + (bees[x].nectar).toFixed(2) + "<br>";
+            if (bees[x].constructor.name == "Honeybee") {
+                document.getElementById("status").innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "&nbsp;|&nbsp;";
+                document.getElementById("status").innerHTML += "Energy Bee " + x + " = " + ((bees[x].energy) / 4).toFixed(0) + "&nbsp;|&nbsp;";
+                document.getElementById("status").innerHTML += "Nectar Bee " + x + " = " + (bees[x].nectar).toFixed(0) + "<br>";
+            }
+
+            else {
+                document.getElementById("status").innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "&nbsp;|&nbsp;";
+                document.getElementById("status").innerHTML += "Energy Bee " + x + " = " + ((bees[x].energy) / 4).toFixed(0) + "<br>";
+            }
         }
+
     }
 
 

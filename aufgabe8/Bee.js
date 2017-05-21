@@ -2,7 +2,7 @@
 Aufgabe: Aufgabe 7
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 14.05.2017
+Datum: 21.05.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
@@ -15,12 +15,14 @@ var a8;
             this.y = _y;
             this.richtung = true;
             this.sizemulti = 1;
-            this.nectar = 0;
             this.status = "idle";
             this.target = []; //coordinates of the targeted flower
             this.targetIndex = 0; //Index of the targeted flower
+            this.energy = 400;
+            this.boldness = Math.round(Math.random() * 40);
         }
         update() {
+            this.manageEnergy();
             this.move();
             this.draw();
         }
@@ -52,20 +54,14 @@ var a8;
             a8.crc.fillStyle = grd;
             a8.crc.ellipse(this.x, this.y, 5 * this.sizemulti, 6.25 * this.sizemulti, 90 * Math.PI / 180, 0, 2 * Math.PI);
             a8.crc.fill();
-            if (this.nectar > 0) {
-                a8.crc.beginPath();
-                a8.crc.fillStyle = "#FFC20F";
-                a8.crc.arc(this.x, this.y + 5, this.nectar * 0.5, 0, 2 * Math.PI, false);
-                a8.crc.fill();
-            }
         }
         //Bee moves depending on current status
         move() {
+            if (this.energy < (75 - this.boldness) && this.status != "dying" && this.status != "dead") {
+                this.status = "energy";
+            }
             switch (this.status) {
                 case "idle":
-                    if (this.nectar > 0) {
-                        this.status = "returning";
-                    }
                     if (this.richtung) {
                         this.y = this.y + a8.getRndNumber(-2, 2);
                         this.x = (this.x + a8.getRndNumber(-3, 1));
@@ -80,30 +76,32 @@ var a8;
                         this.status = "gathering";
                     }
                     break;
-                case "gathering":
-                    if (this.nectar <= 10 && a8.flowers[this.targetIndex].nectar > 0.03) {
-                        a8.flowers[this.targetIndex].nectar = (a8.flowers[this.targetIndex].nectar) - 0.02;
-                        this.nectar = this.nectar + 0.02;
+                case "energy":
+                    if (Math.round(this.energy) == 0) {
+                        this.status = "dying";
+                    }
+                    this.target[0] = a8.beehive.x;
+                    this.target[1] = a8.beehive.y;
+                    if (this.flyToTarget() && this.energy <= 399.5) {
+                        this.energy = this.energy + 0.5;
                     }
                     else {
-                        a8.flowers[this.targetIndex].nectar = Math.round(a8.flowers[this.targetIndex].nectar);
-                        this.nectar = Math.round(this.nectar);
+                        if (this.energy > 0.1) {
+                            this.energy = this.energy - 0.1;
+                        }
+                    }
+                    if (this.energy > 399.5) {
+                        this.boldness = this.boldness + 5;
                         this.status = "idle";
                     }
                     break;
-                case "returning":
-                    this.target[0] = a8.beehive.x;
-                    this.target[1] = a8.beehive.y;
-                    if (this.flyToTarget()) {
-                        if (this.nectar > 0.05) {
-                            this.nectar = this.nectar - 0.05;
-                            a8.beehive.nectar = a8.beehive.nectar + 0.05;
-                        }
-                        else {
-                            this.nectar = Math.round(this.nectar);
-                            a8.beehive.nectar = Math.round(a8.beehive.nectar);
-                            this.status = "idle";
-                        }
+                case "dying":
+                    this.energy = 0;
+                    if (this.y < 449) {
+                        this.y = Math.round(this.y + 0.5);
+                    }
+                    else {
+                        this.status = "dead";
                     }
             }
             if (this.y <= 0) {
@@ -119,37 +117,14 @@ var a8;
                 this.x = 0 + 1;
             }
         }
-        //Bee flies to current target
-        //outdated flyToTarget
-        //        flyToTarget(): boolean {
-        //
-        //            if (Math.round(this.x) == Math.round(this.target[0]) || (Math.round(this.x) - 1) == Math.round(this.target[0]) || (Math.round(this.x) + 1) == Math.round(this.target[0])) {
-        //                this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-        //
-        //                if (Math.round(this.target[1]) == Math.round(this.y)) {
-        //
-        //                    return true;
-        //                }
-        //
-        //                return false;
-        //
-        //            }
-        //            else {
-        //                if (this.richtung) {
-        //                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05);
-        //                    this.x = (this.x + getRndNumber(-3, 1));
-        //                }
-        //                else {
-        //                    this.y = this.y + getRndNumber(0, (this.target[1] - this.y) * 0.05    //                    this.x = (this.x + getRndNumber(-1, 3));
-        //
-        //                }
-        //                return false;
-        //            }
-        //
-        //        }
+        manageEnergy() {
+            if (this.energy > 0 && this.status != "energy" && this.status != "dying") {
+                this.energy = this.energy - 0.1;
+            }
+        }
         flyToTarget() {
             let dtc = Math.sqrt((Math.pow(this.target[0] - this.x, 2)) + (Math.pow(this.target[1] - this.y, 2)));
-            if (dtc < 2) {
+            if (dtc < 10) {
                 return true;
             }
             else {

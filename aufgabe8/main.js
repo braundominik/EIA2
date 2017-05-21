@@ -2,7 +2,7 @@
 Aufgabe: Aufgabe 7
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 14.05.2017
+Datum: 21.05.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.
@@ -14,11 +14,12 @@ var a8;
     let saveBG;
     a8.flowers = [];
     a8.beehive = new a8.Hive();
+    let deathcount = 0;
     function init() {
         a8.canvas = document.createElement("canvas");
         a8.canvas.height = 450;
         a8.canvas.width = 700;
-        document.body.appendChild(a8.canvas);
+        document.body.prepend(a8.canvas);
         a8.crc = a8.canvas.getContext("2d");
         buildBackground();
         a8.beehive.draw();
@@ -29,11 +30,26 @@ var a8;
         console.log(saveBG);
         //Bienen
         for (let i = 0; i < 10; i++) {
-            let bee = new a8.Bee(a8.beehive.x, a8.beehive.y);
+            let bee;
+            if (Math.round(Math.random())) {
+                bee = new a8.Bee(a8.beehive.x, a8.beehive.y);
+            }
+            else {
+                bee = new a8.Honeybee(a8.beehive.x, a8.beehive.y);
+            }
+            if (Math.round(Math.random())) {
+                bee.richtung = true;
+            }
+            else {
+                bee.richtung = false;
+            }
             bees.push(bee);
         }
-        a8.canvas.addEventListener("click", function () {
-            bees.push(new a8.Bee(a8.beehive.x, a8.beehive.y));
+        document.getElementById("buybee").addEventListener("click", function () {
+            if (a8.beehive.nectar > 3) {
+                a8.beehive.nectar = a8.beehive.nectar - 3;
+                bees.push(new a8.Honeybee(a8.beehive.x, a8.beehive.y));
+            }
         });
         console.log(bees);
         for (let e = 0; e < 10; e++) {
@@ -52,6 +68,7 @@ var a8;
             }
         }
         console.log(a8.flowers);
+        console.log(a8.flowers[1].constructor.name);
         //        bees[1].status = "targetting";
         //        bees[1].target[0] = flowers[2].positionX;
         //        bees[1].target[1] = flowers[2].positionY;
@@ -59,14 +76,22 @@ var a8;
     }
     let count = 0;
     function animate() {
-        document.getElementsByTagName("div")[0].innerHTML = "";
+        document.getElementById("status").innerHTML = "";
         a8.crc.putImageData(saveBG, 0, 0);
         for (let e = 0; e < a8.flowers.length; e++) {
             a8.flowers[e].draw();
+            if (a8.flowers[e].nectar < 1) {
+                a8.flowers[e].nectar = 30;
+            }
         }
         for (let i = 0; i < bees.length; i++) {
             let bee = bees[i];
             showInfo(i);
+            if (bees[i].status == "dead" && bees.length > 1) {
+                bees.splice(i, 1);
+                deathcount++;
+            }
+            document.getElementById("status").style.height = bees.length * 20 + 60 + "px";
             bee.update();
         }
         showInfo(666);
@@ -75,7 +100,7 @@ var a8;
         if (count == 300) {
             for (let n = 0; n < bees.length; n++) {
                 if (Math.round(Math.random())) {
-                    if (bees[n].status == "idle") {
+                    if (bees[n].status == "idle" && bees[n].constructor.name == "Honeybee") {
                         let cFlower = Math.round(Math.random() * (a8.flowers.length - 1));
                         //The Flower needs to have enough nectar for a least 1 tick
                         if (a8.flowers[cFlower].nectar > 0.02) {
@@ -85,6 +110,7 @@ var a8;
                             bees[n].status = "targeting";
                         }
                     }
+                    00;
                 }
             }
             count = 0;
@@ -102,12 +128,20 @@ var a8;
             for (let e = 0; e < a8.flowers.length; e++) {
                 flowernectar += a8.flowers[e].nectar;
             }
-            document.getElementsByTagName("div")[0].innerHTML += "Nectar Flowers = " + flowernectar.toFixed(2) + "<br>";
-            document.getElementsByTagName("div")[0].innerHTML += "Nectar Hive = " + (a8.beehive.nectar).toFixed(2);
+            document.getElementById("status").innerHTML += "Nectar Flowers = " + flowernectar.toFixed(2) + "<br>";
+            document.getElementById("status").innerHTML += "Nectar Hive = " + (a8.beehive.nectar).toFixed(2) + "<br>";
+            document.getElementById("status").innerHTML += "Dead = " + deathcount;
         }
         else {
-            document.getElementsByTagName("div")[0].innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "<br>";
-            document.getElementsByTagName("div")[0].innerHTML += "Nectar Bee " + x + " = " + (bees[x].nectar).toFixed(2) + "<br>";
+            if (bees[x].constructor.name == "Honeybee") {
+                document.getElementById("status").innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "&nbsp;|&nbsp;";
+                document.getElementById("status").innerHTML += "Energy Bee " + x + " = " + ((bees[x].energy) / 4).toFixed(0) + "&nbsp;|&nbsp;";
+                document.getElementById("status").innerHTML += "Nectar Bee " + x + " = " + (bees[x].nectar).toFixed(0) + "<br>";
+            }
+            else {
+                document.getElementById("status").innerHTML += "Status Bee " + x + " &nbsp;= " + bees[x].status + "&nbsp;|&nbsp;";
+                document.getElementById("status").innerHTML += "Energy Bee " + x + " = " + ((bees[x].energy) / 4).toFixed(0) + "<br>";
+            }
         }
     }
     function buildBackground() {
