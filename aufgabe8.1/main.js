@@ -21,7 +21,7 @@ var beehuhn;
         beehuhn.canvas.width = 700;
         document.body.prepend(beehuhn.canvas);
         beehuhn.crc = beehuhn.canvas.getContext("2d");
-        beehuhn.canvas.style.cursor = "crosshair";
+        beehuhn.canvas.style.cursor = `url("crosshair.png"), auto`;
         beehuhn.canvas.addEventListener("click", killBee);
         buildBackground();
         beehuhn.beehive.draw();
@@ -242,7 +242,7 @@ var beehuhn;
     function killBee(_event) {
         console.log(_event);
         for (let i = 0; i < bees.length; i++) {
-            let dist = getDistance(bees[i].x, bees[i].y, _event.layerX, _event.layerY);
+            let dist = getDistance(bees[i].x, bees[i].y, _event.layerX + 25, _event.layerY + 25);
             if (dist < 6) {
                 bees[i].status = "dying";
             }

@@ -27,6 +27,8 @@ namespace a8 {
         canvas.width = 700;
         document.body.prepend(canvas);
         crc = canvas.getContext("2d");
+        canvas.style.cursor = "pointer";
+        canvas.addEventListener("click", killBee);
 
         buildBackground();
         beehive.draw();
@@ -82,6 +84,11 @@ namespace a8 {
                 bees.push(bee);
             }
         });
+
+
+
+
+
         console.log(bees);
 
         for (let e: number = 0; e < 10; e++) {
@@ -305,5 +312,23 @@ namespace a8 {
         return new Array(rndX, rndY);
 
     }
+
+    function killBee(_event: Event): void {
+        console.log(_event);
+        for (let i: number = 0; i < bees.length; i++) {
+            let dist: number = getDistance(bees[i].x, bees[i].y, _event.layerX, _event.layerY);
+            if (dist < 6) {
+                bees[i].status = "dying";
+            }
+
+        }
+
+    }
+
+    function getDistance(x1: number, y1: number, x2: number, y2: number): number {
+        let dtc: number = Math.sqrt((Math.pow(x1 - x2, 2)) + (Math.pow(y1 - y2, 2)));
+        return dtc;
+    }
+
 
 }

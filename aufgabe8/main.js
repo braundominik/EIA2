@@ -21,6 +21,8 @@ var a8;
         a8.canvas.width = 700;
         document.body.prepend(a8.canvas);
         a8.crc = a8.canvas.getContext("2d");
+        a8.canvas.style.cursor = "pointer";
+        a8.canvas.addEventListener("click", killBee);
         buildBackground();
         a8.beehive.draw();
         //Blumenwiese
@@ -236,6 +238,19 @@ var a8;
         let rndX = Math.random() * (lowerRightx - upperLeftx) + upperLeftx;
         let rndY = Math.random() * (lowerRighty - upperLefty) + upperLefty;
         return new Array(rndX, rndY);
+    }
+    function killBee(_event) {
+        console.log(_event);
+        for (let i = 0; i < bees.length; i++) {
+            let dist = getDistance(bees[i].x, bees[i].y, _event.layerX, _event.layerY);
+            if (dist < 6) {
+                bees[i].status = "dying";
+            }
+        }
+    }
+    function getDistance(x1, y1, x2, y2) {
+        let dtc = Math.sqrt((Math.pow(x1 - x2, 2)) + (Math.pow(y1 - y2, 2)));
+        return dtc;
     }
 })(a8 || (a8 = {}));
 //# sourceMappingURL=main.js.map

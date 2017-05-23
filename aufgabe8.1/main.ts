@@ -27,7 +27,7 @@ namespace beehuhn {
         canvas.width = 700;
         document.body.prepend(canvas);
         crc = canvas.getContext("2d");
-        canvas.style.cursor = "crosshair";
+        canvas.style.cursor = `url("crosshair.png"), auto`;
         canvas.addEventListener("click", killBee);
 
         buildBackground();
@@ -316,7 +316,7 @@ namespace beehuhn {
     function killBee(_event: Event): void {
         console.log(_event);
         for (let i: number = 0; i < bees.length; i++) {
-            let dist: number = getDistance(bees[i].x, bees[i].y, _event.layerX, _event.layerY);
+            let dist: number = getDistance(bees[i].x, bees[i].y, _event.layerX+25, _event.layerY+25);
             if (dist < 6) {
                 bees[i].status = "dying";
             }

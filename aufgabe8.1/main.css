@@ -4,32 +4,31 @@
 	font-family: 'Arial';
 }
 
-#status{
-	border:3px solid red;
-	width:675px;
-	height:424px;
-	padding-left:20px;
-	padding-top:20px;
-	line-height:1.2em;
-	margin-left:203px;
+#status {
+	border: 3px solid red;
+	width: 675px;
+	height: 424px;
+	padding-left: 20px;
+	padding-top: 20px;
+	line-height: 1.2em;
+	margin-left: 203px;
 }
 
-#buybee{
-	line-height:50px;
-	padding-top:10px;
-	padding-bottom:10px;
+#buybee {
+	line-height: 50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	text-align: center;
-	float:left;
+	float: left;
 	color: white;
 	background-color: #3568B2;
-	height:50px;
-	width:200px;
+	height: 50px;
+	width: 200px;
 	cursor: pointer;
 }
 
-#buybee:hover{
+#buybee:hover {
 	background-color: #417ED9;
+	cursor: url("heart.png"), auto;
+
 }
-
-
-
