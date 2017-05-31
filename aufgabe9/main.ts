@@ -10,11 +10,12 @@ nicht kopiert und auch nicht diktiert.
 
 namespace a9 {
     window.addEventListener("load", init);
-    let flavours: string[] = ["Kirsche", "Erdbeere", "Vanille", "Banane", "Schokolade", "Zitrone"];
+    let flavours: string[] = ["Kirsche", "Erdbeere", "Vanille", "Banane", "Schokolade", "Zitrone", "Pistazie", "Joghurt", "Heidelbeere", "Mango", "Walnuss", "Haselnuss", "Himbeere"];
 
 
     function init(): void {
         addFlavours();
+        addCups();
 
         let fieldsets: NodeListOf<HTMLFieldSetElement> = document.getElementsByTagName("fieldset");
 
@@ -32,11 +33,19 @@ namespace a9 {
         console.log(target);
         if (target.type == "checkbox") {
             let cNum: number = parseInt(target.value.slice(5));
-            var e: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + (cNum-1));
-            var strUser = e.options[e.selectedIndex].value;
+            var e: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + (cNum - 1));
+            var strUser: number = e.options[e.selectedIndex].value;
             //            console.log("check");
             if (target.checked && strUser == 0) {
                 e.value = "1";
+                e.style.visibility = "visible";
+                e.disabled = false;
+            }
+
+            if (!target.checked && strUser > 0) {
+                e.value = "0";
+                e.style.visibility = "hidden";
+                e.disabled = true;
             }
         }
     }
@@ -56,6 +65,7 @@ namespace a9 {
             input.type = "checkbox";
             input.name = "Checkbox" + (i + 1);
             input.value = "check" + (i + 1);
+            div.style.marginTop = "1em";
             div.appendChild(input);
             label.htmlFor = "check" + (i + 1);
             label.innerText = flavours[i];
@@ -63,16 +73,9 @@ namespace a9 {
             div2.style.cssFloat = "right";
             div2.style.width = "2vw";
             div.appendChild(div2);
-            //            step.type = "number";
-            //            step.name = "Stepper" + i + 1;
-            //            step.value = "0";
-            //            step.step = "1";
-            //            step.min = "0";
-            //            step.max = "10";
-            //            step.style.width = "2vw";
-            //            step.style.cssFloat = "right";
-            //            step.disabled = true;
-            //            div2.appendChild(step);
+
+            sel.style.visibility = "hidden";
+            sel.disabled = true;
             sel.id = "sel" + i;
             div2.appendChild(sel);
             for (let x: number = 0; x < 6; x++) {
@@ -84,6 +87,68 @@ namespace a9 {
 
 
         }
+    }
+
+    function addCups(): void {
+        let img: HTMLImageElement = new Image();
+        let img2: HTMLImageElement = new Image();
+        let div: HTMLDivElement = document.createElement("div");
+        let div2: HTMLDivElement = document.createElement("div");
+        let input: HTMLInputElement = document.createElement("input");
+        let label: HTMLLabelElement = document.createElement("label");
+        let input2: HTMLInputElement = document.createElement("input");
+        let label2: HTMLLabelElement = document.createElement("label");
+        //        label.htmlFor = "check" + (i + 1);
+        //        label.innerText = flavours[i];
+        //        div.appendChild(label);
+        //        div2.style.cssFloat = "right";
+        //        div2.style.width = "2vw";
+        //        div.appendChild(div2);
+        //
+        //        sel.style.visibility = "hidden";
+        //        sel.disabled = true;
+        //        sel.id = "sel" + i;
+
+        label.htmlFor = "radio1";
+        label2.htmlFor = "radio2";
+
+        document.getElementById("cups").appendChild(label);
+        document.getElementById("cups").appendChild(label2);
+
+
+        div.style.position = "relative";
+        div.style.cssFloat = "left";
+        div.style.left = "1vw";
+        div.style.top = "10vh";
+        div.appendChild(img);
+        img.style.height = "13vmax";
+        img.src = "cone.png";
+
+        div2.style.position = "relative";
+        div2.style.cssFloat = "left";
+        div2.style.left = "3vw";
+        div2.style.top = "10vh";
+        div2.appendChild(img2);
+        img2.style.height = "13vmax";
+        img2.src = "cup.png";
+        label.appendChild(div);
+        label2.appendChild(div2);
+
+
+        input.id = "radio1";
+        input2.id = "radio2";
+        input.type = "radio";
+        input2.type = "radio";
+        input.name = "Radiogroup";
+        input2.name = "Radiogroup";
+        input.value = "radio1";
+        input2.value = "radio2";
+        input.style.display = "block";
+        input2.style.display = "block";
+        input.style.margin = "10% auto";
+        input2.style.margin = "10% auto";
+        div.appendChild(input);
+        div2.appendChild(input2);
     }
 
 
