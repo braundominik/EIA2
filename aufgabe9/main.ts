@@ -27,14 +27,18 @@ namespace a9 {
 
     function handleChange(_event: Event): void {
         let target: HTMLInputElement = <HTMLInputElement>_event.target;
-//        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
-//        console.log(_event);
-//        if (target.type == "checkbox") {
-//            console.log("check");
-//            if (target.checked && parseFloat(sele.value) == 0) {
-//               sele.value = "1";
-//            }
-//        }
+        console.log(_event);
+        //        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
+        console.log(target);
+        if (target.type == "checkbox") {
+            let cNum: number = parseInt(target.value.slice(5));
+            var e: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + (cNum-1));
+            var strUser = e.options[e.selectedIndex].value;
+            //            console.log("check");
+            if (target.checked && strUser == 0) {
+                e.value = "1";
+            }
+        }
     }
 
 
