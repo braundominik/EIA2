@@ -21,6 +21,7 @@ var a9;
         }
     }
     function handleChange(_event) {
+        let preis = 0;
         let target = _event.target;
         console.log(_event);
         //        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
@@ -41,6 +42,17 @@ var a9;
                 e.disabled = true;
             }
         }
+        if (target.name == "Radiogroup") {
+            for (let i = 0; i < flavours.length; i++) {
+                (document.getElementById("check" + (i + 1)).disabled) = false;
+            }
+        }
+        for (let i = 0; i < flavours.length; i++) {
+            let preiszahl = Number(document.getElementById("sel" + (i)).value);
+            preis = (preiszahl + preis);
+            console.log(preis);
+        }
+        document.getElementById("preis").innerText = preis.toString();
     }
     function addFlavours() {
         for (let i = 0; i < flavours.length; i++) {
@@ -55,7 +67,8 @@ var a9;
             input.type = "checkbox";
             input.name = "Checkbox" + (i + 1);
             input.value = "check" + (i + 1);
-            div.style.marginTop = "1em";
+            input.disabled = true;
+            div.style.marginTop = "1vmax";
             div.appendChild(input);
             label.htmlFor = "check" + (i + 1);
             label.innerText = flavours[i];

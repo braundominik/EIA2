@@ -27,6 +27,7 @@ namespace a9 {
     }
 
     function handleChange(_event: Event): void {
+        let preis: number = 0;
         let target: HTMLInputElement = <HTMLInputElement>_event.target;
         console.log(_event);
         //        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
@@ -48,6 +49,22 @@ namespace a9 {
                 e.disabled = true;
             }
         }
+
+        if (target.name == "Radiogroup") {
+            for (let i: number = 0; i < flavours.length; i++) {
+                ((<HTMLInputElement>document.getElementById("check" + (i + 1))).disabled) = false;
+            }
+        }
+
+
+        for (let i: number = 0; i < flavours.length; i++) {
+            let preiszahl: number = Number(document.getElementById("sel" + (i)).value);
+            preis = (preiszahl + preis);
+            console.log(preis);
+        }
+
+        document.getElementById("preis").innerText = preis.toString();
+
     }
 
 
@@ -65,7 +82,8 @@ namespace a9 {
             input.type = "checkbox";
             input.name = "Checkbox" + (i + 1);
             input.value = "check" + (i + 1);
-            div.style.marginTop = "1em";
+            input.disabled = true;
+            div.style.marginTop = "1vmax";
             div.appendChild(input);
             label.htmlFor = "check" + (i + 1);
             label.innerText = flavours[i];
@@ -73,7 +91,6 @@ namespace a9 {
             div2.style.cssFloat = "right";
             div2.style.width = "2vw";
             div.appendChild(div2);
-
             sel.style.visibility = "hidden";
             sel.disabled = true;
             sel.id = "sel" + i;
