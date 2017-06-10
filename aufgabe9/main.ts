@@ -11,11 +11,12 @@ nicht kopiert und auch nicht diktiert.
 namespace a9 {
     window.addEventListener("load", init);
     let flavours: string[] = ["Kirsche", "Erdbeere", "Vanille", "Banane", "Schokolade", "Zitrone", "Pistazie", "Joghurt", "Heidelbeere", "Mango", "Walnuss", "Haselnuss", "Himbeere"];
-
+    let toppings: string[] = ["Sahne", "Streusel", "Karamellsoﬂe", "Schokosoﬂe"];
 
     function init(): void {
         addFlavours();
         addCups();
+        addToppings();
 
         let fieldsets: NodeListOf<HTMLFieldSetElement> = document.getElementsByTagName("fieldset");
 
@@ -26,8 +27,10 @@ namespace a9 {
 
     }
 
+    let cupPreis: number = 0;
+    let topPreis: number = 0;
     function handleChange(_event: Event): void {
-        let preis: number = 0;
+        let addPreis: number = 0;
         let target: HTMLInputElement = <HTMLInputElement>_event.target;
         console.log(_event);
         //        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
@@ -35,7 +38,7 @@ namespace a9 {
         if (target.type == "checkbox") {
             let cNum: number = parseInt(target.value.slice(5));
             var e: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + (cNum - 1));
-            var strUser: number = e.options[e.selectedIndex].value;
+            var strUser: number = Number((<HTMLSelectElement>e.options[e.selectedIndex]).value); //remove Typecast and "Number" if not working
             //            console.log("check");
             if (target.checked && strUser == 0) {
                 e.value = "1";
@@ -43,27 +46,61 @@ namespace a9 {
                 e.disabled = false;
             }
 
-            if (!target.checked && strUser > 0) {
+            if (!target.checked) {
                 e.value = "0";
                 e.style.visibility = "hidden";
                 e.disabled = true;
             }
         }
 
+        if (target.name == "toppinggroup") {
+            if (target.value == "radioTop1") {
+                topPreis = 0.3;
+            }
+            if (target.value == "radioTop2") {
+                topPreis = 0.2;
+            }
+            if (target.value == "radioTop3") {
+                topPreis = 0.5;
+            }
+            if (target.value == "radioTop4") {
+                topPreis = 0.4;
+            }
+
+            let tNum: number = parseInt(target.value.slice(8));
+            document.getElementById("topping").innerText = "Zusatz: " + toppings[tNum - 1];
+        }
+
         if (target.name == "Radiogroup") {
+            for (let i: number = 0; i < toppings.length; i++) {
+                ((<HTMLInputElement>document.getElementById("radioTop" + (i + 1))).disabled) = false;
+            }
+
             for (let i: number = 0; i < flavours.length; i++) {
                 ((<HTMLInputElement>document.getElementById("check" + (i + 1))).disabled) = false;
+                if (target.value == "cone") {
+                    cupPreis = 0.5;
+                    document.getElementById("cup").innerText = "Beh‰lter: Waffel";
+                }
+                if (target.value == "cup") {
+                    cupPreis = 0.2;
+                    document.getElementById("cup").innerText = "Beh‰lter: Becher";
+                }
             }
         }
 
-
+        let sString: string = "";
         for (let i: number = 0; i < flavours.length; i++) {
-            let preiszahl: number = Number(document.getElementById("sel" + (i)).value);
-            preis = (preiszahl + preis);
-            console.log(preis);
+
+            let preiszahl: number = Number((<HTMLInputElement>document.getElementById("sel" + (i))).value);
+            if (preiszahl > 0) {
+                sString += preiszahl + "x " + flavours[i] + "<br>";
+            }
+            addPreis = (preiszahl + addPreis);
         }
 
-        document.getElementById("preis").innerText = preis.toString();
+        document.getElementById("preis").innerText = (topPreis + cupPreis + addPreis).toString();
+        document.getElementById("flavor").innerHTML = "Sorten: <br>" + sString;
 
     }
 
@@ -115,16 +152,6 @@ namespace a9 {
         let label: HTMLLabelElement = document.createElement("label");
         let input2: HTMLInputElement = document.createElement("input");
         let label2: HTMLLabelElement = document.createElement("label");
-        //        label.htmlFor = "check" + (i + 1);
-        //        label.innerText = flavours[i];
-        //        div.appendChild(label);
-        //        div2.style.cssFloat = "right";
-        //        div2.style.width = "2vw";
-        //        div.appendChild(div2);
-        //
-        //        sel.style.visibility = "hidden";
-        //        sel.disabled = true;
-        //        sel.id = "sel" + i;
 
         label.htmlFor = "radio1";
         label2.htmlFor = "radio2";
@@ -158,14 +185,36 @@ namespace a9 {
         input2.type = "radio";
         input.name = "Radiogroup";
         input2.name = "Radiogroup";
-        input.value = "radio1";
-        input2.value = "radio2";
+        input.value = "cone";
+        input2.value = "cup";
         input.style.display = "block";
         input2.style.display = "block";
         input.style.margin = "10% auto";
         input2.style.margin = "10% auto";
         div.appendChild(input);
         div2.appendChild(input2);
+    }
+
+    function addToppings(): void {
+        for (let i: number = 0; i < toppings.length; i++) {
+            let div: HTMLDivElement = document.createElement("div");
+            let input: HTMLInputElement = document.createElement("input");
+            let label: HTMLLabelElement = document.createElement("label");
+            document.getElementById("toppings").appendChild(div);
+            input.id = "radioTop" + (i + 1);
+            input.type = "radio";
+            input.name = "toppinggroup";
+            input.value = "radioTop" + (i + 1);
+            input.disabled = true;
+            div.style.marginTop = "1vmax";
+            div.appendChild(input);
+            label.htmlFor = "radioTop" + (i + 1);
+            label.innerText = toppings[i];
+            div.appendChild(label);
+
+
+
+        }
     }
 
 

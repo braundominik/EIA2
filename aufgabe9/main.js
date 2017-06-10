@@ -11,17 +11,21 @@ var a9;
 (function (a9) {
     window.addEventListener("load", init);
     let flavours = ["Kirsche", "Erdbeere", "Vanille", "Banane", "Schokolade", "Zitrone", "Pistazie", "Joghurt", "Heidelbeere", "Mango", "Walnuss", "Haselnuss", "Himbeere"];
+    let toppings = ["Sahne", "Streusel", "Karamellso�e", "Schokoso�e"];
     function init() {
         addFlavours();
         addCups();
+        addToppings();
         let fieldsets = document.getElementsByTagName("fieldset");
         for (let i = 0; i < fieldsets.length; i++) {
             let fieldset = fieldsets[i];
             fieldset.addEventListener("change", handleChange);
         }
     }
+    let cupPreis = 0;
+    let topPreis = 0;
     function handleChange(_event) {
-        let preis = 0;
+        let addPreis = 0;
         let target = _event.target;
         console.log(_event);
         //        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
@@ -29,30 +33,61 @@ var a9;
         if (target.type == "checkbox") {
             let cNum = parseInt(target.value.slice(5));
             var e = document.getElementById("sel" + (cNum - 1));
-            var strUser = e.options[e.selectedIndex].value;
+            var strUser = Number(e.options[e.selectedIndex].value); //remove Typecast and "Number" if not working
             //            console.log("check");
             if (target.checked && strUser == 0) {
                 e.value = "1";
                 e.style.visibility = "visible";
                 e.disabled = false;
             }
-            if (!target.checked && strUser > 0) {
+            if (!target.checked) {
                 e.value = "0";
                 e.style.visibility = "hidden";
                 e.disabled = true;
             }
         }
+        if (target.name == "toppinggroup") {
+            if (target.value == "radioTop1") {
+                topPreis = 0.3;
+            }
+            if (target.value == "radioTop2") {
+                topPreis = 0.2;
+            }
+            if (target.value == "radioTop3") {
+                topPreis = 0.5;
+            }
+            if (target.value == "radioTop4") {
+                topPreis = 0.4;
+            }
+            let tNum = parseInt(target.value.slice(8));
+            document.getElementById("topping").innerText = "Zusatz: " + toppings[tNum - 1];
+        }
         if (target.name == "Radiogroup") {
+            for (let i = 0; i < toppings.length; i++) {
+                (document.getElementById("radioTop" + (i + 1)).disabled) = false;
+            }
             for (let i = 0; i < flavours.length; i++) {
                 (document.getElementById("check" + (i + 1)).disabled) = false;
+                if (target.value == "cone") {
+                    cupPreis = 0.5;
+                    document.getElementById("cup").innerText = "Beh�lter: Waffel";
+                }
+                if (target.value == "cup") {
+                    cupPreis = 0.2;
+                    document.getElementById("cup").innerText = "Beh�lter: Becher";
+                }
             }
         }
+        let sString = "";
         for (let i = 0; i < flavours.length; i++) {
             let preiszahl = Number(document.getElementById("sel" + (i)).value);
-            preis = (preiszahl + preis);
-            console.log(preis);
+            if (preiszahl > 0) {
+                sString += preiszahl + "x " + flavours[i] + "<br>";
+            }
+            addPreis = (preiszahl + addPreis);
         }
-        document.getElementById("preis").innerText = preis.toString();
+        document.getElementById("preis").innerText = (topPreis + cupPreis + addPreis).toString();
+        document.getElementById("flavor").innerHTML = "Sorten: <br>" + sString;
     }
     function addFlavours() {
         for (let i = 0; i < flavours.length; i++) {
@@ -97,16 +132,6 @@ var a9;
         let label = document.createElement("label");
         let input2 = document.createElement("input");
         let label2 = document.createElement("label");
-        //        label.htmlFor = "check" + (i + 1);
-        //        label.innerText = flavours[i];
-        //        div.appendChild(label);
-        //        div2.style.cssFloat = "right";
-        //        div2.style.width = "2vw";
-        //        div.appendChild(div2);
-        //
-        //        sel.style.visibility = "hidden";
-        //        sel.disabled = true;
-        //        sel.id = "sel" + i;
         label.htmlFor = "radio1";
         label2.htmlFor = "radio2";
         document.getElementById("cups").appendChild(label);
@@ -133,14 +158,32 @@ var a9;
         input2.type = "radio";
         input.name = "Radiogroup";
         input2.name = "Radiogroup";
-        input.value = "radio1";
-        input2.value = "radio2";
+        input.value = "cone";
+        input2.value = "cup";
         input.style.display = "block";
         input2.style.display = "block";
         input.style.margin = "10% auto";
         input2.style.margin = "10% auto";
         div.appendChild(input);
         div2.appendChild(input2);
+    }
+    function addToppings() {
+        for (let i = 0; i < toppings.length; i++) {
+            let div = document.createElement("div");
+            let input = document.createElement("input");
+            let label = document.createElement("label");
+            document.getElementById("toppings").appendChild(div);
+            input.id = "radioTop" + (i + 1);
+            input.type = "radio";
+            input.name = "toppinggroup";
+            input.value = "radioTop" + (i + 1);
+            input.disabled = true;
+            div.style.marginTop = "1vmax";
+            div.appendChild(input);
+            label.htmlFor = "radioTop" + (i + 1);
+            label.innerText = toppings[i];
+            div.appendChild(label);
+        }
     }
 })(a9 || (a9 = {}));
 //# sourceMappingURL=main.js.map
