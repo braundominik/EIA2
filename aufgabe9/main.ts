@@ -11,7 +11,7 @@ nicht kopiert und auch nicht diktiert.
 namespace a9 {
     window.addEventListener("load", init);
     let flavours: string[] = ["Kirsche", "Erdbeere", "Vanille", "Banane", "Schokolade", "Zitrone", "Pistazie", "Joghurt", "Heidelbeere", "Mango", "Walnuss", "Haselnuss", "Himbeere"];
-    let toppings: string[] = ["Sahne", "Streusel", "Karamellsoﬂe", "Schokosoﬂe"];
+    let toppings: string[] = ["kein", "Sahne", "Streusel", "Karamellsoﬂe", "Schokosoﬂe"];
 
     function init(): void {
         addFlavours();
@@ -29,17 +29,54 @@ namespace a9 {
 
     let cupPreis: number = 0;
     let topPreis: number = 0;
+
     function handleChange(_event: Event): void {
+        console.log(_event);
+        let checkEven: boolean = true;
         let addPreis: number = 0;
         let target: HTMLInputElement = <HTMLInputElement>_event.target;
-        console.log(_event);
-        //        let sele: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + );
-        console.log(target);
+        console.log(target.name);
+
+
+        if (target.name == "address" || target.name == "lastname" || target.name == "prename" || target.name == "mail") {
+            let inputs = document.getElementById("center").getElementsByTagName("input");
+            let allFieldsFilled: boolean = true;
+            document.getElementById("errors").innerText = "";
+            for (let i: number = 0; i < inputs.length; i++) {
+                if (inputs[i].value == "") {
+                    allFieldsFilled = false;
+                    document.getElementById("errors").innerHTML += "Bitte fuelle das Feld " + inputs[i].name + " aus" + "<br>";
+                }
+
+                
+                if (inputs[i].name == "mail") {
+                    if (target.validationMessage == "") {
+                        //bla
+                    }
+
+                    else {
+                        allFieldsFilled = false;
+                        document.getElementById("errors").innerHTML += target.validationMessage + "<br>";
+                    }
+                }
+
+            }
+
+            if (allFieldsFilled == true) {
+                document.getElementById("sendbutton").style.backgroundColor = "green";
+            }
+            else {
+                document.getElementById("sendbutton").style.backgroundColor = "red";
+            }
+
+        }
+
+
+
         if (target.type == "checkbox") {
             let cNum: number = parseInt(target.value.slice(5));
             var e: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + (cNum - 1));
             var strUser: number = Number((<HTMLSelectElement>e.options[e.selectedIndex]).value); //remove Typecast and "Number" if not working
-            //            console.log("check");
             if (target.checked && strUser == 0) {
                 e.value = "1";
                 e.style.visibility = "visible";
@@ -54,17 +91,21 @@ namespace a9 {
         }
 
         if (target.name == "toppinggroup") {
+
             if (target.value == "radioTop1") {
-                topPreis = 0.3;
+                topPreis = 0.0;
             }
             if (target.value == "radioTop2") {
-                topPreis = 0.2;
+                topPreis = 0.3;
             }
             if (target.value == "radioTop3") {
-                topPreis = 0.5;
+                topPreis = 0.2;
             }
             if (target.value == "radioTop4") {
-                topPreis = 0.4;
+                topPreis = 0.5;
+            }
+            if (target.value == "radioTop5") {
+                topPreis = 0.5;
             }
 
             let tNum: number = parseInt(target.value.slice(8));
@@ -94,13 +135,21 @@ namespace a9 {
 
             let preiszahl: number = Number((<HTMLInputElement>document.getElementById("sel" + (i))).value);
             if (preiszahl > 0) {
-                sString += preiszahl + "x " + flavours[i] + "<br>";
+                if (checkEven) {
+                    sString += "<tr>" + "<td>" + preiszahl + "x " + flavours[i] + "</td>";
+                }
+                if (!checkEven) {
+                    sString += "<td>" + preiszahl + "x " + flavours[i] + "</td>" + "</tr>";
+                }
+                checkEven = !checkEven;
+                console.log(checkEven);
+                console.log(sString);
             }
             addPreis = (preiszahl + addPreis);
         }
 
-        document.getElementById("preis").innerText = (topPreis + cupPreis + addPreis).toString();
-        document.getElementById("flavor").innerHTML = "Sorten: <br>" + sString;
+        document.getElementById("preis").innerText = (topPreis + cupPreis + addPreis).toString() + " Euro";
+        document.getElementById("flavor").innerHTML = "Sorten: <br>" + "<table>" + sString + "</table>";
 
     }
 

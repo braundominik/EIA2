@@ -12,19 +12,37 @@ body {
 
 #summary {
 	margin-top: 2vh;
-	border: 5px solid black;
 	height: 40vh;
+	margin-left: 4vw;
 }
 
-#preis {
-	margin-left: 1vw;
-}
 
-#summary div {
+
+#preisWrapper {
 	float: left;
 	height: 35vh;
-	width: 32.3vw;
-	border: 1px solid black;
+	width: 31vw;
+	background-color: #BECFD9;
+	opacity: 0.8;
+	padding-top: 4vh;
+}
+
+#order {
+	float: left;
+	height: 35vh;
+	width: 31vw;
+	background-color: #BECFD9;
+	opacity: 0.8;
+	padding-top: 4vh;
+}
+
+#contact {
+	float: left;
+	height: 35vh;
+	width: 31vw;
+	background-color: #BECFD9;
+	opacity: 0.8;
+	padding-top: 4vh;
 }
 
 fieldset {
@@ -39,13 +57,15 @@ fieldset {
 	height: 44vh;
 	width: 31vw;
 	padding-top: 3vh;
-	padding-left: 3vw; font-size : 1.3vmax;
+	padding-left: 3vw;
+	font-size: 1.3vmax;
 	border: 0px solid black;
 	font-size: 1.3vmax;
 }
 
 #cups {
-	margin-left: 1vw; float : left;
+	margin-left: 1vw;
+	float: left;
 	background-color: lightblue;
 	height: 47vh;
 	width: 33vw;
@@ -75,7 +95,59 @@ fieldset {
 	padding-left: 2vw;
 }
 
-#topping{
-	float:right;
-	margin-right:4vw;
+#topping {
+	float: right;
+	margin-right: 9vw;
+}
+
+#order table {
+	margin-top: 1vh;
+	margin-left: 1vw;
+	min-width: 30vw;
+	max-width: 30vw;
+	line-height: 30px;
+}
+
+#contact table {
+	min-width: 20vw;
+	max-width: 20vw;
+	line-height: 30px;
+}
+
+#contact {
+	text-align: center;
+	border: none;
+}
+
+#contact td:nth-child(odd) {
+	text-align: left;
+}
+
+
+
+#center {
+	display:flex;
+	justify-content:center;
+}
+
+#sendbutton{
+	margin-top:3vh;
+	padding-top:2vh;
+	padding-bottom:2vh;
+	width: 50%;
+	margin-left:25%;
+	background-color:red;
+}
+
+#sendbutton:hover{
+	opacity:0.7;
+}
+
+#preisWrapper{
+	font-size: 3vmax;
+}
+
+#preis{
+margin-top:15%;
+margin-left:25%;
 }
