@@ -16,8 +16,6 @@ body {
 	margin-left: 4vw;
 }
 
-
-
 #preisWrapper {
 	float: left;
 	height: 35vh;
@@ -123,31 +121,29 @@ fieldset {
 	text-align: left;
 }
 
-
-
 #center {
-	display:flex;
-	justify-content:center;
+	display: flex;
+	justify-content: center;
 }
 
-#sendbutton{
-	margin-top:3vh;
-	padding-top:2vh;
-	padding-bottom:2vh;
+#sendbutton {
+	margin-top: 3vh;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
 	width: 50%;
-	margin-left:25%;
-	background-color:red;
+	background-color: red;
+	border: none;
 }
 
-#sendbutton:hover{
-	opacity:0.7;
+#sendbutton:hover {
+	opacity: 0.7;
 }
 
-#preisWrapper{
+#preisWrapper {
 	font-size: 3vmax;
 }
 
-#preis{
-margin-top:15%;
-margin-left:25%;
+#preis {
+	margin-top: 15%;
+	margin-left: 25%;
 }

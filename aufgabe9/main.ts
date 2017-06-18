@@ -11,7 +11,7 @@ nicht kopiert und auch nicht diktiert.
 namespace a9 {
     window.addEventListener("load", init);
     let flavours: string[] = ["Kirsche", "Erdbeere", "Vanille", "Banane", "Schokolade", "Zitrone", "Pistazie", "Joghurt", "Heidelbeere", "Mango", "Walnuss", "Haselnuss", "Himbeere"];
-    let toppings: string[] = ["kein", "Sahne", "Streusel", "Karamellsoﬂe", "Schokosoﬂe"];
+    let toppings: string[] = ["kein", "Sahne", "Streusel", "Karamellsosse", "Schokososse"];
 
     function init(): void {
         addFlavours();
@@ -90,21 +90,21 @@ namespace a9 {
             }
         }
 
-        if (target.name == "toppinggroup") {
+        if (target.name == "toppings") {
 
-            if (target.value == "radioTop1") {
+            if (target.value == "kein") {
                 topPreis = 0.0;
             }
-            if (target.value == "radioTop2") {
+            if (target.value == "Sahne") {
                 topPreis = 0.3;
             }
-            if (target.value == "radioTop3") {
+            if (target.value == "Streusel") {
                 topPreis = 0.2;
             }
-            if (target.value == "radioTop4") {
+            if (target.value == "Karamellsosse") {
                 topPreis = 0.5;
             }
-            if (target.value == "radioTop5") {
+            if (target.value == "Schokososse") {
                 topPreis = 0.5;
             }
 
@@ -112,18 +112,18 @@ namespace a9 {
             document.getElementById("topping").innerText = "Zusatz: " + toppings[tNum - 1];
         }
 
-        if (target.name == "Radiogroup") {
+        if (target.name == "Behaelter") {
             for (let i: number = 0; i < toppings.length; i++) {
                 ((<HTMLInputElement>document.getElementById("radioTop" + (i + 1))).disabled) = false;
             }
 
             for (let i: number = 0; i < flavours.length; i++) {
                 ((<HTMLInputElement>document.getElementById("check" + (i + 1))).disabled) = false;
-                if (target.value == "cone") {
+                if (target.value == "Waffel") {
                     cupPreis = 0.5;
                     document.getElementById("cup").innerText = "Beh‰lter: Waffel";
                 }
-                if (target.value == "cup") {
+                if (target.value == "Becher") {
                     cupPreis = 0.2;
                     document.getElementById("cup").innerText = "Beh‰lter: Becher";
                 }
@@ -166,7 +166,7 @@ namespace a9 {
             document.getElementById("flavours").appendChild(div);
             input.id = "check" + (i + 1);
             input.type = "checkbox";
-            input.name = "Checkbox" + (i + 1);
+            input.name = flavours[i];
             input.value = "check" + (i + 1);
             input.disabled = true;
             div.style.marginTop = "1vmax";
@@ -232,10 +232,10 @@ namespace a9 {
         input2.id = "radio2";
         input.type = "radio";
         input2.type = "radio";
-        input.name = "Radiogroup";
-        input2.name = "Radiogroup";
-        input.value = "cone";
-        input2.value = "cup";
+        input.name = "Behaelter";
+        input2.name = "Behaelter";
+        input.value = "Waffel";
+        input2.value = "Becher";
         input.style.display = "block";
         input2.style.display = "block";
         input.style.margin = "10% auto";
@@ -252,8 +252,8 @@ namespace a9 {
             document.getElementById("toppings").appendChild(div);
             input.id = "radioTop" + (i + 1);
             input.type = "radio";
-            input.name = "toppinggroup";
-            input.value = "radioTop" + (i + 1);
+            input.name = "toppings";
+            input.value = toppings[i];
             input.disabled = true;
             div.style.marginTop = "1vmax";
             div.appendChild(input);
