@@ -48,7 +48,7 @@ namespace a9 {
                     document.getElementById("errors").innerHTML += "Bitte fuelle das Feld " + inputs[i].name + " aus" + "<br>";
                 }
 
-                
+
                 if (inputs[i].name == "mail") {
                     if (target.validationMessage == "") {
                         //bla
@@ -74,7 +74,7 @@ namespace a9 {
 
 
         if (target.type == "checkbox") {
-            let cNum: number = parseInt(target.value.slice(5));
+            let cNum: number = parseInt(target.id.slice(5));
             var e: HTMLSelectElement = <HTMLSelectElement>document.getElementById("sel" + (cNum - 1));
             var strUser: number = Number((<HTMLSelectElement>e.options[e.selectedIndex]).value); //remove Typecast and "Number" if not working
             if (target.checked && strUser == 0) {
@@ -88,6 +88,14 @@ namespace a9 {
                 e.style.visibility = "hidden";
                 e.disabled = true;
             }
+        }
+
+        if (target.localName == "select") {
+            let cNum: number = parseInt(target.id.slice(3));
+            let e: HTMLInputElement = <HTMLInputElement>document.getElementById("check" + (cNum + 1));
+            console.log(target.selectedIndex);
+            e.value += " " + (target.selectedIndex).toString();
+            console.log(e.value);
         }
 
         if (target.name == "toppings") {
@@ -166,8 +174,8 @@ namespace a9 {
             document.getElementById("flavours").appendChild(div);
             input.id = "check" + (i + 1);
             input.type = "checkbox";
-            input.name = flavours[i];
-            input.value = "check" + (i + 1);
+            input.name = "sorte";
+            input.value = flavours[i];
             input.disabled = true;
             div.style.marginTop = "1vmax";
             div.appendChild(input);
@@ -180,6 +188,7 @@ namespace a9 {
             sel.style.visibility = "hidden";
             sel.disabled = true;
             sel.id = "sel" + i;
+            sel.name = "num" + flavours[i];
             div2.appendChild(sel);
             for (let x: number = 0; x < 6; x++) {
                 let opt: HTMLOptionElement = document.createElement("option");

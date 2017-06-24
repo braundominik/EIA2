@@ -38,4 +38,4 @@ var a7;
     }
     a7.Hive = Hive;
 })(a7 || (a7 = {}));
-//# sourceMappingURL=hive.js.map
+//# sourceMappingURL=Hive.js.map

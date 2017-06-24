@@ -56,7 +56,7 @@ var a9;
             }
         }
         if (target.type == "checkbox") {
-            let cNum = parseInt(target.value.slice(5));
+            let cNum = parseInt(target.id.slice(5));
             var e = document.getElementById("sel" + (cNum - 1));
             var strUser = Number(e.options[e.selectedIndex].value); //remove Typecast and "Number" if not working
             if (target.checked && strUser == 0) {
@@ -69,6 +69,13 @@ var a9;
                 e.style.visibility = "hidden";
                 e.disabled = true;
             }
+        }
+        if (target.localName == "select") {
+            let cNum = parseInt(target.id.slice(3));
+            let e = document.getElementById("check" + (cNum + 1));
+            console.log(target.selectedIndex);
+            e.value += " " + (target.selectedIndex).toString();
+            console.log(e.value);
         }
         if (target.name == "toppings") {
             if (target.value == "kein") {
@@ -135,8 +142,8 @@ var a9;
             document.getElementById("flavours").appendChild(div);
             input.id = "check" + (i + 1);
             input.type = "checkbox";
-            input.name = flavours[i];
-            input.value = "check" + (i + 1);
+            input.name = "sorte";
+            input.value = flavours[i];
             input.disabled = true;
             div.style.marginTop = "1vmax";
             div.appendChild(input);
@@ -149,6 +156,7 @@ var a9;
             sel.style.visibility = "hidden";
             sel.disabled = true;
             sel.id = "sel" + i;
+            sel.name = "num" + flavours[i];
             div2.appendChild(sel);
             for (let x = 0; x < 6; x++) {
                 let opt = document.createElement("option");
