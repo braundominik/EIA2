@@ -94,7 +94,7 @@ namespace a9 {
             let cNum: number = parseInt(target.id.slice(3));
             let e: HTMLInputElement = <HTMLInputElement>document.getElementById("check" + (cNum + 1));
             console.log(target.selectedIndex);
-            e.value += " " + (target.selectedIndex).toString();
+            e.value += " x" + (target.selectedIndex).toString();
             console.log(e.value);
         }
 

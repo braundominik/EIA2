@@ -74,7 +74,7 @@ var a9;
             let cNum = parseInt(target.id.slice(3));
             let e = document.getElementById("check" + (cNum + 1));
             console.log(target.selectedIndex);
-            e.value += " " + (target.selectedIndex).toString();
+            e.value += " x" + (target.selectedIndex).toString();
             console.log(e.value);
         }
         if (target.name == "toppings") {
