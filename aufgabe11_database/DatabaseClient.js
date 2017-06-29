@@ -46,8 +46,8 @@ var DatabaseClient;
     }
     function sendRequest(_query, _callback) {
         let xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:8100?" + _query, true);
-        //xhr.open("GET", "https://eia2-servertest.herokuapp.com?color=" + _color, true);
+        //xhr.open("GET", "http://localhost:8100?" + _query, true);
+        xhr.open("GET", "https://eia2heroku.herokuapp.com?" + _query, true);
         xhr.addEventListener("readystatechange", _callback);
         xhr.send();
     }
