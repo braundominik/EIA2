@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>DatabaseClient</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="DatabaseClient.css" type="text/css"
+	media="screen" />
+<script src="DatabaseClient.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<fieldset id="input">
+		<legend> Type student data here </legend>
+		<input type="text" name="name" placeholder="name" id="name" /> <input
+			type="text" name="firstname" placeholder="firstname" id="firstname" />
+		<input type="text" name="matrikel" placeholder="matrikel"
+			id="matrikel" />
+
+		<button type="button" id="insert">Insert to database</button>
+	</fieldset>
+
+	<fieldset id="searching">
+		<legend> Search Here </legend>
+		<input type="text" name="searchName" placeholder="name"
+			id="searchName" /> <input type="text" name="searchMatrikel"
+			placeholder="matrikel" id="searchMatrikel" />
+		<button type="button" id="search">Search in Database</button>
+	</fieldset>
+
+	<fieldset id="deleting">
+		<legend> Delete Data </legend>
+		<input type="text" name="delName" placeholder="name" id="delName" /> <input
+			type="text" name="delFirstname" placeholder="firstname" id="delFirstname" />
+		<input type="text" name="delMatrikel" placeholder="matrikel" id="delMatrikel" />
+
+		<button type="button" id="delete">Delete</button>
+
+	</fieldset>
+
+	<fieldset id="output">
+		<legend> All student data </legend>
+		<button type="button" id="refresh">Refresh</button>
+		<textarea rows="20" cols="90"> </textarea>
+	</fieldset>
+</body>
+</html>
