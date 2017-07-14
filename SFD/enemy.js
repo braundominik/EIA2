@@ -32,7 +32,7 @@ var sfd;
             }
             let x = sfd.canvas.width / 2;
             let y = sfd.canvas.height / 2;
-            if (this.x > (x - 150) && this.x < (x + 300) && this.y > (y - 150) && this.y < y + 300) {
+            if (this.x > (x - 150) && this.x < (x + 150) && this.y > (y - 150) && this.y < y + 150) {
                 this.damaged = true;
                 this.currentHealth = this.currentHealth - sfd.sword.damageMod;
             }
@@ -40,4 +40,4 @@ var sfd;
     }
     sfd.Enemy = Enemy;
 })(sfd || (sfd = {}));
-//# sourceMappingURL=enemy.js.map
+//# sourceMappingURL=Enemy.js.map

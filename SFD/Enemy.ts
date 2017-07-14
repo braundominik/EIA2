@@ -45,7 +45,7 @@ namespace sfd {
             let x: number = canvas.width / 2;
             let y: number = canvas.height / 2;
 
-            if (this.x > (x - 150) && this.x < (x + 300) && this.y > (y - 150) && this.y < y + 300) {
+            if (this.x > (x - 150) && this.x < (x + 150) && this.y > (y - 150) && this.y < y + 150) {
                 this.damaged = true;
                 this.currentHealth = this.currentHealth - sword.damageMod;
             }
