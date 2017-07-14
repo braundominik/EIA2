@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aufgabe 8</title>
+<script src="commonFunctions.js"></script>
+<script src="Sword.js"></script>
+<script src="Enemy.js"></script>
+<script src="Minion.js"></script>
+<script src="Game.js"></script>
+<script src="DBClient.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+	<canvas id="game" width="400" height="800"></canvas>
+	<div id="status"></div>
+	<div id=loginCred>
+		<fieldset id="input">
+			<legend> Login here </legend>
+				<input type="text" name="searchUser" placeholder="username" id="searchUser" /> 
+				<input type="password" name="searchPassword" placeholder="password" id="searchPassword" />
+
+			<button type="button" id="login">Login</button>
+		</fieldset>
+
+		<fieldset id="createNew">
+			<legend> Create a new Account here </legend>
+				<input type="text" name="createUser" placeholder="username" id="createUser" /> 
+				<input type="password" name="createPassword" placeholder="password" id="createPassword" />
+				
+			<button type="button" id="create">Create New Account</button>
+		</fieldset>
+		
+		<button type="button" id="save">Save Data</button>
+	</div>
+
+</body>
+
+</html>

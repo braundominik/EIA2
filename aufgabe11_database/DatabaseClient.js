@@ -8,8 +8,7 @@ var DatabaseClient;
         let searchButton = document.getElementById("search");
         let deleteButton = document.getElementById("delete");
         insertButton.addEventListener("click", insert);
-        refreshButton.addEventListener("click", refresh);
-        searchButton.addEventListener("click", search);
+        searchButton.addEventListener("click", login);
         deleteButton.addEventListener("click", deleteData);
     }
     function insert(_event) {
@@ -46,8 +45,8 @@ var DatabaseClient;
     }
     function sendRequest(_query, _callback) {
         let xhr = new XMLHttpRequest();
-        //xhr.open("GET", "http://localhost:8100?" + _query, true);
-        xhr.open("GET", "https://eia2heroku.herokuapp.com?" + _query, true);
+        xhr.open("GET", "http://localhost:8100?" + _query, true);
+        //xhr.open("GET", "https://eia2heroku.herokuapp.com?" + _query, true);
         xhr.addEventListener("readystatechange", _callback);
         xhr.send();
     }

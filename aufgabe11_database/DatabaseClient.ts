@@ -8,8 +8,7 @@ namespace DatabaseClient {
         let searchButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("search");
         let deleteButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("delete");
         insertButton.addEventListener("click", insert);
-        refreshButton.addEventListener("click", refresh);
-        searchButton.addEventListener("click", search);
+        searchButton.addEventListener("click", login);
         deleteButton.addEventListener("click", deleteData);
     }
 
@@ -51,8 +50,8 @@ namespace DatabaseClient {
 
     function sendRequest(_query: string, _callback: EventListener): void {
         let xhr: XMLHttpRequest = new XMLHttpRequest();
-        //xhr.open("GET", "http://localhost:8100?" + _query, true);
-        xhr.open("GET", "https://eia2heroku.herokuapp.com?" + _query, true);
+        xhr.open("GET", "http://localhost:8100?" + _query, true);
+        //xhr.open("GET", "https://eia2heroku.herokuapp.com?" + _query, true);
         xhr.addEventListener("readystatechange", _callback);
         xhr.send();
     }
