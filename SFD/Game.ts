@@ -36,6 +36,7 @@ namespace sfd {
         }
 
         reset(): void {
+            enemies.splice(0);
             game = new Game();
         }
     }

@@ -22,6 +22,7 @@ var sfd;
             this.rotationlvl = 0;
         }
         reset() {
+            sfd.enemies.splice(0);
             sfd.game = new Game();
         }
     }
