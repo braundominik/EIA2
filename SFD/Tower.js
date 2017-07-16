@@ -9,31 +9,27 @@ nicht kopiert und auch nicht diktiert.
 */
 var sfd;
 (function (sfd) {
-    class Minion extends sfd.Enemy {
+    class Tower extends sfd.Enemy {
         constructor(_h, _v) {
             super(_h, _v);
-            let temp = sfd.getPosIn(50, -1000, 350, -100);
-            this.x = temp[0];
-            this.y = temp[1];
+            this.x = 200;
+            this.y = -200;
         }
         draw() {
             sfd.crc.beginPath();
             sfd.crc.fillStyle = "black";
-            sfd.crc.ellipse(this.x, this.y, 10, 10, 90 * Math.PI / 180, 0, 2 * Math.PI);
+            sfd.crc.ellipse(this.x, this.y, 50, 50, 90 * Math.PI / 180, 0, 2 * Math.PI);
             sfd.crc.fill();
             sfd.crc.beginPath();
             sfd.crc.fillStyle = "red";
-            sfd.crc.fillRect(this.x - 10, this.y - 15, (this.currentHealth / this.maxHealth) * 20, 2);
+            sfd.crc.fillRect(this.x - 50, this.y - 70, (this.currentHealth / this.maxHealth) * 100, 7);
         }
         move() {
-            if (this.y <= sfd.canvas.height) {
-                this.y = this.y + 3;
-            }
-            else {
-                this.y = 0;
+            if (this.y <= 270) {
+                this.y = this.y + 2;
             }
         }
     }
-    sfd.Minion = Minion;
+    sfd.Tower = Tower;
 })(sfd || (sfd = {}));
-//# sourceMappingURL=Minion.js.map
+//# sourceMappingURL=Tower.js.map

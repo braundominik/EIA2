@@ -10,7 +10,8 @@ nicht kopiert und auch nicht diktiert.
 var sfd;
 (function (sfd) {
     class Enemy {
-        constructor(_h) {
+        constructor(_h, _v) {
+            this.value = _v;
             this.damaged = false;
             this.maxHealth = _h;
             this.currentHealth = this.maxHealth;
@@ -28,6 +29,7 @@ var sfd;
         }
         receiveDamage() {
             if (this.currentHealth <= 0) {
+                sfd.game.gold = Math.round((sfd.game.gold + this.value) * 10) / 10;
                 sfd.enemies.splice(sfd.enemies.indexOf(this), 1);
             }
             let x = sfd.canvas.width / 2;

@@ -7,7 +7,7 @@ var sfd;
         let saveButton = document.getElementById("save");
         insertButton.addEventListener("click", insert);
         loginButton.addEventListener("click", login);
-        saveButton.addEventListener("click", save);
+        //saveButton.addEventListener("click", save);
     }
     function insert(_event) {
         let user = document.getElementById("createUser");

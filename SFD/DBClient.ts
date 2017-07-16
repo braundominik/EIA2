@@ -7,7 +7,7 @@ namespace sfd {
         let saveButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("save");
         insertButton.addEventListener("click", insert);
         loginButton.addEventListener("click", login);
-        saveButton.addEventListener("click", save);
+        //saveButton.addEventListener("click", save);
     }
 
     function insert(_event: Event): void {

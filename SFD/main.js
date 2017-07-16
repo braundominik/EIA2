@@ -21,9 +21,11 @@ var sfd;
         sfd.crc = sfd.canvas.getContext("2d");
         document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
         buildBackground();
+        let saveButton = document.getElementById("save");
+        saveButton.addEventListener("click", sfd.game.reset);
         saveBG = sfd.crc.getImageData(0, 0, sfd.canvas.width, sfd.canvas.height);
         console.log(saveBG);
-        spawnEnemy("minion", 5);
+        //spawnEnemy("minion", game.creepHealth, game.creepValue);
         animate();
     }
     let count = 0;
@@ -50,20 +52,36 @@ var sfd;
         showInfo();
         setTimeout(animate, 20);
     }
-    function spawnEnemy(_type, _maxH) {
+    function spawnEnemy(_type, _maxH, _value) {
+        let health;
+        let value;
         switch (_type) {
             case "minion":
-                let health;
                 for (let x = 0; x < 10; x++) {
-                    //let health: number = 250 * (Math.pow(2, game.wave));
-                    health = (_maxH + (Math.pow(2, sfd.game.level)) * (1 + (sfd.game.wave / 10)));
-                    let nMinion = new sfd.Minion(health);
+                    if (sfd.game.wave > 1) {
+                        health = (((_maxH / sfd.game.wave) * ((sfd.game.wave - 1) * 2)) + 10);
+                    }
+                    else {
+                        health = _maxH / sfd.game.wave;
+                    }
+                    value = Math.round((sfd.game.creepValue * 1.6) * 10) / 10;
+                    let nMinion = new sfd.Minion(health, value);
                     sfd.enemies.push(nMinion);
-                    console.log(nMinion.maxHealth);
                 }
                 sfd.game.creepHealth = health;
+                sfd.game.creepValue = value;
+                console.log(health);
+                console.log(value);
                 break;
             case "tower":
+                health = _maxH * 14;
+                value = Math.round((sfd.game.creepValue * 13) * 10) / 10;
+                let nTower = new sfd.Tower(health, value);
+                sfd.enemies.push(nTower);
+                sfd.game.creepHealth = health;
+                sfd.game.creepValue = value;
+                console.log(sfd.game.creepHealth);
+                console.log(sfd.game.creepValue);
                 break;
             case "nexus":
                 break;
@@ -82,15 +100,26 @@ var sfd;
         }
     }
     function manageGame() {
-        if (sfd.game.wave < 5) {
+        //MINION
+        if (sfd.game.wave < 4) {
             if (sfd.enemies.length == 0) {
                 sfd.game.wave++;
-                spawnEnemy("minion", sfd.game.creepHealth);
+                console.log(sfd.game.wave);
+                spawnEnemy("minion", sfd.game.creepHealth, sfd.game.creepValue);
             }
         }
-        else {
-            sfd.game.level++;
-            sfd.game.wave = 1;
+        //TOWER
+        if (sfd.game.wave > 3) {
+            if (sfd.game.wave > 4 && sfd.enemies.length == 0) {
+                sfd.game.level++;
+                sfd.game.wave = 0;
+                sfd.game.creepValue = sfd.game.creepValue / 7;
+                sfd.game.creepHealth = sfd.game.creepHealth / 7;
+            }
+            if (sfd.enemies.length == 0 && sfd.game.wave == 4) {
+                spawnEnemy("tower", sfd.game.creepHealth, sfd.game.creepValue);
+                sfd.game.wave++;
+            }
         }
     }
     function resetWave() {

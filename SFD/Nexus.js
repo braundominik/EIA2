@@ -9,9 +9,9 @@ nicht kopiert und auch nicht diktiert.
 */
 var sfd;
 (function (sfd) {
-    class Minion extends sfd.Enemy {
-        constructor(_h, _v) {
-            super(_h, _v);
+    class Nexus extends sfd.Enemy {
+        constructor(_h) {
+            super(_h);
             let temp = sfd.getPosIn(50, -1000, 350, -100);
             this.x = temp[0];
             this.y = temp[1];
@@ -34,6 +34,6 @@ var sfd;
             }
         }
     }
-    sfd.Minion = Minion;
+    sfd.Nexus = Nexus;
 })(sfd || (sfd = {}));
-//# sourceMappingURL=Minion.js.map
+//# sourceMappingURL=Nexus.js.map

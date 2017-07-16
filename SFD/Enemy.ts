@@ -15,9 +15,11 @@ namespace sfd {
         x: number;
         y: number;
         damaged: boolean;
+        value: number;
 
 
-        constructor(_h: number) {
+        constructor(_h: number, _v: number) {
+            this.value = _v;
             this.damaged = false;
             this.maxHealth = _h;
             this.currentHealth = this.maxHealth;
@@ -39,6 +41,7 @@ namespace sfd {
 
         receiveDamage(): void {
             if (this.currentHealth <= 0) {
+                game.gold = Math.round((game.gold + this.value) * 10) / 10;
                 enemies.splice(enemies.indexOf(this), 1);
             }
 

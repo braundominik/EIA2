@@ -9,15 +9,15 @@ nicht kopiert und auch nicht diktiert.
 */
 
 namespace sfd {
-    export class Minion extends Enemy {
+    export class Nexus extends Enemy {
 
 
-        constructor(_h: number, _v: number) {
-            super(_h, _v);
+        constructor(_h: number) {
+            super(_h);
             let temp: number[] = getPosIn(50, -1000, 350, -100);
             this.x = temp[0];
             this.y = temp[1];
-
+            
 
         }
 
@@ -49,4 +49,3 @@ namespace sfd {
 
     }
 }
-
