@@ -11,10 +11,14 @@ var sfd;
 (function (sfd) {
     class Game {
         constructor() {
+            this.creepHealth = 10;
             this.wave = 1;
             this.level = 1;
             this.game = 1;
+            this.gold = 0;
             this.accountUser = "";
+            this.swordlvl = 0;
+            this.rotationlvl = 0;
         }
     }
     sfd.Game = Game;

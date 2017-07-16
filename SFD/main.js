@@ -19,10 +19,11 @@ var sfd;
         sfd.canvas = (document.getElementById("game"));
         sfd.canvas.addEventListener("click", manipulateRotation);
         sfd.crc = sfd.canvas.getContext("2d");
+        document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
         buildBackground();
         saveBG = sfd.crc.getImageData(0, 0, sfd.canvas.width, sfd.canvas.height);
         console.log(saveBG);
-        spawnEnemy("minion");
+        spawnEnemy("minion", 5);
         animate();
     }
     let count = 0;
@@ -35,6 +36,7 @@ var sfd;
                 sfd.clicks = 0;
             }
         }
+        updateUpgrades();
         manageGame();
         sfd.sword.damageMod = sfd.sword.damage;
         sfd.crc.putImageData(saveBG, 0, 0);
@@ -48,15 +50,18 @@ var sfd;
         showInfo();
         setTimeout(animate, 20);
     }
-    function spawnEnemy(_type) {
+    function spawnEnemy(_type, _maxH) {
         switch (_type) {
             case "minion":
+                let health;
                 for (let x = 0; x < 10; x++) {
-                    let health = 250 * (Math.pow(2, sfd.game.wave));
+                    //let health: number = 250 * (Math.pow(2, game.wave));
+                    health = (_maxH + (Math.pow(2, sfd.game.level)) * (1 + (sfd.game.wave / 10)));
                     let nMinion = new sfd.Minion(health);
                     sfd.enemies.push(nMinion);
                     console.log(nMinion.maxHealth);
                 }
+                sfd.game.creepHealth = health;
                 break;
             case "tower":
                 break;
@@ -64,10 +69,28 @@ var sfd;
                 break;
         }
     }
+    function updateUpgrades() {
+        document.getElementById("damageUp").lastChild.textContent = "" + (sfd.game.swordlvl).toString();
+        document.getElementById("rotationUp").lastChild.textContent = "" + (sfd.game.rotationlvl).toString();
+        //
+    }
+    function addUpgradeLevel(_event) {
+        switch (_event.target.id) {
+            case "damageUp":
+                sfd.game.swordlvl++;
+                break;
+        }
+    }
     function manageGame() {
-        if (sfd.enemies.length == 0) {
-            sfd.game.wave++;
-            spawnEnemy("minion");
+        if (sfd.game.wave < 5) {
+            if (sfd.enemies.length == 0) {
+                sfd.game.wave++;
+                spawnEnemy("minion", sfd.game.creepHealth);
+            }
+        }
+        else {
+            sfd.game.level++;
+            sfd.game.wave = 1;
         }
     }
     function resetWave() {
@@ -77,7 +100,7 @@ var sfd;
     sfd.resetWave = resetWave;
     function showInfo() {
         document.getElementById("status").innerHTML = "";
-        document.getElementById("status").innerHTML = "Wave " + sfd.game.wave + "<br>" + "Level " + sfd.game.level + "<br>" + "Game " + sfd.game.game + "<br>" + "User " + sfd.game.accountUser + "<br>";
+        document.getElementById("status").innerHTML = "Wave " + sfd.game.wave + "<br>" + "Level " + sfd.game.level + "<br>" + "Game " + sfd.game.game + "<br>" + "User " + sfd.game.accountUser + "<br>" + "Gold " + sfd.game.gold;
     }
     function manipulateRotation() {
         sfd.clicks++;

@@ -22,6 +22,7 @@ namespace sfd {
         }
 
         update(): void {
+            this.damage = 1 + game.swordlvl * 2;
             this.damageMod = this.damage + (this.damage * (this.rotSpeed / 5));
             this.rotSpeed = 1 + clicks;
             this.rotation = this.rotation + this.rotSpeed;

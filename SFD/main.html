@@ -14,25 +14,33 @@
 </head>
 
 <body>
+	<div id="upgrades">
+		<div id="damageUp">Sword Damage <div>0</div></div>
+		
+		<div id="rotationUp">Rotation Speed <div>0</div></div>
+		
+	</div>
 	<canvas id="game" width="400" height="800"></canvas>
 	<div id="status"></div>
 	<div id=loginCred>
 		<fieldset id="input">
 			<legend> Login here </legend>
-				<input type="text" name="searchUser" placeholder="username" id="searchUser" /> 
-				<input type="password" name="searchPassword" placeholder="password" id="searchPassword" />
+			<input type="text" name="searchUser" placeholder="username"
+				id="searchUser" /> <input type="password" name="searchPassword"
+				placeholder="password" id="searchPassword" />
 
 			<button type="button" id="login">Login</button>
 		</fieldset>
 
 		<fieldset id="createNew">
 			<legend> Create a new Account here </legend>
-				<input type="text" name="createUser" placeholder="username" id="createUser" /> 
-				<input type="password" name="createPassword" placeholder="password" id="createPassword" />
-				
+			<input type="text" name="createUser" placeholder="username"
+				id="createUser" /> <input type="password" name="createPassword"
+				placeholder="password" id="createPassword" />
+
 			<button type="button" id="create">Create New Account</button>
 		</fieldset>
-		
+
 		<button type="button" id="save">Save Data</button>
 	</div>
 
