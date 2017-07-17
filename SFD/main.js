@@ -9,12 +9,12 @@ nicht kopiert und auch nicht diktiert.
 */
 var sfd;
 (function (sfd) {
-    window.addEventListener("load", init);
     let saveBG;
     sfd.sword = new sfd.Sword();
     sfd.enemies = [];
     sfd.game = new sfd.Game();
     sfd.clicks = 0;
+    window.addEventListener("load", init);
     function init() {
         sfd.canvas = (document.getElementById("game"));
         sfd.canvas.addEventListener("click", manipulateRotation);
@@ -95,7 +95,11 @@ var sfd;
     function addUpgradeLevel(_event) {
         switch (_event.target.id) {
             case "damageUp":
-                sfd.game.swordlvl++;
+                let cost = (5 * Math.pow(1.15, (sfd.game.swordlvl)));
+                if (sfd.game.gold >= cost) {
+                    sfd.game.gold = sfd.game.gold - cost;
+                    sfd.game.swordlvl++;
+                }
                 break;
         }
     }

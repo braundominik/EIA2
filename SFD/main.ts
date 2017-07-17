@@ -9,7 +9,6 @@ nicht kopiert und auch nicht diktiert.
 */
 
 namespace sfd {
-    window.addEventListener("load", init);
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
     let saveBG: ImageData;
@@ -17,6 +16,7 @@ namespace sfd {
     export let enemies: Enemy[] = [];
     export let game: Game = new Game();
     export let clicks: number = 0;
+    window.addEventListener("load", init);
 
 
 
@@ -119,7 +119,11 @@ namespace sfd {
     function addUpgradeLevel(_event: Event): void {
         switch (_event.target.id) {
             case "damageUp":
-                game.swordlvl++;
+                let cost: number = (5 * Math.pow(1.15, (game.swordlvl)));
+                if (game.gold >= cost) {
+                    game.gold = game.gold - cost;
+                    game.swordlvl++;
+                }
                 break;
 
 
