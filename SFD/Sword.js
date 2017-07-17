@@ -25,15 +25,20 @@ var sfd;
         draw() {
             let x = sfd.canvas.width / 2;
             let y = sfd.canvas.height / 2;
-            sfd.crc.beginPath();
-            sfd.crc.fillStyle = "blue";
-            sfd.crc.fillRect(x - 150, y - 150, 300, 300);
-            sfd.crc.fill();
-            sfd.crc.beginPath();
-            sfd.crc.fillStyle = "red";
-            sfd.crc.strokeStyle = "red";
-            sfd.crc.fillRect(x - 50, y - 50, 100, 100);
-            sfd.crc.fill();
+            //            crc.beginPath();
+            //            crc.fillStyle = "blue";
+            //            crc.fillRect(x - 150, y - 150, 300, 300);
+            //
+            //            crc.fill();
+            //
+            //            crc.beginPath();
+            //            crc.fillStyle = "red";
+            //            crc.strokeStyle = "red";
+            //            crc.fillRect(x - 50, y - 50, 100, 100);
+            //            crc.fill();
+            let img;
+            img = document.createElement("img");
+            img.src = "warrior.png";
             sfd.crc.save();
             x = 0;
             y = -50;
@@ -79,6 +84,7 @@ var sfd;
             sfd.crc.lineTo(x - 6, y - 50);
             sfd.crc.lineTo(x - 3, y - 37);
             sfd.crc.fill();
+            sfd.crc.drawImage(img, x - 25, y - 20);
             sfd.crc.restore();
         }
     }

@@ -42,13 +42,13 @@ var sfd;
         manageGame();
         sfd.sword.damageMod = sfd.sword.damage;
         sfd.crc.putImageData(saveBG, 0, 0);
-        sfd.sword.update();
         for (let x = 0; x < sfd.enemies.length; x++) {
             if (sfd.enemies[x].damaged) {
                 sfd.sword.damageMod = sfd.sword.damageMod * 0.9;
             }
             sfd.enemies[x].update();
         }
+        sfd.sword.update();
         showInfo();
         setTimeout(animate, 20);
     }
@@ -140,8 +140,12 @@ var sfd;
     }
     function buildBackground() {
         //Wiese
-        sfd.crc.fillStyle = "#32722c";
-        sfd.crc.fillRect(0, 0, sfd.canvas.width, sfd.canvas.height);
+        //        crc.fillStyle = "#32722c";
+        //        crc.fillRect(0, 0, canvas.width, canvas.height);
+        let img;
+        img = document.createElement("img");
+        img.src = "background.gif";
+        sfd.crc.drawImage(img, 200, 200);
     }
     function getDistance(x1, y1, x2, y2) {
         let dtc = Math.sqrt((Math.pow(x1 - x2, 2)) + (Math.pow(y1 - y2, 2)));

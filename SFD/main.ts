@@ -58,13 +58,13 @@ namespace sfd {
         manageGame();
         sword.damageMod = sword.damage;
         crc.putImageData(saveBG, 0, 0);
-        sword.update();
         for (let x: number = 0; x < enemies.length; x++) {
             if (enemies[x].damaged) {
                 sword.damageMod = sword.damageMod * 0.9;
             }
             enemies[x].update();
         }
+        sword.update();
         showInfo();
         setTimeout(animate, 20);
     }
@@ -188,8 +188,12 @@ namespace sfd {
 
     function buildBackground(): void {
         //Wiese
-        crc.fillStyle = "#32722c";
-        crc.fillRect(0, 0, canvas.width, canvas.height);
+        //        crc.fillStyle = "#32722c";
+        //        crc.fillRect(0, 0, canvas.width, canvas.height);
+        let img: HTMLImageElement;
+        img = document.createElement("img");
+        img.src = "background.gif";
+        crc.drawImage(img, 200, 200);
     }
 
     function getDistance(x1: number, y1: number, x2: number, y2: number): number {

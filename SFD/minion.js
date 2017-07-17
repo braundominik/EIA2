@@ -12,25 +12,36 @@ var sfd;
     class Minion extends sfd.Enemy {
         constructor(_h, _v) {
             super(_h, _v);
-            let temp = sfd.getPosIn(50, -1000, 350, -100);
+            let temp;
+            if (Math.random() > 0.5) {
+                temp = sfd.getPosIn(50, -1000, 100, -100);
+            }
+            else {
+                temp = sfd.getPosIn(300, -1000, 350, -100);
+            }
             this.x = temp[0];
             this.y = temp[1];
         }
         draw() {
-            sfd.crc.beginPath();
-            sfd.crc.fillStyle = "black";
-            sfd.crc.ellipse(this.x, this.y, 10, 10, 90 * Math.PI / 180, 0, 2 * Math.PI);
-            sfd.crc.fill();
+            let img;
+            img = document.createElement("img");
+            img.src = "redMinion.gif";
+            sfd.crc.drawImage(img, this.x - 20, this.y, 40, 80);
+            //
+            //            crc.beginPath();
+            //            crc.fillStyle = "black";
+            //            crc.ellipse(this.x, this.y, 10, 10, 90 * Math.PI / 180, 0, 2 * Math.PI);
+            //            crc.fill();
             sfd.crc.beginPath();
             sfd.crc.fillStyle = "red";
-            sfd.crc.fillRect(this.x - 10, this.y - 15, (this.currentHealth / this.maxHealth) * 20, 2);
+            sfd.crc.fillRect(this.x - 10, this.y - 10, (this.currentHealth / this.maxHealth) * 20, 2);
         }
         move() {
             if (this.y <= sfd.canvas.height) {
                 this.y = this.y + 3;
             }
             else {
-                this.y = 0;
+                this.y = -80;
             }
         }
     }

@@ -33,18 +33,21 @@ namespace sfd {
             let x: number = canvas.width / 2;
             let y: number = canvas.height / 2;
 
-            crc.beginPath();
-            crc.fillStyle = "blue";
-            crc.fillRect(x - 150, y - 150, 300, 300);
+            //            crc.beginPath();
+            //            crc.fillStyle = "blue";
+            //            crc.fillRect(x - 150, y - 150, 300, 300);
+            //
+            //            crc.fill();
+            //
+            //            crc.beginPath();
+            //            crc.fillStyle = "red";
+            //            crc.strokeStyle = "red";
+            //            crc.fillRect(x - 50, y - 50, 100, 100);
+            //            crc.fill();
 
-            crc.fill();
-
-            crc.beginPath();
-            crc.fillStyle = "red";
-            crc.strokeStyle = "red";
-            crc.fillRect(x - 50, y - 50, 100, 100);
-            crc.fill();
-
+            let img: HTMLImageElement;
+            img = document.createElement("img");
+            img.src = "warrior.png";
             crc.save();
 
             x = 0;
@@ -52,6 +55,8 @@ namespace sfd {
 
             crc.translate(canvas.width / 2, canvas.height / 2);
             crc.rotate(this.rotation * Math.PI / 180);
+
+
 
             crc.beginPath();
             crc.fillStyle = "yellow";
@@ -96,6 +101,8 @@ namespace sfd {
             crc.lineTo(x - 6, y - 50);
             crc.lineTo(x - 3, y - 37);
             crc.fill();
+
+            crc.drawImage(img, x - 25, y - 20);
 
             crc.restore();
 
