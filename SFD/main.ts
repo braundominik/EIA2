@@ -22,31 +22,26 @@ namespace sfd {
 
     function init(): void {
 
-        buildBackground(function(): void {
-
-            canvas = <HTMLCanvasElement>(document.getElementById("game"));
-            canvas.addEventListener("click", manipulateRotation);
-            crc = canvas.getContext("2d");
-
-            crc.drawImage(img, 0, 0);
-            saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
-
-            document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
 
 
-            setTimeout(buildBackground, 100);
+        canvas = <HTMLCanvasElement>(document.getElementById("game"));
+        canvas.addEventListener("click", manipulateRotation);
+        crc = canvas.getContext("2d");
+        document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
+        let saveButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("save");
+        saveButton.addEventListener("click", game.reset);
 
-            let saveButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("save");
-            saveButton.addEventListener("click", game.reset);
-            console.log(saveBG);
-            //spawnEnemy("minion", game.creepHealth, game.creepValue);
-            setTimeout(animate);
-
-        });
-
+        buildBackground();
 
 
+    }
 
+    function imagesLoaded(): void {
+        crc.drawImage(img, 0, 0);
+        saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
+        console.log(saveBG);
+        //spawnEnemy("minion", game.creepHealth, game.creepValue);
+        setTimeout(animate);
     }
 
     let count: number = 0;
@@ -194,13 +189,13 @@ namespace sfd {
         clicks++;
     }
 
-    function buildBackground(callback: Function): void {
+    function buildBackground(): void {
         //Wiese
         //        crc.fillStyle = "#32722c";
         //        crc.fillRect(0, 0, canvas.width, canvas.height);
         img = new Image();
         img.src = "background.gif";
-        img.onload = callback();
+        img.addEventListener("load", imagesLoaded);
     }
 
 
