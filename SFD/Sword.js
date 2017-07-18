@@ -16,9 +16,9 @@ var sfd;
             this.damage = 1;
         }
         update() {
-            this.damage = 0.01 + (sfd.game.swordlvl / 20);
+            this.damage = 0.1 + (sfd.game.swordlvl / 5);
             this.damageMod = this.damage + (this.damage * (this.rotSpeed / 5));
-            this.rotSpeed = 1 + sfd.clicks;
+            this.rotSpeed = 1 + sfd.clicks + (sfd.game.rotationlvl / 10);
             this.rotation = this.rotation + this.rotSpeed;
             this.draw();
         }
@@ -37,8 +37,7 @@ var sfd;
             //            crc.fillRect(x - 50, y - 50, 100, 100);
             //            crc.fill();
             let img;
-            img = document.createElement("img");
-            img.src = "warrior.png";
+            img = document.getElementById("warrior");
             sfd.crc.save();
             x = 0;
             y = -50;

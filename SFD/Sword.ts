@@ -22,9 +22,9 @@ namespace sfd {
         }
 
         update(): void {
-            this.damage = 0.01 + (game.swordlvl / 20);
+            this.damage = 0.1 + (game.swordlvl / 5);
             this.damageMod = this.damage + (this.damage * (this.rotSpeed / 5));
-            this.rotSpeed = 1 + clicks;
+            this.rotSpeed = 1 + clicks + (game.rotationlvl / 10);
             this.rotation = this.rotation + this.rotSpeed;
             this.draw();
         }
@@ -46,8 +46,7 @@ namespace sfd {
             //            crc.fill();
 
             let img: HTMLImageElement;
-            img = document.createElement("img");
-            img.src = "warrior.png";
+            img = <HTMLImageElement>document.getElementById("warrior");
             crc.save();
 
             x = 0;

@@ -36,7 +36,7 @@ var sfd;
             let y = sfd.canvas.height / 2;
             if (this.x > (x - 150) && this.x < (x + 150) && this.y > (y - 150) && this.y < y + 150) {
                 this.damaged = true;
-                this.currentHealth = this.currentHealth - sfd.sword.damageMod;
+                this.currentHealth = this.currentHealth - (sfd.sword.damageMod * (1 + (sfd.game.nexusCoresActivated * 0.5)));
             }
         }
     }

@@ -50,7 +50,7 @@ namespace sfd {
 
             if (this.x > (x - 150) && this.x < (x + 150) && this.y > (y - 150) && this.y < y + 150) {
                 this.damaged = true;
-                this.currentHealth = this.currentHealth - sword.damageMod;
+                this.currentHealth = this.currentHealth - (sword.damageMod * (1 + (game.nexusCoresActivated * 0.5)));
             }
         }
 

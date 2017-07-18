@@ -24,8 +24,7 @@ var sfd;
         }
         draw() {
             let img;
-            img = document.createElement("img");
-            img.src = "blueMinion.gif";
+            img = document.getElementById("minion");
             sfd.crc.drawImage(img, this.x - 20, this.y, 40, 80);
             //
             //            crc.beginPath();

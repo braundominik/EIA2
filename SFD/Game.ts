@@ -21,9 +21,15 @@ namespace sfd {
         creepValue: number;
         accountUser: string;
         accountPassword: string;
+        tower: boolean;
+        nexusCoresDeactivated: number;
+        nexusCoresActivated: number;
 
 
         constructor() {
+            this.nexusCoresDeactivated = 0;
+            this.nexusCoresActivated = 0;
+            this.tower = false;
             this.creepHealth = 10;
             this.creepValue = 0.3125;
             this.wave = 0;
@@ -31,13 +37,23 @@ namespace sfd {
             this.game = 1;
             this.gold = 0;
             this.accountUser = "";
-            this.swordlvl = 0;
-            this.rotationlvl = 0;
+            this.swordlvl = 200;
+            this.rotationlvl = 1;
         }
 
-        reset(): void {
+        hardReset(): void {
             enemies.splice(0);
+            freeze.checked = false;
             game = new Game();
         }
+
+        softReset(): void {
+            enemies.splice(0);
+            freeze.checked = false;
+            let activatedCores: number = game.nexusCoresDeactivated + game.nexusCoresActivated;
+            game = new Game();
+            game.nexusCoresActivated = activatedCores;
+        }
+
     }
 }

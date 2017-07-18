@@ -12,12 +12,11 @@ namespace sfd {
     export class Nexus extends Enemy {
 
 
-        constructor(_h: number) {
-            super(_h);
-            let temp: number[] = getPosIn(50, -1000, 350, -100);
-            this.x = temp[0];
-            this.y = temp[1];
-            
+        constructor(_h: number, _v: number) {
+            super(_h, _v);
+            this.x = 200;
+            this.y = -200;
+
 
         }
 
@@ -28,21 +27,17 @@ namespace sfd {
 
             crc.beginPath();
             crc.fillStyle = "black";
-            crc.ellipse(this.x, this.y, 10, 10, 90 * Math.PI / 180, 0, 2 * Math.PI);
+            crc.ellipse(this.x, this.y, 200, 200, 90 * Math.PI / 180, 0, 2 * Math.PI);
             crc.fill();
 
             crc.beginPath();
             crc.fillStyle = "red";
-            crc.fillRect(this.x - 10, this.y - 15, (this.currentHealth / this.maxHealth) * 20, 2);
+            crc.fillRect(this.x - 50, this.y - 70, (this.currentHealth / this.maxHealth) * 100, 7);
         }
 
         move(): void {
-            if (this.y <= canvas.height) {
-                this.y = this.y + 3;
-            }
-
-            else {
-                this.y = 0;
+            if (this.y <= 270) {
+                this.y = this.y + 2;
             }
 
         }

@@ -18,6 +18,7 @@ namespace sfd {
     export let clicks: number = 0;
     window.addEventListener("load", init);
     let img: HTMLImageElement;
+    export let freeze: HTMLInputElement;
 
 
     function init(): void {
@@ -28,18 +29,19 @@ namespace sfd {
         canvas.addEventListener("click", manipulateRotation);
         crc = canvas.getContext("2d");
         document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
-        let saveButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("save");
-        saveButton.addEventListener("click", game.reset);
+        document.getElementById("rotationUp").addEventListener("click", addUpgradeLevel);
+        let resetButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("hardReset");
+        resetButton.addEventListener("click", game.hardReset);
+        let softResetButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("softReset");
+        softResetButton.addEventListener("click", game.softReset);
+
+        freeze = <HTMLInputElement>document.getElementById("checkFreeze");
+        freeze.checked = false;
 
         buildBackground();
-
-
-    }
-
-    function imagesLoaded(): void {
-        crc.drawImage(img, 0, 0);
         saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
         console.log(saveBG);
+
         //spawnEnemy("minion", game.creepHealth, game.creepValue);
         setTimeout(animate);
     }
@@ -73,7 +75,7 @@ namespace sfd {
         setTimeout(animate, 20);
     }
 
-    function spawnEnemy(_type: string, _maxH: number, _value: number): void {
+    function spawnEnemy(_type: string, _maxH: number): void {
         let health: number;
         let value: number;
         switch (_type) {
@@ -81,13 +83,20 @@ namespace sfd {
             case "minion":
 
                 for (let x: number = 0; x < 10; x++) {
-                    if (game.wave > 1) {
-                        health = (((_maxH / game.wave) * ((game.wave - 1) * 2)) + 10);
+                    if (freeze.checked) {
+                        health = _maxH;
+                        value = game.creepValue;
                     }
                     else {
-                        health = _maxH / game.wave;
+                        if (game.wave > 1) {
+                            health = (((_maxH / game.wave) * ((game.wave - 1) * 2)) + 10);
+                        }
+                        else {
+                            health = _maxH / game.wave;
+                        }
+
+                        value = Math.round((game.creepValue * 1.6) * 10) / 10;
                     }
-                    value = Math.round((game.creepValue * 1.6) * 10) / 10;
                     let nMinion: Enemy = new Minion(health, value);
                     enemies.push(nMinion);
                 }
@@ -108,6 +117,16 @@ namespace sfd {
                 console.log(game.creepValue);
                 break;
             case "nexus":
+
+                health = _maxH * 30;
+                value = Math.round((game.creepValue * 25) * 10) / 10;
+                let nNexus: Enemy = new Nexus(health, value);
+                enemies.push(nNexus);
+                game.creepHealth = health;
+                game.creepValue = value;
+                console.log(game.creepHealth);
+                console.log(game.creepValue);
+
                 break;
 
         }
@@ -121,12 +140,23 @@ namespace sfd {
     }
 
     function addUpgradeLevel(_event: Event): void {
+        let cost: number;
         switch (_event.target.id) {
             case "damageUp":
-                let cost: number = (5 * Math.pow(1.15, (game.swordlvl)));
+                cost = (5 * Math.pow(game.swordlvl, (Math.pow(1.15, (game.game - 1)))));
+                console.log("COST:" + cost);
                 if (game.gold >= cost) {
-                    game.gold = game.gold - cost;
+                    game.gold = Math.round((game.gold - cost) * 10) / 10;
                     game.swordlvl++;
+                }
+                break;
+
+            case "rotationUp":
+                cost = (5 * Math.pow(game.rotationlvl, (Math.pow(1.15, (game.game - 1)))));
+                console.log("COSTROT:" + cost);
+                if (game.gold >= cost) {
+                    game.gold = Math.round((game.gold - cost) * 10) / 10;
+                    game.rotationlvl++;
                 }
                 break;
 
@@ -142,34 +172,57 @@ namespace sfd {
 
         if (game.wave < 4) {
             if (enemies.length == 0) {
-                game.wave++;
+
+                if (!freeze.checked) {
+                    game.wave++;
+                }
                 console.log(game.wave);
-                spawnEnemy("minion", game.creepHealth, game.creepValue);
+                spawnEnemy("minion", game.creepHealth);
             }
         }
 
         //TOWER
+        console.log(game.tower);
 
         if (game.wave > 3) {
 
-            if (game.wave > 4 && enemies.length == 0) {
-                game.level++;
-                game.wave = 0;
-                game.creepValue = game.creepValue / 7;
-                game.creepHealth = game.creepHealth / 7;
+            if (game.tower) {
+
+                if (game.wave > 4 && enemies.length == 0) {
+                    game.nexusCoresDeactivated = game.nexusCoresDeactivated + 1 * game.game;
+                    game.game++;
+                    game.level = 1;
+                    game.wave = 0;
+                    game.creepValue = game.creepValue / 20;
+                    game.creepHealth = game.creepHealth / 20;
+                    game.tower = false;
+                }
+
+                if (enemies.length == 0 && game.wave == 4) {
+                    spawnEnemy("nexus", game.creepHealth);
+                    game.wave++;
+                }
+
             }
+            else {
 
-            if (enemies.length == 0 && game.wave == 4) {
-                spawnEnemy("tower", game.creepHealth, game.creepValue);
-                game.wave++;
+
+                if (game.wave > 4 && enemies.length == 0) {
+                    game.level++;
+                    game.wave = 0;
+                    game.creepValue = game.creepValue / 7;
+                    game.creepHealth = game.creepHealth / 7;
+                    game.tower = true;
+                }
+
+                if (enemies.length == 0 && game.wave == 4) {
+                    spawnEnemy("tower", game.creepHealth);
+                    game.wave++;
+
+                }
+
             }
-
-
-
-
         }
-
-
 
     }
 
@@ -182,7 +235,16 @@ namespace sfd {
 
     function showInfo(): void {
         document.getElementById("status").innerHTML = "";
-        document.getElementById("status").innerHTML = "Wave " + game.wave + "<br>" + "Level " + game.level + "<br>" + "Game " + game.game + "<br>" + "User " + game.accountUser + "<br>" + "Gold " + game.gold;
+        let infoString: string = "";
+        infoString += "Wave " + game.wave + "<br>";
+        infoString += "Level " + game.level + "<br>";
+        infoString += "Game " + game.game + "<br>";
+        infoString += "Nexus Cores (Deactivated) " + game.nexusCoresDeactivated + "<br>";
+        infoString += "Nexus Cores (Activated) " + game.nexusCoresActivated + "<br>";
+        infoString += "Gold " + game.gold + "<br>";
+        infoString += "User " + game.accountUser + "<br>";
+
+        document.getElementById("status").innerHTML = infoString;
     }
 
     function manipulateRotation(): void {
@@ -193,9 +255,9 @@ namespace sfd {
         //Wiese
         //        crc.fillStyle = "#32722c";
         //        crc.fillRect(0, 0, canvas.width, canvas.height);
-        img = new Image();
-        img.src = "background.gif";
-        img.addEventListener("load", imagesLoaded);
+        let img: HTMLImageElement;
+        img = <HTMLImageElement>document.getElementById("bg");
+        crc.drawImage(img, 0, 0);
     }
 
 

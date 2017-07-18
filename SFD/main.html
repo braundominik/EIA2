@@ -8,6 +8,7 @@
 <script src="enemy.js"></script>
 <script src="minion.js"></script>
 <script src="Tower.js"></script>
+<script src="Nexus.js"></script>
 <script src="Game.js"></script>
 <script src="DBClient.js"></script>
 <script type="text/javascript" src="main.js"></script>
@@ -15,11 +16,24 @@
 </head>
 
 <body>
+	<img id="minion" class="imgRes" src="blueMinion.png">
+	<img id="bg" class="imgRes" src="background.gif">
+	<img id="warrior" class="imgRes" src="warrior.png">
+
 	<div id="upgrades">
-		<div id="damageUp">Sword Damage <div>0</div></div>
-		
-		<div id="rotationUp">Rotation Speed <div>0</div></div>
-		
+		<div id="damageUp">
+			Sword Damage
+			<div></div>
+		</div>
+
+		<div id="rotationUp">
+			Rotation Speed
+			<div></div>
+		</div>
+
+
+
+
 	</div>
 	<canvas id="game" width="400" height="800"></canvas>
 	<div id="status"></div>
@@ -43,6 +57,12 @@
 		</fieldset>
 
 		<button type="button" id="save">Save Data</button>
+		<button type="button" id="softReset">Soft Reset (keep Cores)</button>
+		<button type="button" id="hardReset">Hard Reset (start all over)</button>
+		<div id="freezeWave">
+			<input type="checkbox" name="checkFreeze" id="checkFreeze"><label
+				For="checkFreeze">Freeze Wave</label>
+		</div>
 	</div>
 
 </body>

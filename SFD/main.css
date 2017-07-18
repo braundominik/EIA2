@@ -13,8 +13,8 @@ body {
 
 #status {
 	float: left;
-	height: 100px;
-	width: 100px;
+	height: 400px;
+	width: 200px;
 }
 
 #upgrades {
@@ -44,4 +44,8 @@ body {
 	border-style: solid;
 	border-color: blue;
 	border-width: 0px 0px 1px 0px;
+}
+
+.imgRes {
+	display: none;
 }

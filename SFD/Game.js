@@ -11,6 +11,9 @@ var sfd;
 (function (sfd) {
     class Game {
         constructor() {
+            this.nexusCoresDeactivated = 0;
+            this.nexusCoresActivated = 0;
+            this.tower = false;
             this.creepHealth = 10;
             this.creepValue = 0.3125;
             this.wave = 0;
@@ -18,12 +21,20 @@ var sfd;
             this.game = 1;
             this.gold = 0;
             this.accountUser = "";
-            this.swordlvl = 0;
-            this.rotationlvl = 0;
+            this.swordlvl = 200;
+            this.rotationlvl = 1;
         }
-        reset() {
+        hardReset() {
             sfd.enemies.splice(0);
+            sfd.freeze.checked = false;
             sfd.game = new Game();
+        }
+        softReset() {
+            sfd.enemies.splice(0);
+            sfd.freeze.checked = false;
+            let activatedCores = sfd.game.nexusCoresDeactivated + sfd.game.nexusCoresActivated;
+            sfd.game = new Game();
+            sfd.game.nexusCoresActivated = activatedCores;
         }
     }
     sfd.Game = Game;

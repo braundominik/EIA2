@@ -33,8 +33,7 @@ namespace sfd {
 
         draw(): void {
             let img: HTMLImageElement;
-            img = document.createElement("img");
-            img.src = "blueMinion.gif";
+            img = <HTMLImageElement>document.getElementById("minion");
             crc.drawImage(img, this.x - 20, this.y, 40, 80);
             //
             //            crc.beginPath();
