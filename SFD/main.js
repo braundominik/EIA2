@@ -145,7 +145,7 @@ var sfd;
         let img;
         img = document.createElement("img");
         img.src = "background.gif";
-        sfd.crc.drawImage(img, 200, 200);
+        sfd.crc.drawImage(img, 200, 200, 500, 500);
     }
     function getDistance(x1, y1, x2, y2) {
         let dtc = Math.sqrt((Math.pow(x1 - x2, 2)) + (Math.pow(y1 - y2, 2)));

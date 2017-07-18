@@ -193,7 +193,7 @@ namespace sfd {
         let img: HTMLImageElement;
         img = document.createElement("img");
         img.src = "background.gif";
-        crc.drawImage(img, 200, 200);
+        crc.drawImage(img, 200, 200, 500, 500);
     }
 
     function getDistance(x1: number, y1: number, x2: number, y2: number): number {
