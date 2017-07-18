@@ -15,18 +15,22 @@ var sfd;
     sfd.game = new sfd.Game();
     sfd.clicks = 0;
     window.addEventListener("load", init);
+    let img;
     function init() {
-        sfd.canvas = (document.getElementById("game"));
-        sfd.canvas.addEventListener("click", manipulateRotation);
-        sfd.crc = sfd.canvas.getContext("2d");
-        document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
-        buildBackground();
-        let saveButton = document.getElementById("save");
-        saveButton.addEventListener("click", sfd.game.reset);
-        saveBG = sfd.crc.getImageData(0, 0, sfd.canvas.width, sfd.canvas.height);
-        console.log(saveBG);
-        //spawnEnemy("minion", game.creepHealth, game.creepValue);
-        animate();
+        buildBackground(function () {
+            sfd.canvas = (document.getElementById("game"));
+            sfd.canvas.addEventListener("click", manipulateRotation);
+            sfd.crc = sfd.canvas.getContext("2d");
+            sfd.crc.drawImage(img, 0, 0);
+            saveBG = sfd.crc.getImageData(0, 0, sfd.canvas.width, sfd.canvas.height);
+            document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
+            setTimeout(buildBackground, 100);
+            let saveButton = document.getElementById("save");
+            saveButton.addEventListener("click", sfd.game.reset);
+            console.log(saveBG);
+            //spawnEnemy("minion", game.creepHealth, game.creepValue);
+            setTimeout(animate);
+        });
     }
     let count = 0;
     function animate() {
@@ -138,14 +142,13 @@ var sfd;
     function manipulateRotation() {
         sfd.clicks++;
     }
-    function buildBackground() {
+    function buildBackground(callback) {
         //Wiese
         //        crc.fillStyle = "#32722c";
         //        crc.fillRect(0, 0, canvas.width, canvas.height);
-        let img;
-        img = document.createElement("img");
+        img = new Image();
         img.src = "background.gif";
-        sfd.crc.drawImage(img, 200, 200, 500, 500);
+        img.onload = callback();
     }
     function getDistance(x1, y1, x2, y2) {
         let dtc = Math.sqrt((Math.pow(x1 - x2, 2)) + (Math.pow(y1 - y2, 2)));

@@ -17,26 +17,34 @@ namespace sfd {
     export let game: Game = new Game();
     export let clicks: number = 0;
     window.addEventListener("load", init);
-
+    let img: HTMLImageElement;
 
 
     function init(): void {
 
+        buildBackground(function(): void {
+
+            canvas = <HTMLCanvasElement>(document.getElementById("game"));
+            canvas.addEventListener("click", manipulateRotation);
+            crc = canvas.getContext("2d");
+
+            crc.drawImage(img, 0, 0);
+            saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
+
+            document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
 
 
-        canvas = <HTMLCanvasElement>(document.getElementById("game"));
-        canvas.addEventListener("click", manipulateRotation);
-        crc = canvas.getContext("2d");
-        document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
-        buildBackground();
+            setTimeout(buildBackground, 100);
 
-        let saveButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("save");
-        saveButton.addEventListener("click", game.reset);
+            let saveButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("save");
+            saveButton.addEventListener("click", game.reset);
+            console.log(saveBG);
+            //spawnEnemy("minion", game.creepHealth, game.creepValue);
+            setTimeout(animate);
 
-        saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
-        console.log(saveBG);
-        //spawnEnemy("minion", game.creepHealth, game.creepValue);
-        animate();
+        });
+
+
 
 
     }
@@ -44,6 +52,7 @@ namespace sfd {
     let count: number = 0;
 
     function animate(): void {
+
         count++;
         if (count == 50) {
             count = 0;
@@ -185,16 +194,22 @@ namespace sfd {
         clicks++;
     }
 
-
-    function buildBackground(): void {
+    function buildBackground(callback: Function): void {
         //Wiese
         //        crc.fillStyle = "#32722c";
         //        crc.fillRect(0, 0, canvas.width, canvas.height);
-        let img: HTMLImageElement;
-        img = document.createElement("img");
+        img = new Image();
         img.src = "background.gif";
-        crc.drawImage(img, 200, 200, 500, 500);
+        img.onload = callback();
     }
+
+
+
+
+
+
+
+
 
     function getDistance(x1: number, y1: number, x2: number, y2: number): number {
         let dtc: number = Math.sqrt((Math.pow(x1 - x2, 2)) + (Math.pow(y1 - y2, 2)));
