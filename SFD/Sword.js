@@ -16,7 +16,7 @@ var sfd;
             this.damage = 1;
         }
         update() {
-            this.damage = 0.1 + (sfd.game.swordlvl / 5);
+            this.damage = 0.1 + (sfd.game.swordlvl / 3);
             this.damageMod = this.damage + (this.damage * (this.rotSpeed / 5));
             this.rotSpeed = 1 + sfd.clicks + (sfd.game.rotationlvl / 10);
             this.rotation = this.rotation + this.rotSpeed;

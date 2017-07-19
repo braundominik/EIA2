@@ -17,6 +17,17 @@ namespace sfd {
         query += "&user=" + user.value;
         query += "&password=" + password.value;
         query += "&wave=" + game.wave;
+        query += "&level=" + game.level;
+        query += "&game=" + game.game;
+        query += "&gold=" + game.gold;
+        query += "&swordlvl=" + game.swordlvl;
+        query += "&rotationlvl=" + game.rotationlvl;
+        query += "&creepHealth=" + game.creepHealth;
+        query += "&creepValue=" + game.creepValue;
+        query += "&tower=" + game.tower;
+        query += "&ncDeactivated=" + game.nexusCoresDeactivated;
+        query += "&ncActivated=" + game.nexusCoresActivated;
+
         console.log(query);
         sendRequest(query, handleInsertResponse);
     }
@@ -71,10 +82,29 @@ namespace sfd {
                 game.accountUser = responseAsJson[0].user;
                 alert("You logged in as: " + game.accountUser);
                 game.wave = responseAsJson[0].wave;
+                game.level = responseAsJson[0].level;
+                game.game = responseAsJson[0].game;
+                game.gold = responseAsJson[0].gold;
+                game.swordlvl = responseAsJson[0].swordlvl;
+                game.rotationlvl = responseAsJson[0].rotationlvl;
+                game.creepHealth = responseAsJson[0].creepHealth;
+                game.creepValue = responseAsJson[0].creepValue;
+
+                if (responseAsJson[0].tower == "false") {
+                    game.tower = false;
+                }
+
+                else {
+                    game.tower = true;
+                }
+                game.nexusCoresDeactivated = responseAsJson[0].ncDeactivated;
+                game.nexusCoresActivated = responseAsJson[0].ncActivated;
+
                 resetWave();
+
+
             }
         }
     }
-
 
 }

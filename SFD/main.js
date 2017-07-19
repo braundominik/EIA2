@@ -116,19 +116,33 @@ var sfd;
         let cost;
         switch (_event.target.id) {
             case "damageUp":
-                cost = (5 * Math.pow(sfd.game.swordlvl, (Math.pow(1.15, (sfd.game.game - 1)))));
+                cost = (5 * Math.pow(sfd.game.swordlvl, 1.4));
                 console.log("COST:" + cost);
                 if (sfd.game.gold >= cost) {
                     sfd.game.gold = Math.round((sfd.game.gold - cost) * 10) / 10;
                     sfd.game.swordlvl++;
                 }
+                for (let i = 1; i < 100; i++) {
+                    cost += (5 * Math.pow(sfd.game.swordlvl + i, 1.4));
+                }
+                if (sfd.game.gold >= cost) {
+                    sfd.game.gold = Math.round((sfd.game.gold - cost) * 10) / 10;
+                    sfd.game.swordlvl += 99;
+                }
                 break;
             case "rotationUp":
-                cost = (5 * Math.pow(sfd.game.rotationlvl, (Math.pow(1.15, (sfd.game.game - 1)))));
+                cost = (5 * Math.pow(sfd.game.rotationlvl, 1.4));
                 console.log("COSTROT:" + cost);
                 if (sfd.game.gold >= cost) {
                     sfd.game.gold = Math.round((sfd.game.gold - cost) * 10) / 10;
                     sfd.game.rotationlvl++;
+                }
+                for (let i = 1; i < 100; i++) {
+                    cost += (5 * Math.pow(sfd.game.rotationlvl + i, 1.4));
+                }
+                if (sfd.game.gold >= cost) {
+                    sfd.game.gold = Math.round((sfd.game.gold - cost) * 10) / 10;
+                    sfd.game.rotationlvl += 99;
                 }
                 break;
         }
@@ -147,32 +161,39 @@ var sfd;
         //TOWER
         console.log(sfd.game.tower);
         if (sfd.game.wave > 3) {
-            if (sfd.game.tower) {
-                if (sfd.game.wave > 4 && sfd.enemies.length == 0) {
-                    sfd.game.nexusCoresDeactivated = sfd.game.nexusCoresDeactivated + 1 * sfd.game.game;
-                    sfd.game.game++;
-                    sfd.game.level = 1;
-                    sfd.game.wave = 0;
-                    sfd.game.creepValue = sfd.game.creepValue / 20;
-                    sfd.game.creepHealth = sfd.game.creepHealth / 20;
-                    sfd.game.tower = false;
-                }
-                if (sfd.enemies.length == 0 && sfd.game.wave == 4) {
-                    spawnEnemy("nexus", sfd.game.creepHealth);
-                    sfd.game.wave++;
+            if (sfd.freeze.checked) {
+                if (sfd.enemies.length == 0) {
+                    spawnEnemy("minion", sfd.game.creepHealth);
                 }
             }
             else {
-                if (sfd.game.wave > 4 && sfd.enemies.length == 0) {
-                    sfd.game.level++;
-                    sfd.game.wave = 0;
-                    sfd.game.creepValue = sfd.game.creepValue / 7;
-                    sfd.game.creepHealth = sfd.game.creepHealth / 7;
-                    sfd.game.tower = true;
+                if (sfd.game.tower) {
+                    if (sfd.game.wave > 4 && sfd.enemies.length == 0) {
+                        sfd.game.nexusCoresDeactivated = sfd.game.nexusCoresDeactivated + 1 * sfd.game.game;
+                        sfd.game.game++;
+                        sfd.game.level = 1;
+                        sfd.game.wave = 0;
+                        sfd.game.creepValue = sfd.game.creepValue / 20;
+                        sfd.game.creepHealth = sfd.game.creepHealth / 20;
+                        sfd.game.tower = false;
+                    }
+                    if (sfd.enemies.length == 0 && sfd.game.wave == 4) {
+                        spawnEnemy("nexus", sfd.game.creepHealth);
+                        sfd.game.wave++;
+                    }
                 }
-                if (sfd.enemies.length == 0 && sfd.game.wave == 4) {
-                    spawnEnemy("tower", sfd.game.creepHealth);
-                    sfd.game.wave++;
+                else {
+                    if (sfd.game.wave > 4 && sfd.enemies.length == 0) {
+                        sfd.game.level++;
+                        sfd.game.wave = 0;
+                        sfd.game.creepValue = sfd.game.creepValue / 10;
+                        sfd.game.creepHealth = sfd.game.creepHealth / 7;
+                        sfd.game.tower = true;
+                    }
+                    if (sfd.enemies.length == 0 && sfd.game.wave == 4) {
+                        spawnEnemy("tower", sfd.game.creepHealth);
+                        sfd.game.wave++;
+                    }
                 }
             }
         }

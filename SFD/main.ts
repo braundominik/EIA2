@@ -143,20 +143,39 @@ namespace sfd {
         let cost: number;
         switch (_event.target.id) {
             case "damageUp":
-                cost = (5 * Math.pow(game.swordlvl, (Math.pow(1.15, (game.game - 1)))));
+                cost = (5 * Math.pow(game.swordlvl, 1.4));
                 console.log("COST:" + cost);
                 if (game.gold >= cost) {
                     game.gold = Math.round((game.gold - cost) * 10) / 10;
                     game.swordlvl++;
                 }
+
+                for (let i: number = 1; i < 100; i++) {
+                    cost += (5 * Math.pow(game.swordlvl + i, 1.4));
+                }
+
+                if (game.gold >= cost) {
+                    game.gold = Math.round((game.gold - cost) * 10) / 10;
+                    game.swordlvl += 99;
+                }
+
                 break;
 
             case "rotationUp":
-                cost = (5 * Math.pow(game.rotationlvl, (Math.pow(1.15, (game.game - 1)))));
+                cost = (5 * Math.pow(game.rotationlvl, 1.4));
                 console.log("COSTROT:" + cost);
                 if (game.gold >= cost) {
                     game.gold = Math.round((game.gold - cost) * 10) / 10;
                     game.rotationlvl++;
+                }
+
+                for (let i: number = 1; i < 100; i++) {
+                    cost += (5 * Math.pow(game.rotationlvl + i, 1.4));
+                }
+
+                if (game.gold >= cost) {
+                    game.gold = Math.round((game.gold - cost) * 10) / 10;
+                    game.rotationlvl += 99;
                 }
                 break;
 
@@ -186,41 +205,51 @@ namespace sfd {
 
         if (game.wave > 3) {
 
-            if (game.tower) {
+            if (freeze.checked) {
 
-                if (game.wave > 4 && enemies.length == 0) {
-                    game.nexusCoresDeactivated = game.nexusCoresDeactivated + 1 * game.game;
-                    game.game++;
-                    game.level = 1;
-                    game.wave = 0;
-                    game.creepValue = game.creepValue / 20;
-                    game.creepHealth = game.creepHealth / 20;
-                    game.tower = false;
+                if (enemies.length == 0) {
+                    spawnEnemy("minion", game.creepHealth);
                 }
-
-                if (enemies.length == 0 && game.wave == 4) {
-                    spawnEnemy("nexus", game.creepHealth);
-                    game.wave++;
-                }
-
             }
+
             else {
 
+                if (game.tower) {
 
-                if (game.wave > 4 && enemies.length == 0) {
-                    game.level++;
-                    game.wave = 0;
-                    game.creepValue = game.creepValue / 7;
-                    game.creepHealth = game.creepHealth / 7;
-                    game.tower = true;
+                    if (game.wave > 4 && enemies.length == 0) {
+                        game.nexusCoresDeactivated = game.nexusCoresDeactivated + 1 * game.game;
+                        game.game++;
+                        game.level = 1;
+                        game.wave = 0;
+                        game.creepValue = game.creepValue / 20;
+                        game.creepHealth = game.creepHealth / 20;
+                        game.tower = false;
+                    }
+
+                    if (enemies.length == 0 && game.wave == 4) {
+                        spawnEnemy("nexus", game.creepHealth);
+                        game.wave++;
+                    }
+
                 }
+                else {
 
-                if (enemies.length == 0 && game.wave == 4) {
-                    spawnEnemy("tower", game.creepHealth);
-                    game.wave++;
+
+                    if (game.wave > 4 && enemies.length == 0) {
+                        game.level++;
+                        game.wave = 0;
+                        game.creepValue = game.creepValue / 10;
+                        game.creepHealth = game.creepHealth / 7;
+                        game.tower = true;
+                    }
+
+                    if (enemies.length == 0 && game.wave == 4) {
+                        spawnEnemy("tower", game.creepHealth);
+                        game.wave++;
+
+                    }
 
                 }
-
             }
         }
 
