@@ -23,7 +23,9 @@ namespace sfd {
         query += "&swordlvl=" + game.swordlvl;
         query += "&rotationlvl=" + game.rotationlvl;
         query += "&creepHealth=" + game.creepHealth;
+        query += "&lastHealth=" + game.lastHealth;
         query += "&creepValue=" + game.creepValue;
+        query += "&lastValue=" + game.lastValue;
         query += "&tower=" + game.tower;
         query += "&ncDeactivated=" + game.nexusCoresDeactivated;
         query += "&ncActivated=" + game.nexusCoresActivated;
@@ -87,8 +89,8 @@ namespace sfd {
                 game.gold = responseAsJson[0].gold;
                 game.swordlvl = responseAsJson[0].swordlvl;
                 game.rotationlvl = responseAsJson[0].rotationlvl;
-                game.creepHealth = responseAsJson[0].creepHealth;
-                game.creepValue = responseAsJson[0].creepValue;
+                game.creepHealth = responseAsJson[0].lastHealth;
+                game.creepValue = responseAsJson[0].lastValue;
 
                 if (responseAsJson[0].tower == "false") {
                     game.tower = false;

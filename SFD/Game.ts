@@ -18,7 +18,9 @@ namespace sfd {
         gold: number;
         dps: number;
         creepHealth: number;
+        lastHealth: number;
         creepValue: number;
+        lastValue: number;
         accountUser: string;
         accountPassword: string;
         tower: boolean;
@@ -27,6 +29,8 @@ namespace sfd {
 
 
         constructor() {
+            this.lastValue = 0;
+            this.lastHealth = 0;
             this.nexusCoresDeactivated = 0;
             this.nexusCoresActivated = 0;
             this.tower = false;

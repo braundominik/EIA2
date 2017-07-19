@@ -11,6 +11,8 @@ var sfd;
 (function (sfd) {
     class Game {
         constructor() {
+            this.lastValue = 0;
+            this.lastHealth = 0;
             this.nexusCoresDeactivated = 0;
             this.nexusCoresActivated = 0;
             this.tower = false;

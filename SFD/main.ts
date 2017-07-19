@@ -88,6 +88,8 @@ namespace sfd {
                         value = game.creepValue;
                     }
                     else {
+                        game.lastHealth = _maxH;
+                        game.lastValue = game.creepValue;
                         if (game.wave > 1) {
                             health = (((_maxH / game.wave) * ((game.wave - 1) * 2)) + 10);
                         }
@@ -107,6 +109,8 @@ namespace sfd {
                 break;
 
             case "tower":
+                game.lastHealth = _maxH;
+                game.lastValue = game.creepValue;
                 health = _maxH * 14;
                 value = Math.round((game.creepValue * 13) * 10) / 10;
                 let nTower: Enemy = new Tower(health, value);
@@ -117,7 +121,8 @@ namespace sfd {
                 console.log(game.creepValue);
                 break;
             case "nexus":
-
+                game.lastHealth = _maxH;
+                game.lastValue = game.creepValue;
                 health = _maxH * 30;
                 value = Math.round((game.creepValue * 25) * 10) / 10;
                 let nNexus: Enemy = new Nexus(health, value);

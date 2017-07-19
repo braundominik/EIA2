@@ -22,7 +22,9 @@ var sfd;
         query += "&swordlvl=" + sfd.game.swordlvl;
         query += "&rotationlvl=" + sfd.game.rotationlvl;
         query += "&creepHealth=" + sfd.game.creepHealth;
+        query += "&lastHealth=" + sfd.game.lastHealth;
         query += "&creepValue=" + sfd.game.creepValue;
+        query += "&lastValue=" + sfd.game.lastValue;
         query += "&tower=" + sfd.game.tower;
         query += "&ncDeactivated=" + sfd.game.nexusCoresDeactivated;
         query += "&ncActivated=" + sfd.game.nexusCoresActivated;
@@ -78,8 +80,8 @@ var sfd;
                 sfd.game.gold = responseAsJson[0].gold;
                 sfd.game.swordlvl = responseAsJson[0].swordlvl;
                 sfd.game.rotationlvl = responseAsJson[0].rotationlvl;
-                sfd.game.creepHealth = responseAsJson[0].creepHealth;
-                sfd.game.creepValue = responseAsJson[0].creepValue;
+                sfd.game.creepHealth = responseAsJson[0].lastHealth;
+                sfd.game.creepValue = responseAsJson[0].lastValue;
                 if (responseAsJson[0].tower == "false") {
                     sfd.game.tower = false;
                 }
