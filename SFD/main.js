@@ -552,13 +552,13 @@ var sfd;
     function showInfo() {
         document.getElementById("status").innerHTML = "";
         let infoString = "";
-        infoString += "Wave " + sfd.game.wave + "<br>";
-        infoString += "Level " + sfd.game.level + "<br>";
-        infoString += "Game " + sfd.game.game + "<br>";
-        infoString += "Nexus Cores (Deactivated) " + sfd.game.nexusCoresDeactivated + "<br>";
-        infoString += "Nexus Cores (Activated) " + sfd.game.nexusCoresActivated + "<br>";
-        infoString += "Gold " + sfd.game.gold + "<br>";
-        infoString += "User " + sfd.game.accountUser + "<br>";
+        infoString += "Wave: " + sfd.game.wave + "<br>";
+        infoString += "Level: " + sfd.game.level + "<br>";
+        infoString += "Game: " + sfd.game.game + "<br>";
+        infoString += "Deactivated Cores: " + sfd.game.nexusCoresDeactivated + "<br>";
+        infoString += "Activated Cores: " + sfd.game.nexusCoresActivated + "<br>";
+        infoString += "Gold: " + sfd.game.gold + "<br>";
+        infoString += "User: " + sfd.game.accountUser + "<br>";
         document.getElementById("status").innerHTML = infoString;
     }
     function manipulateRotation() {

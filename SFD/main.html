@@ -21,7 +21,9 @@
 	<img id="warrior" class="imgRes" src="warrior.png">
 	<img id="tower" class="imgRes" src="tower.png">
 	<img id="nexus" class="imgRes" src="nexus.png">
-	<audio autoplay><source src="music.mp3" type="audio/mpeg"> </audio>
+	<audio autoplay loop>
+		<source src="music.mp3" type="audio/mpeg">
+	</audio>
 
 
 	<div id="upgrades">
@@ -40,36 +42,41 @@
 
 	</div>
 	<canvas id="game" width="400" height="800"></canvas>
-	<div id="status"></div>
-	<div id=loginCred>
-		<fieldset id="input">
-			<legend> Login here </legend>
-			<input type="text" name="searchUser" placeholder="username"
-				id="searchUser" /> <input type="password" name="searchPassword"
-				placeholder="password" id="searchPassword" />
+	<div id="optionbox">
+		<div id="status"></div>
 
-			<button type="button" id="login">Login</button>
-		</fieldset>
-
-		<fieldset id="createNew">
-			<legend> Create a new Account here </legend>
-			<input type="text" name="createUser" placeholder="username"
-				id="createUser" /> <input type="password" name="createPassword"
-				placeholder="password" id="createPassword" />
-
-			<button type="button" id="create">Create New Account</button>
-		</fieldset>
+		<div id="freezeWave">
+			<input type="checkbox" name="checkFreeze" id="checkFreeze"><label
+				For="checkFreeze">Freeze Wave</label>
+		</div>
 
 		<button type="button" id="save">Save Data</button>
 		<button type="button" id="softReset">Soft Reset (keep Cores)</button>
 		<button type="button" id="hardReset">Hard Reset (start all
 			over)</button>
-		<div id="freezeWave">
-			<input type="checkbox" name="checkFreeze" id="checkFreeze"><label
-				For="checkFreeze">Freeze Wave</label>
+
+		<div id=loginCred>
+			<fieldset id="input">
+				<legend> Login here </legend>
+				<input type="text" name="searchUser" placeholder="username"
+					id="searchUser" /> <input type="password" name="searchPassword"
+					placeholder="password" id="searchPassword" />
+
+				<button type="button" id="login">Login</button>
+			</fieldset>
+
+			<fieldset id="createNew">
+				<legend> Create a new Account here </legend>
+				<input type="text" name="createUser" placeholder="username"
+					id="createUser" /> <input type="password" name="createPassword"
+					placeholder="password" id="createPassword" />
+
+				<button type="button" id="create">Create New Account</button>
+			</fieldset>
 		</div>
 	</div>
-	<div>Music: Keiken soku  by Rolemusic</div>
+	<div id = "credit">Credits: <br>
+	Music: <a href= "http://freemusicarchive.org/music/Rolemusic/~/Keiken_soku" target = _blanc>Keiken soku by Rolemusic </a></div>
 
 </body>
 

@@ -41,7 +41,7 @@ namespace sfd {
             this.game = 1;
             this.gold = 0;
             this.accountUser = "";
-            this.swordlvl = 50;
+            this.swordlvl = 0;
             this.rotationlvl = 1;
         }
 

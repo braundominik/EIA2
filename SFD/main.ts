@@ -624,13 +624,13 @@ namespace sfd {
     function showInfo(): void {
         document.getElementById("status").innerHTML = "";
         let infoString: string = "";
-        infoString += "Wave " + game.wave + "<br>";
-        infoString += "Level " + game.level + "<br>";
-        infoString += "Game " + game.game + "<br>";
-        infoString += "Nexus Cores (Deactivated) " + game.nexusCoresDeactivated + "<br>";
-        infoString += "Nexus Cores (Activated) " + game.nexusCoresActivated + "<br>";
-        infoString += "Gold " + game.gold + "<br>";
-        infoString += "User " + game.accountUser + "<br>";
+        infoString += "Wave: " + game.wave + "<br>";
+        infoString += "Level: " + game.level + "<br>";
+        infoString += "Game: " + game.game + "<br>";
+        infoString += "Deactivated Cores: " + game.nexusCoresDeactivated + "<br>";
+        infoString += "Activated Cores: " + game.nexusCoresActivated + "<br>";
+        infoString += "Gold: " + game.gold + "<br>";
+        infoString += "User: " + game.accountUser + "<br>";
 
         document.getElementById("status").innerHTML = infoString;
     }
