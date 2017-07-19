@@ -17,7 +17,10 @@ var sfd;
     window.addEventListener("load", intro);
     let img;
     let introPlaying = true;
+    let audio;
     function intro() {
+        audio = document.getElementsByTagName("audio");
+        audio[0].volume = 0.1;
         sfd.canvas = (document.getElementById("game"));
         sfd.crc = sfd.canvas.getContext("2d");
         sfd.canvas.addEventListener("click", init);
@@ -355,7 +358,6 @@ var sfd;
         //        
     }
     function init() {
-        let audio = document.getElementsByTagName("audio");
         audio[0].src = "";
         introPlaying = false;
         sfd.canvas.removeEventListener("click", init);

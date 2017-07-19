@@ -14,7 +14,7 @@ body {
 #optionbox {
 	float: left;
 	border: 2px solid red;
-	height: 800px;
+	height: 796px;
 	width: 200px;
 }
 
@@ -51,7 +51,7 @@ body {
 #loginCred {
 	margin-top: 20px;
 	width: 200px;
-	height:500px;
+	height:498px;
 	clear: both;
 	text-align: center;
 }

@@ -20,8 +20,11 @@ namespace sfd {
     let img: HTMLImageElement;
     export let freeze: HTMLInputElement;
     let introPlaying: boolean = true;
+    let audio: any;
 
     function intro(): void {
+        audio = document.getElementsByTagName("audio");
+        audio[0].volume = 0.1;
         canvas = <HTMLCanvasElement>(document.getElementById("game"));
         crc = canvas.getContext("2d");
         canvas.addEventListener("click", init);
@@ -376,7 +379,7 @@ namespace sfd {
 
 
     function init(): void {
-        let audio = document.getElementsByTagName("audio");
+
         audio[0].src = "";
         introPlaying = false;
         canvas.removeEventListener("click", init);
