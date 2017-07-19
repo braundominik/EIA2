@@ -14,14 +14,352 @@ var sfd;
     sfd.enemies = [];
     sfd.game = new sfd.Game();
     sfd.clicks = 0;
-    window.addEventListener("load", init);
+    window.addEventListener("load", intro);
     let img;
+    let introPlaying = true;
     function intro() {
+        sfd.canvas = (document.getElementById("game"));
+        sfd.crc = sfd.canvas.getContext("2d");
+        sfd.canvas.addEventListener("click", init);
+        let spinning = [
+            40, 220, 10, 10,
+            30, 220, 10, 10,
+            20, 220, 10, 10,
+            20, 230, 10, 10,
+            20, 240, 10, 10,
+            20, 250, 10, 10,
+            30, 250, 10, 10,
+            40, 250, 10, 10,
+            40, 260, 10, 10,
+            40, 270, 10, 10,
+            40, 280, 10, 10,
+            40, 290, 10, 10,
+            30, 290, 10, 10,
+            20, 290, 10, 10,
+            60, 290, 10, 10,
+            60, 280, 10, 10,
+            60, 270, 10, 10,
+            60, 260, 10, 10,
+            60, 250, 10, 10,
+            60, 240, 10, 10,
+            60, 230, 10, 10,
+            60, 220, 10, 10,
+            70, 220, 10, 10,
+            80, 220, 10, 10,
+            80, 230, 10, 10,
+            80, 240, 10, 10,
+            80, 250, 10, 10,
+            70, 250, 10, 10,
+            100, 220, 10, 10,
+            100, 230, 10, 10,
+            100, 240, 10, 10,
+            100, 250, 10, 10,
+            100, 260, 10, 10,
+            100, 270, 10, 10,
+            100, 280, 10, 10,
+            100, 290, 10, 10,
+            130, 290, 10, 10,
+            130, 280, 10, 10,
+            130, 270, 10, 10,
+            130, 260, 10, 10,
+            130, 250, 10, 10,
+            130, 240, 10, 10,
+            130, 230, 10, 10,
+            130, 220, 10, 10,
+            140, 230, 10, 10,
+            140, 240, 10, 10,
+            150, 250, 10, 10,
+            150, 260, 10, 10,
+            160, 270, 10, 10,
+            160, 280, 10, 10,
+            170, 290, 10, 10,
+            170, 280, 10, 10,
+            170, 270, 10, 10,
+            170, 260, 10, 10,
+            170, 250, 10, 10,
+            170, 240, 10, 10,
+            170, 230, 10, 10,
+            170, 220, 10, 10,
+            190, 290, 10, 10,
+            190, 280, 10, 10,
+            190, 270, 10, 10,
+            190, 260, 10, 10,
+            190, 250, 10, 10,
+            190, 240, 10, 10,
+            190, 230, 10, 10,
+            190, 220, 10, 10,
+            200, 230, 10, 10,
+            200, 240, 10, 10,
+            210, 250, 10, 10,
+            210, 260, 10, 10,
+            220, 270, 10, 10,
+            220, 280, 10, 10,
+            230, 290, 10, 10,
+            230, 280, 10, 10,
+            230, 270, 10, 10,
+            230, 260, 10, 10,
+            230, 250, 10, 10,
+            230, 240, 10, 10,
+            230, 230, 10, 10,
+            230, 220, 10, 10,
+            250, 220, 10, 10,
+            250, 230, 10, 10,
+            250, 240, 10, 10,
+            250, 250, 10, 10,
+            250, 260, 10, 10,
+            250, 270, 10, 10,
+            250, 280, 10, 10,
+            250, 290, 10, 10,
+            280, 290, 10, 10,
+            280, 280, 10, 10,
+            280, 270, 10, 10,
+            280, 260, 10, 10,
+            280, 250, 10, 10,
+            280, 240, 10, 10,
+            280, 230, 10, 10,
+            280, 220, 10, 10,
+            290, 230, 10, 10,
+            290, 240, 10, 10,
+            300, 250, 10, 10,
+            300, 260, 10, 10,
+            310, 270, 10, 10,
+            310, 280, 10, 10,
+            320, 290, 10, 10,
+            320, 280, 10, 10,
+            320, 270, 10, 10,
+            320, 260, 10, 10,
+            320, 250, 10, 10,
+            320, 240, 10, 10,
+            320, 230, 10, 10,
+            320, 220, 10, 10,
+            370, 230, 10, 10,
+            370, 220, 10, 10,
+            360, 220, 10, 10,
+            350, 220, 10, 10,
+            340, 220, 10, 10,
+            340, 230, 10, 10,
+            340, 240, 10, 10,
+            340, 250, 10, 10,
+            340, 260, 10, 10,
+            340, 270, 10, 10,
+            340, 280, 10, 10,
+            340, 290, 10, 10,
+            350, 290, 10, 10,
+            360, 290, 10, 10,
+            370, 290, 10, 10,
+            370, 280, 10, 10,
+            370, 270, 10, 10,
+            370, 260, 10, 10,
+            360, 260, 10, 10
+        ];
+        let sequence = 0;
+        let introminion = [];
+        for (let m = 0; m < 30; m++) {
+            let myMinion = new sfd.Minion(1, 1);
+            introminion.push(myMinion);
+        }
+        IntroSequence();
+        function IntroSequence() {
+            if (introPlaying) {
+                sequence++;
+                for (let s = 0; s < introminion.length; s++) {
+                    introminion[s].move();
+                    introminion[s].draw();
+                }
+                if (sequence < 500) {
+                    setTimeout(IntroSequence, 20);
+                }
+                else {
+                    sfd.crc.fillStyle = "black";
+                    sfd.crc.fillRect(0, 0, 400, 800);
+                    animateLogo();
+                }
+            }
+        }
+        let flicker = 0;
+        function animateLogo() {
+            if (introPlaying) {
+                let rnd = Math.floor(Math.random() * (spinning.length - 3));
+                if ((rnd % 4) == 0) {
+                    sfd.crc.fillStyle = "white";
+                    sfd.crc.fillRect(spinning[rnd], spinning[rnd + 1], spinning[rnd + 2], spinning[rnd + 3]);
+                    spinning.splice(rnd, 4);
+                    flicker++;
+                    flicker = (flicker % 20);
+                    if (flicker > 10) {
+                        sfd.crc.fillStyle = "black";
+                        sfd.crc.strokeStyle = "black";
+                    }
+                    sfd.crc.font = "30px Arial";
+                    sfd.crc.fillText("Click to Play", 120, 400);
+                    if (spinning.length > 0) {
+                        setTimeout(animateLogo, 50);
+                        console.log("splicing");
+                        console.log(spinning.length);
+                    }
+                }
+                else {
+                    animateLogo();
+                }
+            }
+        }
+        //S
+        //            crc.fillRect(60, 220, 10, 10),
+        //            crc.fillRect(50, 220, 10, 10),
+        //            crc.fillRect(40, 220, 10, 10),
+        //            crc.fillRect(40, 230, 10, 10),
+        //            crc.fillRect(40, 240, 10, 10),
+        //            crc.fillRect(40, 250, 10, 10),
+        //            crc.fillRect(50, 250, 10, 10),
+        //            crc.fillRect(60, 250, 10, 10),
+        //            crc.fillRect(60, 260, 10, 10),
+        //            crc.fillRect(60, 270, 10, 10),
+        //            crc.fillRect(60, 280, 10, 10),
+        //            crc.fillRect(60, 290, 10, 10),
+        //            crc.fillRect(50, 290, 10, 10),
+        //            crc.fillRect(40, 290, 10, 10)
+        //P
+        //        crc.fillRect(80, 290, 10, 10),
+        //        crc.fillRect(80, 280, 10, 10),
+        //        crc.fillRect(80, 270, 10, 10),
+        //        crc.fillRect(80, 260, 10, 10),
+        //        crc.fillRect(80, 250, 10, 10),
+        //        crc.fillRect(80, 240, 10, 10),
+        //        crc.fillRect(80, 230, 10, 10),
+        //        crc.fillRect(80, 220, 10, 10),
+        //        crc.fillRect(90, 220, 10, 10),
+        //        crc.fillRect(100, 220, 10, 10),
+        //        crc.fillRect(100, 230, 10, 10),
+        //        crc.fillRect(100, 240, 10, 10),
+        //        crc.fillRect(100, 250, 10, 10),
+        //        crc.fillRect(90, 250, 10, 10),
+        //
+        //I
+        //        crc.fillRect(120, 220, 10, 10),
+        //        crc.fillRect(120, 230, 10, 10),
+        //        crc.fillRect(120, 240, 10, 10),
+        //        crc.fillRect(120, 250, 10, 10),
+        //        crc.fillRect(120, 260, 10, 10),
+        //        crc.fillRect(120, 270, 10, 10),
+        //        crc.fillRect(120, 280, 10, 10),
+        //        crc.fillRect(120, 290, 10, 10),
+        //
+        //N
+        //        crc.fillRect(150, 290, 10, 10),
+        //        crc.fillRect(150, 280, 10, 10),
+        //        crc.fillRect(150, 270, 10, 10),
+        //        crc.fillRect(150, 260, 10, 10),
+        //        crc.fillRect(150, 250, 10, 10),
+        //        crc.fillRect(150, 240, 10, 10),
+        //        crc.fillRect(150, 230, 10, 10),
+        //        crc.fillRect(150, 220, 10, 10),
+        //
+        //        crc.fillRect(160, 230, 10, 10),
+        //        crc.fillRect(160, 240, 10, 10),
+        //        crc.fillRect(170, 250, 10, 10),
+        //        crc.fillRect(170, 260, 10, 10),
+        //        crc.fillRect(180, 270, 10, 10),
+        //        crc.fillRect(180, 280, 10, 10),
+        //
+        //        crc.fillRect(190, 290, 10, 10),
+        //        crc.fillRect(190, 280, 10, 10),
+        //        crc.fillRect(190, 270, 10, 10),
+        //        crc.fillRect(190, 260, 10, 10),
+        //        crc.fillRect(190, 250, 10, 10),
+        //        crc.fillRect(190, 240, 10, 10),
+        //        crc.fillRect(190, 230, 10, 10),
+        //        crc.fillRect(190, 220, 10, 10),
+        //
+        //N
+        //        crc.fillRect(210, 290, 10, 10),
+        //        crc.fillRect(210, 280, 10, 10),
+        //        crc.fillRect(210, 270, 10, 10),
+        //        crc.fillRect(210, 260, 10, 10),
+        //        crc.fillRect(210, 250, 10, 10),
+        //        crc.fillRect(210, 240, 10, 10),
+        //        crc.fillRect(210, 230, 10, 10),
+        //        crc.fillRect(210, 220, 10, 10),
+        //
+        //        crc.fillRect(220, 230, 10, 10),
+        //        crc.fillRect(220, 240, 10, 10),
+        //        crc.fillRect(230, 250, 10, 10),
+        //        crc.fillRect(230, 260, 10, 10),
+        //        crc.fillRect(240, 270, 10, 10),
+        //        crc.fillRect(240, 280, 10, 10),
+        //
+        //        crc.fillRect(250, 290, 10, 10),
+        //        crc.fillRect(250, 280, 10, 10),
+        //        crc.fillRect(250, 270, 10, 10),
+        //        crc.fillRect(250, 260, 10, 10),
+        //        crc.fillRect(250, 250, 10, 10),
+        //        crc.fillRect(250, 240, 10, 10),
+        //        crc.fillRect(250, 230, 10, 10),
+        //        crc.fillRect(250, 220, 10, 10),
+        //
+        //I
+        //        crc.fillRect(270, 220, 10, 10),
+        //        crc.fillRect(270, 230, 10, 10),
+        //        crc.fillRect(270, 240, 10, 10),
+        //        crc.fillRect(270, 250, 10, 10),
+        //        crc.fillRect(270, 260, 10, 10),
+        //        crc.fillRect(270, 270, 10, 10),
+        //        crc.fillRect(270, 280, 10, 10),
+        //        crc.fillRect(270, 290, 10, 10),
+        //
+        //N
+        //        crc.fillRect(300, 290, 10, 10),
+        //        crc.fillRect(300, 280, 10, 10),
+        //        crc.fillRect(300, 270, 10, 10),
+        //        crc.fillRect(300, 260, 10, 10),
+        //        crc.fillRect(300, 250, 10, 10),
+        //        crc.fillRect(300, 240, 10, 10),
+        //        crc.fillRect(300, 230, 10, 10),
+        //        crc.fillRect(300, 220, 10, 10),
+        //
+        //        crc.fillRect(310, 230, 10, 10),
+        //        crc.fillRect(310, 240, 10, 10),
+        //        crc.fillRect(320, 250, 10, 10),
+        //        crc.fillRect(320, 260, 10, 10),
+        //        crc.fillRect(330, 270, 10, 10),
+        //        crc.fillRect(330, 280, 10, 10),
+        //
+        //        crc.fillRect(340, 290, 10, 10),
+        //        crc.fillRect(340, 280, 10, 10),
+        //        crc.fillRect(340, 270, 10, 10),
+        //        crc.fillRect(340, 260, 10, 10),
+        //        crc.fillRect(340, 250, 10, 10),
+        //        crc.fillRect(340, 240, 10, 10),
+        //        crc.fillRect(340, 230, 10, 10),
+        //crc.fillRect(340, 220, 10, 10),
+        //        
+        //G
+        //        crc.fillRect(390, 230, 10, 10),
+        //        crc.fillRect(390, 220, 10, 10),
+        //        crc.fillRect(380, 220, 10, 10),
+        //        crc.fillRect(370, 220, 10, 10),
+        //        crc.fillRect(360, 220, 10, 10),
+        //        crc.fillRect(360, 230, 10, 10),
+        //        crc.fillRect(360, 240, 10, 10),
+        //        crc.fillRect(360, 250, 10, 10),
+        //        crc.fillRect(360, 260, 10, 10),
+        //        crc.fillRect(360, 270, 10, 10),
+        //        crc.fillRect(360, 280, 10, 10),
+        //        crc.fillRect(360, 290, 10, 10),
+        //        crc.fillRect(370, 290, 10, 10),
+        //        crc.fillRect(380, 290, 10, 10),
+        //        crc.fillRect(390, 290, 10, 10),
+        //        crc.fillRect(390, 280, 10, 10),
+        //        crc.fillRect(390, 270, 10, 10),
+        //      crc.fillRect(390, 260, 10, 10),
+        //        crc.fillRect(380, 260, 10, 10),
+        //        
     }
     function init() {
-        sfd.canvas = (document.getElementById("game"));
+        let audio = document.getElementsByTagName("audio");
+        audio[0].src = "";
+        introPlaying = false;
+        sfd.canvas.removeEventListener("click", init);
         sfd.canvas.addEventListener("click", manipulateRotation);
-        sfd.crc = sfd.canvas.getContext("2d");
         document.getElementById("damageUp").addEventListener("click", addUpgradeLevel);
         document.getElementById("rotationUp").addEventListener("click", addUpgradeLevel);
         let resetButton = document.getElementById("hardReset");
