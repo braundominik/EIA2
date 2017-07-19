@@ -9,39 +9,55 @@ body {
 
 #game {
 	float: left;
+	border-style: solid;
+	border-color: blue;
+	border-width: 0px 1px 0px 0px;
 }
 
 #optionbox {
 	float: left;
-	border: 2px solid red;
-	height: 796px;
-	width: 200px;
+	border-style: solid;
+	border-color: blue;
+	border-width: 0px 1px 1px 0px;
+	background-color: lightblue;
+	height: 799px;
+	width: 199px;
+}
+
+#status{
+	background-color: #5e99fd;
+	padding-left: 20px;
+	padding-top: 10px;
+	line-height: 1.5em;
+	padding-bottom: 10px;
 }
 
 #upgrades {
-	width: 398px;
+	width: 200px;
 }
 
 #damageUp {
+	color: white;
 	padding-top: 10px;
 	width: 100%;
 	text-align: center;
 	height: 50px;
-	background-color: lightblue;
+	background-color: #000000;
 	border-style: solid;
 	border-color: blue;
-	border-width: 1px 1px 1px 1px;
+	border-width: 0px 1px 1px 0px;
 }
 
 #rotationUp {
+	color: white;
 	padding-top: 10px;
 	height: 50px;
 	width: 100%;
 	text-align: center;
-	background-color: lightblue;
+	background-color: #000000;
 	border-style: solid;
 	border-color: blue;
-	border-width: 0px 1px 1px 1px;
+	border-width: 0px 1px 0px 0px;
 }
 
 .imgRes {
@@ -51,27 +67,32 @@ body {
 #loginCred {
 	margin-top: 20px;
 	width: 200px;
-	height:498px;
+	height: 300px;
 	clear: both;
 	text-align: center;
 }
-#loginCred button{
+
+#loginCred button {
 	margin-top: 10px;
-	height:30px;
+	height: 30px;
 	width: 150px;
 }
 
 button {
-width: 200px;
-height:50px;	
+	width: 200px;
+	height: 50px;
 }
 
-#freezeWave{
-	margin-top:50px;
+#freezeWave {
+	margin-top: 10px;
 	margin-bottom: 10px;
 	text-align: center;
 }
 
-#credit{
-	clear:both;
+#credit {
+	clear: both;
+}
+
+#mute {
+	text-align: center;
 }

@@ -19,6 +19,7 @@ var sfd;
     let introPlaying = true;
     let audio;
     function intro() {
+        document.getElementById("muteaudio").addEventListener("change", muteAudio);
         audio = document.getElementsByTagName("audio");
         audio[0].volume = 0.1;
         sfd.canvas = (document.getElementById("game"));
@@ -358,7 +359,7 @@ var sfd;
         //        
     }
     function init() {
-        audio[0].src = "";
+        audio[0].src = "bitrush.mp3";
         introPlaying = false;
         sfd.canvas.removeEventListener("click", init);
         sfd.canvas.addEventListener("click", manipulateRotation);
@@ -375,6 +376,15 @@ var sfd;
         console.log(saveBG);
         //spawnEnemy("minion", game.creepHealth, game.creepValue);
         setTimeout(animate);
+    }
+    function muteAudio(_event) {
+        let e = _event.target;
+        if (e.checked) {
+            audio[0].volume = 0;
+        }
+        if (!e.checked) {
+            audio[0].volume = 0.1;
+        }
     }
     let count = 0;
     function animate() {

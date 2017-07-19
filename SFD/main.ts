@@ -23,6 +23,7 @@ namespace sfd {
     let audio: any;
 
     function intro(): void {
+        document.getElementById("muteaudio").addEventListener("change", muteAudio);
         audio = document.getElementsByTagName("audio");
         audio[0].volume = 0.1;
         canvas = <HTMLCanvasElement>(document.getElementById("game"));
@@ -380,7 +381,7 @@ namespace sfd {
 
     function init(): void {
 
-        audio[0].src = "";
+        audio[0].src = "bitrush.mp3";
         introPlaying = false;
         canvas.removeEventListener("click", init);
         canvas.addEventListener("click", manipulateRotation);
@@ -390,6 +391,7 @@ namespace sfd {
         resetButton.addEventListener("click", game.hardReset);
         let softResetButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("softReset");
         softResetButton.addEventListener("click", game.softReset);
+
 
         freeze = <HTMLInputElement>document.getElementById("checkFreeze");
         freeze.checked = false;
@@ -401,6 +403,17 @@ namespace sfd {
         //spawnEnemy("minion", game.creepHealth, game.creepValue);
         setTimeout(animate);
     }
+
+    function muteAudio(_event: Event): void {
+        let e: HTMLInputElement = <HTMLInputElement>_event.target;
+        if (e.checked) {
+            audio[0].volume = 0;
+        }
+        if (!e.checked) {
+            audio[0].volume = 0.1;
+        }
+    }
+
 
     let count: number = 0;
 

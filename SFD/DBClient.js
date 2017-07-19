@@ -7,7 +7,7 @@ var sfd;
         let saveButton = document.getElementById("save");
         insertButton.addEventListener("click", insert);
         loginButton.addEventListener("click", login);
-        //saveButton.addEventListener("click", save);
+        saveButton.addEventListener("click", save);
     }
     function insert(_event) {
         let user = document.getElementById("createUser");
@@ -43,10 +43,23 @@ var sfd;
         if (sfd.game.accountUser != "") {
             let user = document.getElementById("searchUser");
             let password = document.getElementById("searchPassword");
-            let query = "command=search";
-            query += "&user=" + user.value;
+            let query = "command=update";
+            query += "&user=" + sfd.game.accountUser;
             query += "&password=" + password.value;
-            sendRequest(query, handleSearchResponse);
+            query += "&wave=" + sfd.game.wave;
+            query += "&level=" + sfd.game.level;
+            query += "&game=" + sfd.game.game;
+            query += "&gold=" + sfd.game.gold;
+            query += "&swordlvl=" + sfd.game.swordlvl;
+            query += "&rotationlvl=" + sfd.game.rotationlvl;
+            query += "&creepHealth=" + sfd.game.creepHealth;
+            query += "&lastHealth=" + sfd.game.lastHealth;
+            query += "&creepValue=" + sfd.game.creepValue;
+            query += "&lastValue=" + sfd.game.lastValue;
+            query += "&tower=" + sfd.game.tower;
+            query += "&ncDeactivated=" + sfd.game.nexusCoresDeactivated;
+            query += "&ncActivated=" + sfd.game.nexusCoresActivated;
+            sendRequest(query, handleUpdateResponse);
         }
     }
     function sendRequest(_query, _callback) {
@@ -57,6 +70,12 @@ var sfd;
         xhr.send();
     }
     function handleInsertResponse(_event) {
+        let xhr = _event.target;
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            alert(xhr.response);
+        }
+    }
+    function handleUpdateResponse(_event) {
         let xhr = _event.target;
         if (xhr.readyState == XMLHttpRequest.DONE) {
             alert(xhr.response);
@@ -82,6 +101,7 @@ var sfd;
                 sfd.game.rotationlvl = responseAsJson[0].rotationlvl;
                 sfd.game.creepHealth = responseAsJson[0].lastHealth;
                 sfd.game.creepValue = responseAsJson[0].lastValue;
+                sfd.game.accountPassword = responseAsJson[0].password;
                 if (responseAsJson[0].tower == "false") {
                     sfd.game.tower = false;
                 }
