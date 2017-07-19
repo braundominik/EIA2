@@ -16,6 +16,8 @@ var sfd;
     sfd.clicks = 0;
     window.addEventListener("load", init);
     let img;
+    function intro() {
+    }
     function init() {
         sfd.canvas = (document.getElementById("game"));
         sfd.canvas.addEventListener("click", manipulateRotation);
@@ -114,8 +116,8 @@ var sfd;
         }
     }
     function updateUpgrades() {
-        document.getElementById("damageUp").lastChild.textContent = "" + (sfd.game.swordlvl).toString();
-        document.getElementById("rotationUp").lastChild.textContent = "" + (sfd.game.rotationlvl).toString();
+        document.getElementById("damageUp").lastChild.textContent = "" + (sfd.game.swordlvl).toString() + " | " + (Math.round((5 * Math.pow(sfd.game.swordlvl, 1.4)) * 10) / 10) + " Gold";
+        document.getElementById("rotationUp").lastChild.textContent = "" + (sfd.game.rotationlvl).toString() + " | " + (Math.round((5 * Math.pow(sfd.game.rotationlvl, 1.4)) * 10) / 10) + " Gold";
         //
     }
     function addUpgradeLevel(_event) {

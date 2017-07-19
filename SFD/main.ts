@@ -20,6 +20,9 @@ namespace sfd {
     let img: HTMLImageElement;
     export let freeze: HTMLInputElement;
 
+    function intro(): void {
+    }
+
 
     function init(): void {
 
@@ -138,8 +141,9 @@ namespace sfd {
     }
 
     function updateUpgrades(): void {
-        document.getElementById("damageUp").lastChild.textContent = "" + (game.swordlvl).toString();
-        document.getElementById("rotationUp").lastChild.textContent = "" + (game.rotationlvl).toString();
+
+        document.getElementById("damageUp").lastChild.textContent = "" + (game.swordlvl).toString() + " | " + (Math.round((5 * Math.pow(game.swordlvl, 1.4)) * 10) / 10) + " Gold";
+        document.getElementById("rotationUp").lastChild.textContent = "" + (game.rotationlvl).toString() + " | " + (Math.round((5 * Math.pow(game.rotationlvl, 1.4)) * 10) / 10) + " Gold";
 
         //
     }

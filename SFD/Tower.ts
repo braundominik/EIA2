@@ -25,14 +25,13 @@ namespace sfd {
 
         draw(): void {
 
-            crc.beginPath();
-            crc.fillStyle = "black";
-            crc.ellipse(this.x, this.y, 50, 50, 90 * Math.PI / 180, 0, 2 * Math.PI);
-            crc.fill();
+            let img: HTMLImageElement;
+            img = <HTMLImageElement>document.getElementById("tower");
+            crc.drawImage(img, this.x - 50, this.y - 120, 79.5, 147.5);
 
             crc.beginPath();
             crc.fillStyle = "red";
-            crc.fillRect(this.x - 50, this.y - 70, (this.currentHealth / this.maxHealth) * 100, 7);
+            crc.fillRect(this.x - 75, this.y-150, (this.currentHealth / this.maxHealth) * 100, 7);
         }
 
         move(): void {

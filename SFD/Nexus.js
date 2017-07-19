@@ -16,13 +16,12 @@ var sfd;
             this.y = -200;
         }
         draw() {
-            sfd.crc.beginPath();
-            sfd.crc.fillStyle = "black";
-            sfd.crc.ellipse(this.x, this.y, 200, 200, 90 * Math.PI / 180, 0, 2 * Math.PI);
-            sfd.crc.fill();
+            let img;
+            img = document.getElementById("nexus");
+            sfd.crc.drawImage(img, this.x - 200, this.y - 130);
             sfd.crc.beginPath();
             sfd.crc.fillStyle = "red";
-            sfd.crc.fillRect(this.x - 50, this.y - 70, (this.currentHealth / this.maxHealth) * 100, 7);
+            sfd.crc.fillRect(this.x - 50, this.y - 150, (this.currentHealth / this.maxHealth) * 100, 7);
         }
         move() {
             if (this.y <= 270) {
