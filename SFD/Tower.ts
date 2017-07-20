@@ -31,7 +31,7 @@ namespace sfd {
 
             crc.beginPath();
             crc.fillStyle = "red";
-            crc.fillRect(this.x - 75, this.y-150, (this.currentHealth / this.maxHealth) * 100, 7);
+            crc.fillRect(this.x - 75, this.y - 150, (this.currentHealth / this.maxHealth) * 100, 7);
         }
 
         move(): void {

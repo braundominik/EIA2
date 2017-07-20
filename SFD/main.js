@@ -158,19 +158,25 @@ var sfd;
         ];
         let sequence = 0;
         let introminion = [];
-        for (let m = 0; m < 30; m++) {
+        for (let m = 0; m < 200; m++) {
             let myMinion = new sfd.Minion(1, 1);
+            let temp;
+            temp = sfd.getPosIn(0, -1000, 400, -100);
+            myMinion.x = temp[0];
+            myMinion.y = temp[1];
             introminion.push(myMinion);
         }
         IntroSequence();
         function IntroSequence() {
             if (introPlaying) {
                 sequence++;
+                sfd.crc.fillStyle = "white";
+                //crc.fillRect(0, 0, 400, 800);
                 for (let s = 0; s < introminion.length; s++) {
                     introminion[s].move();
                     introminion[s].draw();
                 }
-                if (sequence < 500) {
+                if (sequence < 400) {
                     setTimeout(IntroSequence, 20);
                 }
                 else {
@@ -373,8 +379,6 @@ var sfd;
         sfd.freeze.checked = false;
         buildBackground();
         saveBG = sfd.crc.getImageData(0, 0, sfd.canvas.width, sfd.canvas.height);
-        console.log(saveBG);
-        //spawnEnemy("minion", game.creepHealth, game.creepValue);
         setTimeout(animate);
     }
     function muteAudio(_event) {

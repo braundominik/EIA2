@@ -10,30 +10,31 @@ body {
 #game {
 	float: left;
 	border-style: solid;
-	border-color: blue;
+	border-color: white;
 	border-width: 0px 1px 0px 0px;
 }
 
 #optionbox {
 	float: left;
 	border-style: solid;
-	border-color: blue;
+	border-color: white;
 	border-width: 0px 1px 1px 0px;
 	background-color: lightblue;
-	height: 799px;
-	width: 199px;
+	height: 800px;
+	width: 250px;
 }
 
-#status{
+#status {
 	background-color: #5e99fd;
 	padding-left: 20px;
 	padding-top: 10px;
 	line-height: 1.5em;
 	padding-bottom: 10px;
+	height: 170px;
 }
 
 #upgrades {
-	width: 200px;
+	width: 250px;
 }
 
 #damageUp {
@@ -44,7 +45,7 @@ body {
 	height: 50px;
 	background-color: #000000;
 	border-style: solid;
-	border-color: blue;
+	border-color: white;
 	border-width: 0px 1px 1px 0px;
 }
 
@@ -56,7 +57,7 @@ body {
 	text-align: center;
 	background-color: #000000;
 	border-style: solid;
-	border-color: blue;
+	border-color: white;
 	border-width: 0px 1px 0px 0px;
 }
 
@@ -65,9 +66,9 @@ body {
 }
 
 #loginCred {
-	margin-top: 20px;
-	width: 200px;
-	height: 300px;
+	margin-top: 10px;
+	width: 250px;
+	height: 257px;
 	clear: both;
 	text-align: center;
 }
@@ -79,8 +80,13 @@ body {
 }
 
 button {
-	width: 200px;
+	width: 250px;
 	height: 50px;
+	background-color: #0080ff;
+	border: none;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px 0px 1px 0px;
 }
 
 #freezeWave {
@@ -90,9 +96,17 @@ button {
 }
 
 #credit {
-	clear: both;
+	width: 400px;
+	margin-top: 10px;
+	
+	
 }
 
 #mute {
 	text-align: center;
+}
+
+#additional{
+	
+	clear: both;
 }

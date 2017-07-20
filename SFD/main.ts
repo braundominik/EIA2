@@ -163,8 +163,12 @@ namespace sfd {
 
         let sequence: number = 0;
         let introminion: Enemy[] = [];
-        for (let m: number = 0; m < 30; m++) {
+        for (let m: number = 0; m < 200; m++) {
             let myMinion: Enemy = new Minion(1, 1);
+            let temp: number[];
+            temp = getPosIn(0, -1000, 400, -100);
+            myMinion.x = temp[0];
+            myMinion.y = temp[1];
             introminion.push(myMinion);
         }
 
@@ -172,12 +176,14 @@ namespace sfd {
         function IntroSequence(): void {
             if (introPlaying) {
                 sequence++;
+                crc.fillStyle = "white";
+                //crc.fillRect(0, 0, 400, 800);
                 for (let s: number = 0; s < introminion.length; s++) {
                     introminion[s].move();
                     introminion[s].draw();
                 }
 
-                if (sequence < 500) {
+                if (sequence < 400) {
                     setTimeout(IntroSequence, 20);
                 }
                 else {
@@ -398,9 +404,6 @@ namespace sfd {
 
         buildBackground();
         saveBG = crc.getImageData(0, 0, canvas.width, canvas.height);
-        console.log(saveBG);
-
-        //spawnEnemy("minion", game.creepHealth, game.creepValue);
         setTimeout(animate);
     }
 
