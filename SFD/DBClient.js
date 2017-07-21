@@ -13,6 +13,7 @@ var sfd;
         let user = document.getElementById("createUser");
         let password = document.getElementById("createPassword");
         sfd.game.accountUser = user.value;
+        sfd.game.accountPassword = password.value;
         let query = "command=insert";
         query += "&user=" + user.value;
         query += "&password=" + password.value;

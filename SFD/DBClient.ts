@@ -14,6 +14,7 @@ namespace sfd {
         let user: HTMLInputElement = <HTMLInputElement>document.getElementById("createUser");
         let password: HTMLInputElement = <HTMLInputElement>document.getElementById("createPassword");
         game.accountUser = user.value;
+        game.accountPassword = password.value;
         let query: string = "command=insert";
         query += "&user=" + user.value;
         query += "&password=" + password.value;
