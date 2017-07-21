@@ -13,6 +13,7 @@ namespace sfd {
     function insert(_event: Event): void {
         let user: HTMLInputElement = <HTMLInputElement>document.getElementById("createUser");
         let password: HTMLInputElement = <HTMLInputElement>document.getElementById("createPassword");
+        game.accountUser = user.value;
         let query: string = "command=insert";
         query += "&user=" + user.value;
         query += "&password=" + password.value;
