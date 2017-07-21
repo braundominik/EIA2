@@ -110,3 +110,9 @@ button {
 	
 	clear: both;
 }
+
+#bugtracker{
+	float: left;
+	width: 400px;
+	margin-left:20px;
+}
