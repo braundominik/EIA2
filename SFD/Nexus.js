@@ -1,8 +1,8 @@
 /*
-Aufgabe: Aufgabe 7
+Aufgabe: SPINNING
 Name: Braun Dominik
 Matrikel: 254901
-Datum: 14.05.2017
+Datum: 21.07.2017
 Hiermit versichere ich, dass ich diesen
 Code selbst geschrieben habe. Er wurde
 nicht kopiert und auch nicht diktiert.

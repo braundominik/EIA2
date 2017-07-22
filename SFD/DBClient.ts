@@ -1,3 +1,13 @@
+/*
+Aufgabe: SPINNING
+Name: Braun Dominik
+Matrikel: 254901
+Datum: 21.07.2017
+Hiermit versichere ich, dass ich diesen
+Code selbst geschrieben habe. Er wurde
+nicht kopiert und auch nicht diktiert.
+*/
+
 namespace sfd {
     window.addEventListener("load", init);
 
